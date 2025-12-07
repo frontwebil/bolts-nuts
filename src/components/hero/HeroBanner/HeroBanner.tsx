@@ -2,32 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import "../HeroBanner/style.css";
+import { HERO_BANNERS_SLIDES } from "@/generalConfigs/SITE_CONFIG";
 
 export function HeroBanner() {
-  const slides = [
-    {
-      title: "FRESH NEW ARRIVAL",
-      subTitle: "DURADRIVE 2.0 Screwdriver Bit Set",
-      bg: {
-        xl: "/images/banners/hero-1920.png",
-        lg: "/images/banners/hero-1440.png",
-        md: "/images/banners/hero-1124.png",
-        sm: "/images/banners/hero-900.png",
-        xs: "/images/banners/hero-440.png",
-      },
-    },
-    {
-      title: "MILWAUKEE 3497-22 M12 FUEL 2 TOOL",
-      subTitle: "COMBO KIT HAMMER / IMPACT",
-      bg: {
-        xl: "/images/banners/hero2-1920.png",
-        lg: "/images/banners/hero-1440.png",
-        md: "/images/banners/hero-1124.png",
-        sm: "/images/banners/hero-900.png",
-        xs: "/images/banners/hero-440.png",
-      },
-    },
-  ];
+  const slides = HERO_BANNERS_SLIDES;
 
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);

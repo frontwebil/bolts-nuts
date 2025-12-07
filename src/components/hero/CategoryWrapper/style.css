@@ -28,12 +28,14 @@
 .circle {
   background-color: #d9d9d9;
   border-radius: 100%;
-  width: 182px;
+  max-width: 182px;
+  width: 100%;
   height: 182px;
   margin: 0 auto;
 }
 .CategoryWrapper-block img {
-  width: 240px;
+  max-width: 240px;
+  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -56,4 +58,63 @@
 
 .CategoryWrapper-block:hover .CategoryWrapper-block-bottom {
   border-bottom: 1px solid black;
+}
+
+@media (max-width: 1440px) {
+  .CategoryWrapper-block-top {
+    font-size: 18px;
+  }
+  .CategoryWrapper-block-bottom {
+    font-size: 18px;
+    margin: 20px auto 0;
+  }
+  .circle {
+    max-width: 150px;
+    height: 150px;
+  }
+}
+@media (max-width: 1124px) {
+  .CategoryWrapper-block-top {
+    font-size: 16px;
+  }
+  .CategoryWrapper-block-bottom {
+    font-size: 16px;
+    margin: 20px auto 0;
+  }
+  .circle {
+    max-width: 90px;
+    height: 90px;
+  }
+  .CategoryWrapper-block img {
+    max-width: 130px;
+  }
+  .CategoryWrapper {
+    gap: 12px;
+  }
+}
+@media (max-width: 920px) {
+  .CategoryWrapper {
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+  .CategoryWrapper-block {
+    max-width: 180px;
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 440px) {
+  .CategoryWrapper {
+    margin-top: 18px;
+  }
+  .CategoryWrapper-block-top {
+    font-size: 14px;
+  }
+  .CategoryWrapper-block-bottom {
+    font-size: 14px;
+    margin: 20px auto 0;
+  }
+  .circle {
+    max-width: 90px;
+    height: 90px;
+  }
 }
