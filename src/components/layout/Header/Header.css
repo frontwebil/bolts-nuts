@@ -68,6 +68,7 @@ header .container {
 .header-search svg {
   font-size: 24px;
   color: #22222266;
+  cursor: pointer;
 }
 
 .header-personal-data {
