@@ -90,6 +90,7 @@
   }
   .CategoryWrapper {
     gap: 12px;
+    margin-bottom: 100px;
   }
 }
 @media (max-width: 920px) {
@@ -116,5 +117,9 @@
   .circle {
     max-width: 90px;
     height: 90px;
+  }
+  .CategoryWrapper {
+    gap: 12px;
+    margin-bottom: 74px;
   }
 }

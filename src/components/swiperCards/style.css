@@ -1,0 +1,105 @@
+.SwiperCards {
+  margin-bottom: 80px;
+}
+.SwiperCards-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SwiperCards-top h3 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.SwiperCards-top-look-more {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 270px;
+  gap: 20px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.SwiperCards-top-look-more:hover {
+  color: #ff5a00;
+  border-bottom: 1px solid #ff5a00;
+}
+
+.SwiperCards-top-look-more p {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.SwiperCards-top-look-more svg {
+  width: 24px;
+  height: 24px;
+}
+
+.SwiperCards-container {
+  margin-top: 35px;
+  display: flex;
+  align-items: stretch;
+  max-width: 100%;
+  width: 100%;
+  gap: 20px;
+}
+
+.SwiperCards .swiper-wrapper {
+  align-items: stretch;
+}
+
+.SwiperCards .swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.SwiperCards .swiper-slide > * {
+  height: 100%;
+}
+
+.SwiperCards-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.SwiperCards-container.visible {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+@media only screen and (max-width: 1440px) {
+  .SwiperCards-top h3 {
+    font-size: 24px;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .SwiperCards-top-look-more p {
+    font-size: 18px;
+  }
+  .SwiperCards-top-look-more {
+    gap: 12px;
+    max-width: 200px;
+  }
+  .SwiperCards {
+    margin-bottom: 60px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .SwiperCards-top h3 {
+    font-size: 20px;
+  }
+  .SwiperCards-top-look-more p {
+    font-size: 16px;
+  }
+  .SwiperCards-top-look-more {
+    max-width: max-content;
+  }
+  .SwiperCards {
+    margin-bottom: 40px;
+  }
+}

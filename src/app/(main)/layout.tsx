@@ -1,3 +1,4 @@
+import { Footer } from "@/components/layout/Footer/Footer";
 import { Header } from "@/components/layout/Header/Header";
 
 export default function MainLayout({
@@ -9,6 +10,7 @@ export default function MainLayout({
     <div className="">
       <Header />
       {children}
+      <Footer />
     </div>
   );
 }
