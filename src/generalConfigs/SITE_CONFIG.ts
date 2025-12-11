@@ -46,3 +46,8 @@ export const HERO_BANNERS_SLIDES = [
     },
   },
 ];
+
+export const LINKS = {
+  gmail: "stm32657838@gmail.com",
+  phone: "+1-647 555-1234",
+};
