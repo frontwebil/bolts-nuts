@@ -54,9 +54,9 @@ export function Header() {
               <Saved />
               <Cart />
             </div>
-            <div className="container-mobile-search">
-              <Search />
-            </div>
+          </div>
+          <div className="container-mobile-search">
+            <Search />
           </div>
         </div>
         <div className={`catalog-burger-menu ${isOpenCatalog ? "active" : ""}`}>
