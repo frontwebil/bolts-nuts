@@ -54,16 +54,12 @@ export function SwiperCards({ cards, title }: Props) {
             spaceBetween: 12,
           },
           700: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-          },
-          1024: {
             slidesPerView: 4,
             spaceBetween: 20,
           },
-          1280: {
-            slidesPerView: 4,
-            spaceBetween: 20,
+          1340: {
+            slidesPerView: 5,
+            spaceBetween: 15,
           },
         }}
         className={`SwiperCards-container ${isReady ? "visible" : "hidden"}`}
