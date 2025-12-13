@@ -12,45 +12,6 @@ header {
   position: relative;
 }
 
-.catalog-burger-menu {
-  position: absolute;
-  top: 99%;
-  left: 0;
-
-  width: 100%; /* або 100% — як треба */
-
-  background: #fafafa;
-  /* box-shadow: 0px 0 20px -9px #0a0a0a1f; */
-
-  transform: translateX(-100%); /* приховано зліва */
-  transition: transform 0.3s ease;
-  padding: 32px 0;
-}
-.catalog-burger-menu-content h3 {
-  margin-bottom: 15px;
-  color: #222222;
-  font-family: Open Sans;
-  font-weight: 700;
-  font-size: 18px;
-  text-transform: uppercase;
-}
-.catalog-burger-menu-content-categoryes {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.catalog-burger-menu-content-categoryes button {
-  font-weight: 400;
-  font-size: 18px;
-  text-align: left;
-  cursor: pointer;
-}
-/* Коли меню активне */
-.catalog-burger-menu.active {
-  transform: translateX(0);
-}
-
 header .container {
   display: flex;
   justify-content: space-between;

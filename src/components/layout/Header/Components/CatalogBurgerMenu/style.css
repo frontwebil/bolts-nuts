@@ -1,0 +1,95 @@
+.container-catalog {
+  max-width: 1750px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 20px;
+  z-index: 3;
+}
+
+.catalog-burger-menu {
+  position: absolute;
+  top: 99%;
+  left: 0;
+
+  width: 100%; /* або 100% — як треба */
+
+  background: #fafafa;
+  /* box-shadow: 0px 0 20px -9px #0a0a0a1f; */
+
+  transform: translateX(-100%); /* приховано зліва */
+  transition: transform 0.3s ease;
+  padding: 32px 0 40px;
+}
+
+.catalog-burger-menu-content {
+  max-width: 280px;
+  width: 100%;
+}
+
+.catalog-burger-menu-content h3,
+.catalog-burger-menu-content-cards h3 {
+  margin-bottom: 32px;
+  color: #222222;
+  font-family: Open Sans;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.catalog-burger-menu-content-categoryes-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 260px;
+  width: 100%;
+  border-right: 1px solid #c3c3c399;
+}
+
+.catalog-burger-menu-content-categoryes {
+  display: flex;
+  gap: 20px;
+}
+
+.catalog-burger-menu-content-categoryes button {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  max-width: max-content;
+}
+
+.catalog-burger-menu-content-categoryes button:hover {
+  color: #ff5a00;
+  font-weight: 600;
+}
+
+/* Коли меню активне */
+.catalog-burger-menu.active {
+  transform: translateX(0);
+}
+
+.opacity-background {
+  background: rgba(90, 90, 90, 0.1);
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.catalog-burger-menu-content-cards-container {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.CatalogBurgerMenuCard {
+  background: var(--gray-0420, #c3c3c333);
+  padding: 20px;
+  border-radius: 20px;
+}
+.CatalogBurgerMenuCard img {
+  padding: 0 20px 20px;
+}
+.CatalogBurgerMenuCard-container {
+}

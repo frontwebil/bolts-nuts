@@ -8,15 +8,16 @@ import Saved from "./Components/PersonalData/Saved";
 import { Cart } from "./Components/PersonalData/Cart";
 import { CatalogMenu } from "./Components/CatalogMenu";
 import { useEffect, useRef, useState } from "react";
+import { CatalogBurgerMenu } from "./Components/CatalogBurgerMenu/CatalogBurgerMenu";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
-import { useSelector } from "react-redux";
-import { CATEGORYES } from "@/generalConfigs/SITE_CONFIG";
+import { closeBurger } from "@/redux/main/slices/uiSlice";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(110);
   const { isOpenCatalog } = useSelector((store: RootState) => store.uiSlice);
-
   useEffect(() => {
     const updateHeight = () => {
       if (HeaderRef.current) {
@@ -59,20 +60,17 @@ export function Header() {
             <Search />
           </div>
         </div>
-        <div className={`catalog-burger-menu ${isOpenCatalog ? "active" : ""}`}>
-          <div className="container">
-            <div className="catalog-burger-menu-content">
-              <h3>All Categories</h3>
-              <div className="catalog-burger-menu-content-categoryes">
-                {CATEGORYES.map((el, i) => (
-                  <button key={i}>{el.category}</button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <CatalogBurgerMenu />
       </header>
       <div style={{ height: headerHeight }} />
+      {isOpenCatalog && (
+        <div
+          className="opacity-background"
+          onClick={() => {
+            dispatch(closeBurger());
+          }}
+        ></div>
+      )}
     </>
   );
 }
