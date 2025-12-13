@@ -11,7 +11,7 @@ export function CatalogBurgerMenuCard({ card }: { card: Card }) {
   return (
     <div className="CatalogBurgerMenuCard">
       <div className="CatalogBurgerMenuCard-container">
-        <Image src={card.img} alt={card.title} width={190} height={190} />
+        <Image src={card.img} alt={card.title} width={300} height={300} />
       </div>
       <h2>{card.title}</h2>
     </div>

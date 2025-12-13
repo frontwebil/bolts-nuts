@@ -20,6 +20,8 @@
   transform: translateX(-100%); /* приховано зліва */
   transition: transform 0.3s ease;
   padding: 32px 0 40px;
+
+  overflow-y: auto;
 }
 
 .catalog-burger-menu-content {
@@ -59,6 +61,10 @@
   max-width: max-content;
 }
 
+.catalog-burger-menu-content-categoryes button.active {
+  color: #ff5a00;
+  font-weight: 600;
+}
 .catalog-burger-menu-content-categoryes button:hover {
   color: #ff5a00;
   font-weight: 600;
@@ -87,9 +93,139 @@
   background: var(--gray-0420, #c3c3c333);
   padding: 20px;
   border-radius: 20px;
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .CatalogBurgerMenuCard img {
   padding: 0 20px 20px;
+  margin: 0 auto;
 }
-.CatalogBurgerMenuCard-container {
+/* .CatalogBurgerMenuCard-container {
+} */
+
+.CatalogBurgerMenuCard h2 {
+  font-weight: 600;
+  font-size: 20px;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-funcional-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.mobile-funcional-button-row {
+  background: var(--gray-0420, #c3c3c333);
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mobile-funcional-button-row-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.mobile-funcional-button-row-content p {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.mobile-funcional-button-row-content svg {
+  width: 20px;
+  height: 20px;
+}
+.mobile-funcional-button-row-content svg:nth-of-type(2) {
+  width: 10px;
+  height: 10px;
+}
+.mobile-funcional-button-row-count {
+  font-weight: 400;
+  font-size: 16px;
+  color: #5a5a5a;
+}
+
+@media only screen and (max-width: 960px) {
+  .container-catalog {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .catalog-burger-menu-content {
+    border-bottom: 1px solid #c3c3c399;
+    padding-bottom: 25px;
+    max-width: 100%;
+  }
+  .catalog-burger-menu-content-categoryes-column {
+    border: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .catalog-burger-menu {
+    width: 50%;
+    height: 100vh;
+    padding-bottom: 120px;
+  }
+  .catalog-burger-menu-content-cards {
+    margin-top: 15px;
+  }
+  .catalog-burger-menu-content-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    max-width: 100%;
+  }
+  .CatalogBurgerMenuCard h2 {
+    font-size: 17px;
+  }
+  .CatalogBurgerMenuCard img {
+    padding: 0 10px 5px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .catalog-burger-menu {
+    width: 65%;
+  }
+  .catalog-burger-menu-content h3 {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .catalog-burger-menu {
+    width: 100%;
+  }
+  .catalog-burger-menu-content-categoryes-column {
+    display: flex;
+    flex-direction: column;
+  }
+  .catalog-burger-menu-content-categoryes button {
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(195, 195, 195, 0.6);
+    max-width: 100%;
+  }
+  .catalog-burger-menu-content-categoryes button:last-child {
+    border-bottom: none;
+  }
+  .catalog-burger-menu-content {
+    border-bottom: none;
+  }
+  .catalog-burger-menu-content-cards {
+    display: none;
+  }
+  .catalog-burger-menu {
+    padding: 10px 0 140px;
+  }
 }
