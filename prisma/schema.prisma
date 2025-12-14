@@ -20,6 +20,32 @@ model User {
   resetTokenExpiry DateTime?
 
   favoriteProducts String[]
+
+  adressses Address[]
+}
+
+
+model Address {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  country     String   // Canada
+  addressLine String   // 123 Maple Street
+  city        String   // Toronto
+  province    String   // Ontario
+  postalCode  String   // M4B 1B3
+
+  company     String?  // Optional
+  apartment   String?  // Apt. 5B
+
+  isDefault   Boolean  @default(false)
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([userId])
 }
 
 model Product {

@@ -134,6 +134,10 @@ header .container {
   color: #6c6c6c;
 }
 
+.header-personal-data-bottom-row-text.loginned {
+  text-align: right;
+}
+
 .header-personal-data-column:hover * {
   color: #ff5a00;
 }
@@ -273,6 +277,9 @@ header .container {
   }
   .header-search input {
     font-size: 14px;
+  }
+  .header-personal-data-bottom-row-text-mobile-hidden{
+    display: none;
   }
 }
 

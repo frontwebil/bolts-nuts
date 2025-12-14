@@ -130,8 +130,12 @@ export function RegisterForm() {
           </label>
         </div>
 
-        <button type="submit" className="AuthFormLayout-login-button">
-          Sign Up
+        <button
+          type="submit"
+          className="AuthFormLayout-login-button"
+          disabled={loading}
+        >
+          {loading ? "Signing Up..." : "Sign Up"}
         </button>
       </form>
       <div className="underpopup">

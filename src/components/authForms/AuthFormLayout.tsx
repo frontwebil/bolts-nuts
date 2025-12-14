@@ -7,12 +7,15 @@ import "../authForms/AuthFormLayout.css";
 import { IoMdClose } from "react-icons/io";
 import { LoginForm } from "./LoginForm/LoginForm";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
+import { useEffect } from "react";
 
 export function AuthFormLayout() {
   const dispatch = useDispatch();
   const { isOpenAuthModal, authFormOption } = useSelector(
     (store: RootState) => store.uiSlice
   );
+
+  useEffect(() => {}, []);
 
   return (
     <>
