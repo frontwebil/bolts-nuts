@@ -19,3 +19,15 @@ body {
 .no-scroll {
   overflow-y: hidden;
 }
+
+.Toastify__progress-bar {
+  background: #ff5a00;
+}
+
+.Toastify__progress-bar::before {
+  background: none !important;
+}
+
+.Toastify__progress-bar-theme--light {
+  background: #ff5a00 !important;
+}
