@@ -103,7 +103,11 @@ export function LoginForm() {
           </button>
         </div>
 
-        <button type="submit" className="AuthFormLayout-login-button">
+        <button
+          type="submit"
+          className="AuthFormLayout-login-button"
+          disabled={loading}
+        >
           {loading ? "Signin In" : "Sign In"}
         </button>
       </form>
