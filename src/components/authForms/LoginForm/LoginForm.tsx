@@ -108,7 +108,7 @@ export function LoginForm() {
           className="AuthFormLayout-login-button"
           disabled={loading}
         >
-          {loading ? "Signin In" : "Sign In"}
+          {loading ? "Signin In..." : "Sign In"}
         </button>
       </form>
       <div className="underpopup">
