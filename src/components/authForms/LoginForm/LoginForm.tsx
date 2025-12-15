@@ -104,7 +104,7 @@ export function LoginForm() {
         </div>
 
         <button type="submit" className="AuthFormLayout-login-button">
-          Sign In
+          {loading ? "Signin In" : "Sign In"}
         </button>
       </form>
       <div className="underpopup">
@@ -114,7 +114,7 @@ export function LoginForm() {
             dispatch(setAuthOption("register"));
           }}
         >
-          {loading ? "Signin up" : "Sign up"}
+          Sign Up
         </span>
       </div>
     </div>
