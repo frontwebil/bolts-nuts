@@ -12,6 +12,7 @@ import { CatalogBurgerMenu } from "./Components/CatalogBurgerMenu/CatalogBurgerM
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
 import { closeBurger } from "@/redux/main/slices/uiSlice";
+import Link from "next/link";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
@@ -37,14 +38,14 @@ export function Header() {
         <div className="header-wrapper">
           <div className="container">
             <div className="header-left">
-              <div className="header-logo">
+              <Link href={"/"} className="header-logo">
                 <Image
                   src={"/logo.svg"}
                   width={300}
                   height={60}
                   alt="Bolts-Nuts"
                 />
-              </div>
+              </Link>
               <CatalogMenu />
             </div>
             <div className="container-search">

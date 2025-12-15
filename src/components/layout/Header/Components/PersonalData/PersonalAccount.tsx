@@ -57,7 +57,15 @@ export function PersonalAccount() {
           </p>
         </div>
       ) : (
-        <p className="header-personal-data-bottom-row-text loginned header-personal-data-bottom-row-text-mobile-hidden">
+        <p
+          className="header-personal-data-bottom-row-text loginned header-personal-data-bottom-row-text-mobile-hidden"
+          onClick={() => {
+            if (status === "authenticated") {
+              router.replace("/account");
+              return;
+            }
+          }}
+        >
           {data?.user?.name} {data?.user?.surname}
         </p>
       )}
