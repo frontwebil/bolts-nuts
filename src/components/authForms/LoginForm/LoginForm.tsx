@@ -98,7 +98,11 @@ export function LoginForm() {
             Remember me
           </label>
 
-          <button type="button" className="AuthFormLayout-forgot-password">
+          <button
+            type="button"
+            className="AuthFormLayout-forgot-password"
+            onClick={() => dispatch(setAuthOption("recovery"))}
+          >
             Forgot password?
           </button>
         </div>

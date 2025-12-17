@@ -13,8 +13,8 @@ type initialStateType = {
 const initialState: initialStateType = {
   isOpenCatalog: false,
   activeCategory: CATEGORYES[0].category,
-  authFormOption: "login",
-  isOpenAuthModal: false,
+  authFormOption: "recovery",
+  isOpenAuthModal: true,
 };
 
 const uiSlice = createSlice({

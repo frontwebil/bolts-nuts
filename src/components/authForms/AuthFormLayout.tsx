@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import { LoginForm } from "./LoginForm/LoginForm";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
 import { useEffect } from "react";
+import RecoveryForm from "./RecoveryForm/RecoveryForm";
 
 export function AuthFormLayout() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export function AuthFormLayout() {
             <div className="AuthFormWrapper">
               {authFormOption == "login" && <LoginForm />}
               {authFormOption == "register" && <RegisterForm />}
+              {authFormOption == "recovery" && <RecoveryForm />}
               <div
                 className="AuthFormWrapper-close"
                 onClick={() => {
