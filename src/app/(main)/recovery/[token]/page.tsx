@@ -5,6 +5,7 @@ import "../style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { signIn } from "next-auth/react";
 
 export default function RecoveryPage() {
   const { token } = useParams();
@@ -68,10 +69,17 @@ export default function RecoveryPage() {
     setLoading(true);
 
     try {
-      await axios.post("/api/auth/reset/confirm-reset-token", {
+      const res = await axios.post("/api/auth/reset/confirm-reset-token", {
         password,
         token,
       });
+      toast(res.data?.message || "Password successfully updated");
+      signIn("user-login", {
+        email: res.data.user.email,
+        password: res.data.user.password,
+        redirect: false,
+      });
+      router.replace("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast(error.response?.data.error || "Something went wrong");
