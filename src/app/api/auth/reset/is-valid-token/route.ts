@@ -5,11 +5,12 @@ import crypto from "crypto";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const token = searchParams.get("token");
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
   if (!token) {
     return NextResponse.json({ isValidToken: false });
   }
+
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
   const user = await prisma.user.findFirst({
     where: { resetToken: hashedToken },
