@@ -68,7 +68,7 @@ export default function RecoveryForm() {
           className="AuthFormLayout-login-button"
           disabled={loading}
         >
-          Send Reset Link
+          {loading ? "Sending..." : "Send Reset Link"}
         </button>
       </form>
       <div className="underpopup">

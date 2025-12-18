@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { sendMail } from "@/lib/nodemailer/sendmail";
 
 export async function POST(req: Request) {
   try {
@@ -21,18 +22,20 @@ export async function POST(req: Request) {
     }
 
     const token = crypto.randomBytes(32).toString("hex");
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
     const expiryDate = new Date(Date.now() + 3600 * 1000);
 
     await prisma.user.update({
       where: { id: user.id },
       data: {
-        resetToken: token,
+        resetToken: hashedToken,
         resetTokenExpiry: expiryDate,
       },
     });
 
-    const resetLink = `http://localhost:3000/reset-password/${token}`;
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const resetLink = `${baseUrl}/recovery/${token}`;
 
     const html = `
 <div style="
@@ -127,6 +130,13 @@ export async function POST(req: Request) {
   </div>
 </div>
 `;
+
+    await sendMail({
+      to: user.email,
+      subject: "Reset Password",
+      html,
+    });
+
     return NextResponse.json({
       message: "Reset link has been sent if the email exists",
     });
