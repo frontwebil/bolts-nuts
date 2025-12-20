@@ -1,8 +1,7 @@
 "use client";
 
-import { closeAuthModal, setAuthOption } from "@/redux/main/slices/uiSlice";
+import { setAuthOption, setConfirmEmail } from "@/redux/main/slices/uiSlice";
 import axios from "axios";
-import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -37,21 +36,22 @@ export function RegisterForm() {
       await axios.post("/api/auth/register", data);
 
       toast.success("Account created successfully!");
+      toast.info("Check your email and confirm your account to continue");
 
-      await signIn("user-login", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
+      // await signIn("user-login", {
+      //   email: data.email,
+      //   password: data.password,
+      //   redirect: false,
+      // });
 
+      dispatch(setConfirmEmail(data.email));
       setData({
         name: "",
         surname: "",
         email: "",
         password: "",
       });
-
-      dispatch(closeAuthModal());
+      dispatch(setAuthOption("confirm"));
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast(error.response?.data.error || "Something went wrong");

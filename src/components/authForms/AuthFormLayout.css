@@ -136,7 +136,6 @@
   font-size: 20px;
   color: #fafafa;
   margin-top: 20px;
-  margin-bottom: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -150,6 +149,7 @@
   font-weight: 400;
   font-size: 20px;
   color: #5a5a5a;
+  margin-top: 20px;
 }
 
 .underpopup span {
@@ -187,8 +187,12 @@
   .AuthFormLayout-login-button {
     font-size: 18px;
     margin-top: 10px;
-    margin-bottom: 20px;
   }
+
+  .underpopup {
+    margin-top: 20px;
+  }
+
   .AuthFormLayout-login-label {
     gap: 8px;
   }

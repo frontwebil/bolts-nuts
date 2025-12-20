@@ -1,0 +1,75 @@
+.AccountPage-content-navigation {
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  border-radius: 12px;
+  max-width: 560px;
+  width: 100%;
+  padding: 24px;
+}
+
+.AccountPage-content-navigation p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.AccountPage-content-navigation-top-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-0420, #c3c3c333);
+}
+.AccountPage-content-row * {
+  transition: 0.3s ease all;
+}
+.AccountPage-content-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.AccountPage-content-row.active {
+  color: #ff5a00;
+}
+
+.AccountPage-content-row.active .AccountPage-content-img {
+  background: #ff5a000d;
+}
+
+.AccountPage-content-row:hover {
+  color: #ff5a00;
+}
+
+.AccountPage-content-row:hover .AccountPage-content-img {
+  background: #ff5a000d;
+}
+
+.AccountPage-content-img {
+  background: var(--gray-0420, #c3c3c333);
+  padding: 10px;
+  border-radius: 6px;
+}
+.AccountPage-content-img svg,
+.AccountPage-content-img-logout svg {
+  width: 32px;
+  height: 32px;
+}
+.AccountPage-content-navigation-order-history {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-0420, #c3c3c333);
+  border-top: 1px solid var(--gray-0420, #c3c3c333);
+}
+.AccountPage-content-navigation-logout {
+  padding-top: 24px;
+  cursor: pointer;
+}
+.AccountPage-content-navigation-logout * {
+  color: #e10000;
+}
+
+.AccountPage-content-img-logout {
+  background: transparent;
+  padding: 10px;
+  border-radius: 6px;
+}

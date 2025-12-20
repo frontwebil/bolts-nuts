@@ -1,6 +1,10 @@
 "use client";
 
-import { closeAuthModal, setAuthOption } from "@/redux/main/slices/uiSlice";
+import {
+  closeAuthModal,
+  setAuthOption,
+  setConfirmEmail,
+} from "@/redux/main/slices/uiSlice";
 import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -41,8 +45,16 @@ export function LoginForm() {
     });
 
     if (res?.error) {
-      toast("Invalid email or password");
+      toast(
+        res.error === "CredentialsSignin"
+          ? "Invalid email or password"
+          : res.error
+      );
       setLoading(false);
+      if (res.error == "Email not verified") {
+        dispatch(setConfirmEmail(data.email));
+        dispatch(setAuthOption("confirm"));
+      }
       return;
     } else {
       toast.success("Login successful");

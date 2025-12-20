@@ -74,7 +74,8 @@ export default function RecoveryPage() {
         token,
       });
       toast(res.data?.message || "Password successfully updated");
-      signIn("user-login", {
+      
+      await signIn("user-login", {
         email: res.data.user.email,
         password: res.data.user.password,
         redirect: false,

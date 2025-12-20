@@ -19,9 +19,12 @@ model User {
   resetToken       String?
   resetTokenExpiry DateTime?
 
-  favoriteProducts String[]
+  isVerified         Boolean   @default(false)
+  emailVerifyToken   String?
+  emailVerifyExpiry  DateTime?
 
-  adressses Address[]
+  favoriteProducts String[]
+  addressses Address[]
 }
 
 

@@ -1,0 +1,16 @@
+.VerifyEmailPage {
+  height: 90vh;
+}
+
+.VerifyEmailPage .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.VerifyEmailPage .container .AuthFormContainer {
+  max-width: 500px;
+  background: #fafafa;
+  box-shadow: 4px 2px 20px -9px #0a0a0a1f;
+}

@@ -1,16 +1,48 @@
-"use client";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Breadcrums } from "@/components/breadcrums/Breadcrums";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import "../account/style.css";
+import { AccountNavigation } from "@/components/account/navigation/AccountNavigation";
+import { redirect } from "next/navigation";
+import { GeneralInfo } from "@/components/account/general-info/GeneralInfo";
 
-import { signOut } from "next-auth/react";
+export default async function AccountPage() {
+  const session = await getServerSession(authOptions);
 
-export default function AccountPage() {
+  if (!session?.user?.email) {
+    redirect("/"); // серверний редірект, працює миттєво
+  }
+
+  const userData = await prisma.user.findUnique({
+    where: {
+      email: session?.user.email,
+    },
+    select: {
+      name: true,
+      surname: true,
+      phoneNumber: true,
+    },
+  });
+
+  //   select: {
+  //   name: true,
+  //   surname: true,
+  //   email: true,
+  //   phoneNumber: true,
+  //   favoriteProducts: true,
+  //   adressses: true,
+  // },
+
   return (
     <section className="AccountPage">
       <div className="container">
-        <div
-          className="my-10 p-5 bg-amber-100 w-max"
-          onClick={() => signOut({ callbackUrl: "/" })}
-        >
-          logout
+        <Breadcrums
+          links={[{ title: "Home", href: "/" }, { title: "Personal Account" }]}
+        />
+        <div className="AccountPage-content">
+          <AccountNavigation />
+          <GeneralInfo />
         </div>
       </div>
     </section>

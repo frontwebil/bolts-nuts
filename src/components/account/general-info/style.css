@@ -1,0 +1,43 @@
+.GeneralInfo {
+  max-width: 100%;
+  width: 100%;
+}
+.GeneralInfo-top {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.GeneralInfo-top h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #060606;
+  text-transform: uppercase;
+  max-width: max-content;
+  width: 100%;
+}
+
+.GeneralInfo-top-line {
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  width: 100%;
+}
+.GeneralInfo-top-manage {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  max-width: 120px;
+  width: 100%;
+  align-items: center;
+  font-size: 20px;
+  color: #ff5a00;
+  font-weight: 600;
+  transition: 0.3s ease all;
+}
+
+.GeneralInfo-top-manage:hover {
+  color: #e05206;
+}
+
+.GeneralInfo-top-manage svg {
+  stroke-width: 2px;
+}

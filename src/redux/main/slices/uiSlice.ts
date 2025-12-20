@@ -1,13 +1,14 @@
 import { CATEGORYES } from "@/generalConfigs/SITE_CONFIG";
 import { createSlice } from "@reduxjs/toolkit";
 
-type AuthOption = "login" | "register" | "recovery";
+type AuthOption = "login" | "register" | "recovery" | "confirm";
 
 type initialStateType = {
   isOpenCatalog: boolean;
   activeCategory: string;
   authFormOption: AuthOption;
   isOpenAuthModal: boolean;
+  confirmEmail: string;
 };
 
 const initialState: initialStateType = {
@@ -15,6 +16,7 @@ const initialState: initialStateType = {
   activeCategory: CATEGORYES[0].category,
   authFormOption: "login",
   isOpenAuthModal: false,
+  confirmEmail: "",
 };
 
 const uiSlice = createSlice({
@@ -41,6 +43,9 @@ const uiSlice = createSlice({
     openAuthModal(state) {
       state.isOpenAuthModal = true;
     },
+    setConfirmEmail(state, action) {
+      state.confirmEmail = action.payload;
+    },
   },
 });
 
@@ -51,6 +56,7 @@ export const {
   setAuthOption,
   openAuthModal,
   closeAuthModal,
+  setConfirmEmail,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

@@ -9,6 +9,7 @@ import { LoginForm } from "./LoginForm/LoginForm";
 import { RegisterForm } from "./RegisterForm/RegisterForm";
 import { useEffect } from "react";
 import RecoveryForm from "./RecoveryForm/RecoveryForm";
+import { ConfirmForm } from "./ConfirmForm/ConfirmForm";
 
 export function AuthFormLayout() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export function AuthFormLayout() {
               {authFormOption == "login" && <LoginForm />}
               {authFormOption == "register" && <RegisterForm />}
               {authFormOption == "recovery" && <RecoveryForm />}
+              {authFormOption == "confirm" && <ConfirmForm />}
               <div
                 className="AuthFormWrapper-close"
                 onClick={() => {
