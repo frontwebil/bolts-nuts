@@ -24,7 +24,7 @@ model User {
   emailVerifyExpiry  DateTime?
 
   favoriteProducts String[]
-  addressses Address[]
+  addresses Address[]
 }
 
 

@@ -11,10 +11,10 @@ export default async function AccountPage() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    redirect("/"); // серверний редірект, працює миттєво
+    redirect("/");
   }
 
-  const userData = await prisma.user.findUnique({
+  const accountData = await prisma.user.findUnique({
     where: {
       email: session?.user.email,
     },
@@ -22,8 +22,13 @@ export default async function AccountPage() {
       name: true,
       surname: true,
       phoneNumber: true,
+      email: true,
     },
   });
+
+  if (!accountData) {
+    redirect("/");
+  }
 
   //   select: {
   //   name: true,
@@ -42,7 +47,7 @@ export default async function AccountPage() {
         />
         <div className="AccountPage-content">
           <AccountNavigation />
-          <GeneralInfo />
+          <GeneralInfo accountData={accountData} />
         </div>
       </div>
     </section>

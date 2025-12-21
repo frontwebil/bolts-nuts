@@ -29,6 +29,7 @@ export const authOptions: AuthOptions = {
             email: true,
             password: true,
             isVerified: true,
+            phoneNumber: true,
           },
         });
 
@@ -165,6 +166,7 @@ export const authOptions: AuthOptions = {
           name: user.name,
           surname: user.surname,
           email: user.email,
+          phoneNumber: user.phoneNumber ?? undefined,
         };
       },
     }),
@@ -179,6 +181,7 @@ export const authOptions: AuthOptions = {
         token.email = user.email;
         token.name = user.name;
         token.surname = user.surname;
+        token.phoneNumber = user.phoneNumber;
       }
       return token;
     },
@@ -188,6 +191,7 @@ export const authOptions: AuthOptions = {
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.surname = token.surname as string;
+        session.user.phoneNumber = token.phoneNumber as string;
       }
 
       return session;
