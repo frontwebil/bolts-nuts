@@ -32,3 +32,11 @@ body {
   background: #ff5a00 !important;
 }
 
+.AccountPage {
+  margin-bottom: 200px;
+}
+
+.AccountPage-content {
+  display: flex;
+  gap: 20px;
+}

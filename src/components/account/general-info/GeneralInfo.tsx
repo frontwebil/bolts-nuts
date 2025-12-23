@@ -36,7 +36,6 @@ export function GeneralInfo({ accountData }: { accountData: accountData }) {
     try {
       const res = await axios.patch("/api/user/update-user", userData);
 
-      // оновлюємо форму тим, що реально збережено в БД
       setUserData({
         name: res.data.updatedUser.name || "",
         surname: res.data.updatedUser.surname || "",
@@ -53,19 +52,19 @@ export function GeneralInfo({ accountData }: { accountData: accountData }) {
   };
 
   return (
-    <div className="GeneralInfo">
-      <div className="GeneralInfo-top">
+    <div className="Account-section">
+      <div className="Account-section-top">
         <h2>general information</h2>
-        <div className="GeneralInfo-top-line"></div>
+        <div className="Account-section-top-line"></div>
         <div
-          className="GeneralInfo-top-manage"
+          className="Account-section-top-manage"
           onClick={() => setIsEdit(!isEdit)}
         >
           <PiPencilSimpleLine />
           <p>{!isEdit ? "Manage" : "Cancel editing"}</p>
         </div>
       </div>
-      <div className="GeneralInfo-content">
+      <div className="Account-section-content">
         <div className="input-wrapper">
           <div className="form-field">
             <label>Email</label>

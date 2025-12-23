@@ -1,0 +1,29 @@
+.Add-address-form {
+  background: var(--gray-0420, #c3c3c333);
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 48px;
+}
+.Add-address-form-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.Add-address-form-top h2 {
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.Add-address-form-top svg {
+  width: 28px;
+  height: 28px;
+}
+
+.input-wrapper {
+}
+.form-field {
+}
+.input-wrapper-group {
+}

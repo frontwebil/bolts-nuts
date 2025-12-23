@@ -7,6 +7,7 @@ import { RxCounterClockwiseClock } from "react-icons/rx";
 import { GoSignOut } from "react-icons/go";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function AccountNavigation() {
   const pathname = usePathname();
@@ -14,7 +15,8 @@ export function AccountNavigation() {
   return (
     <div className="AccountPage-content-navigation">
       <div className="AccountPage-content-navigation-top-info">
-        <div
+        <Link
+          href={"/account"}
           className={`AccountPage-content-row ${
             pathname === "/account" && "active"
           }`}
@@ -23,17 +25,18 @@ export function AccountNavigation() {
             <PiUserCircle />
           </div>
           <p>Personal Information</p>
-        </div>
-        <div
+        </Link>
+        <Link
+          href={"account/address"}
           className={`AccountPage-content-row ${
-            pathname === "/addresses" && "active"
+            pathname === "/account/address" && "active"
           }`}
         >
           <div className="AccountPage-content-img">
             <BsHouseDoor />
           </div>
           <p>Manage Address</p>
-        </div>
+        </Link>
       </div>
       <div className="AccountPage-content-navigation-order-history">
         <div
