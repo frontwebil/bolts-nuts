@@ -5,6 +5,8 @@ import "../manage-address/style.css";
 import { FaPlus } from "react-icons/fa";
 import { Address } from "@prisma/client";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 type accountData = {
   addresses: Address[];
@@ -22,6 +24,31 @@ export function ManageAddress({ accountData }: { accountData: accountData }) {
     apartment: "",
   });
 
+  console.log(newAdress);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newAdressList = [...adressList, newAdress];
+    console.log(newAdressList);
+    const res = await axios.patch("/api/user/update-address", {
+      data: newAdressList,
+    });
+
+    console.log(res);
+
+    setNewAdress({
+      country: "",
+      addressLine: "",
+      city: "",
+      province: "",
+      postalCode: "",
+      company: "",
+      apartment: "",
+    });
+
+    toast.success("Your information has been successfully updated!");
+  };
+
   return (
     <div className="Account-section">
       <div className="Account-section-top">
@@ -32,7 +59,7 @@ export function ManageAddress({ accountData }: { accountData: accountData }) {
           <p>Add new</p>
         </div>
       </div>
-      <div className="Add-address-form">
+      <form className="Add-address-form" onSubmit={handleSubmit}>
         <div className="Add-address-form-top">
           <h2>Add new address</h2>
           <IoCloseOutline style={{ cursor: "pointer" }} />
@@ -156,7 +183,7 @@ export function ManageAddress({ accountData }: { accountData: accountData }) {
             </button>
           </div>
         </div>
-      </div>
+      </form>
       <div className="Adressess-cards">
         <div className="Adressess-card">
           {adressList.map((el, i) => (
