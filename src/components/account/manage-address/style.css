@@ -21,9 +21,47 @@
   height: 28px;
 }
 
-.input-wrapper {
+.auto-label {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+  display: block;
 }
-.form-field {
+
+.Adressess-cards {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.input-wrapper-group {
+
+.Adressess-card {
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  border-radius: 12px;
+  padding: 24px;
+}
+.Adressess-card-top {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-0420, #c3c3c333);
+}
+.Adressess-card-top-text {
+  max-width: 100%;
+  width: 100%;
+  font-family: Open Sans;
+  font-weight: 400;
+  font-size: 18px;
+}
+.Adressess-card-top-adressline {
+  max-width: 100%;
+  width: 100%;
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 20px;
+}
+.Adressess-card-funcional {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
 }

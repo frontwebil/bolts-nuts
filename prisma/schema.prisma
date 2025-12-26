@@ -8,31 +8,32 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  surname      String
-  email        String    @unique
-  phoneNumber  String?
-  password     String
-  createdAt    DateTime  @default(now())
+  id                String    @map("_id") @id @default(auto()) @db.ObjectId
+  name              String
+  surname           String
+  email             String                @unique
+  phoneNumber       String?
+  password          String
+  createdAt         DateTime              @default(now())
 
-  resetToken       String?
-  resetTokenExpiry DateTime?
+  resetToken        String?
+  resetTokenExpiry  DateTime?
 
-  isVerified         Boolean   @default(false)
-  emailVerifyToken   String?
-  emailVerifyExpiry  DateTime?
+  isVerified        Boolean               @default(false)
+  emailVerifyToken  String?
+  emailVerifyExpiry DateTime?
 
-  favoriteProducts String[]
-  addresses Address[]
+  favoriteProducts  String[]              @db.ObjectId
+  mainAddressId     String?               @db.ObjectId
+
+  @@index([mainAddressId])
 }
 
 
 model Address {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                                       String   @map("_id") @id @default(auto()) @db.ObjectId
 
-  userId      String   @db.ObjectId
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                                   String               @db.ObjectId
 
   country     String   // Canada
   addressLine String   // 123 Maple Street
@@ -43,10 +44,8 @@ model Address {
   company     String?  // Optional
   apartment   String?  // Apt. 5B
 
-  isDefault   Boolean  @default(false)
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  createdAt                                DateTime             @default(now())
+  updatedAt                                DateTime             @updatedAt
 
   @@index([userId])
 }

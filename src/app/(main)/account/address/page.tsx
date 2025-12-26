@@ -3,29 +3,35 @@ import { AccountNavigation } from "@/components/account/navigation/AccountNaviga
 import { Breadcrums } from "@/components/breadcrums/Breadcrums";
 import "../style.css";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import prisma from "@/lib/prisma";
 
 export default async function page() {
   const session = await getServerSession(authOptions);
+
+  const user = await prisma.user.findUnique({
+    where: { id: session?.user.id },
+    select: {
+      id: true,
+      mainAddressId: true,
+    },
+  });
+
+  if (!user) {
+    redirect("/");
+  }
 
   if (!session?.user?.email) {
     redirect("/");
   }
 
-  const accountData = await prisma.user.findUnique({
+  const userAdresses = await prisma.address.findMany({
     where: {
-      email: session?.user.email,
-    },
-    select: {
-      addresses: true,
+      userId: user?.id,
     },
   });
 
-  if (!accountData) {
-    redirect("/");
-  }
   return (
     <section className="AccountPage">
       <div className="container">
@@ -38,7 +44,10 @@ export default async function page() {
         />
         <div className="AccountPage-content">
           <AccountNavigation />
-          <ManageAddress accountData={accountData} />
+          <ManageAddress
+            userAdresses={userAdresses}
+            mainAddressId={user.mainAddressId}
+          />
         </div>
       </div>
     </section>

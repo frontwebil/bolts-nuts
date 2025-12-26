@@ -41,6 +41,77 @@
 .Account-section-top-manage svg {
   stroke-width: 2px;
 }
+.Account-section-top-delete {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  max-width: max-content;
+  width: 100%;
+  align-items: center;
+  font-size: 20px;
+  color: #e10000;
+  font-weight: 600;
+  transition: 0.3s ease all;
+}
+
+.Account-section-top-delete:hover {
+  color: #d50808;
+}
+
+.Account-section-top-delete svg {
+  stroke-width: 2px;
+}
+
+.Account-section-top-make-primary {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  max-width: max-content;
+  align-items: center;
+  font-size: 20px;
+  color: #f4b400; /* золотий */
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.Account-section-top-make-primary:hover {
+  color: #f9a825;
+}
+
+.Account-section-top-make-primary.active {
+  color: #ff8f00;
+}
+
+.Account-section-top-make-primary svg {
+  stroke-width: 2px;
+}
+.Account-section-top-delete.confirm {
+  color: #dc2626;
+  animation: pulse 1s infinite;
+}
+
+.Account-section-top-delete.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Adressess-card-funcional-left-func {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
 
 .Account-section-content {
   width: 100%;
@@ -87,6 +158,12 @@
   color: #222222;
   outline: none;
   background-color: #fafafa;
+}
+
+.form-field input[readonly] {
+  background: #f7f8fa;
+  cursor: not-allowed;
+  outline: none;
 }
 
 .form-field input:focus {

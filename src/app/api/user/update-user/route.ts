@@ -31,7 +31,6 @@ export async function PATCH(req: Request) {
       phoneNumber: true,
       email: true,
       favoriteProducts: true,
-      addresses: true,
     },
   });
 
