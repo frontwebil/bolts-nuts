@@ -1,7 +1,9 @@
 import { Address } from "@prisma/client";
-import { PiPencilSimpleLine, PiStar } from "react-icons/pi";
+import { PiPencilSimpleLine } from "react-icons/pi";
 import { DeleteAdress } from "./DeleteAdress";
+import { MakePrimaryAdress } from "./MakePrimaryAdress";
 import { useState } from "react";
+import { ManageAddressUpdate } from "./ManageAddressUpdate";
 
 type Props = {
   address: Address;
@@ -10,30 +12,38 @@ type Props = {
 };
 
 export function AdressessCard({ address, i, isMain }: Props) {
+  const [isOpenEditForm, setIsOpenEditForm] = useState(false);
 
   return (
-    <div className="Adressess-card">
-      <div className="Adressess-card-top">
-        <div className="Adressess-card-top-text">
-          {isMain ? "Primary Address" : `Adress ${i + 1}`}
-        </div>
-        <div className="Adressess-card-top-adressline">{`${address.addressLine}, ${address.city} , ${address.province} , ${address.postalCode}`}</div>
-      </div>
-      <div className="Adressess-card-funcional">
-        <div className="Adressess-card-funcional-left-func">
-          <div className="Account-section-top-manage">
-            <PiPencilSimpleLine />
-            <p>Manage</p>
-          </div>
-          {!isMain && (
-            <div className="Account-section-top-make-primary">
-              <PiStar />
-              <p>Make primary</p>
+    <>
+      {isOpenEditForm ? (
+        <ManageAddressUpdate
+          setIsOpenEditForm={setIsOpenEditForm}
+          address={address}
+        />
+      ) : (
+        <div className="Adressess-card">
+          <div className="Adressess-card-top">
+            <div className="Adressess-card-top-text">
+              {isMain ? "Primary Address" : `Adress ${i + 1}`}
             </div>
-          )}
+            <div className="Adressess-card-top-adressline">{`${address.addressLine}, ${address.city} , ${address.province} , ${address.postalCode}`}</div>
+          </div>
+          <div className="Adressess-card-funcional">
+            <div className="Adressess-card-funcional-left-func">
+              <div
+                className="Account-section-top-manage"
+                onClick={() => setIsOpenEditForm(true)}
+              >
+                <PiPencilSimpleLine />
+                <p>Manage</p>
+              </div>
+              {!isMain && <MakePrimaryAdress id={address.id} isMain={isMain} />}
+            </div>
+            <DeleteAdress id={address.id} />
+          </div>
         </div>
-        <DeleteAdress id={address.id} />
-      </div>
-    </div>
+      )}
+    </>
   );
 }

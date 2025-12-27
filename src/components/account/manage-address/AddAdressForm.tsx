@@ -239,7 +239,7 @@ export function AddAdressForm() {
 
             <div className="input-wrapper-save-buttons">
               <button className="save-btn" disabled={loading}>
-                Add Address
+                {loading ? "Adding Address" : "Add Address"}
               </button>
               <button
                 className="cancel-btn"
