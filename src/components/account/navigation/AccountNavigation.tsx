@@ -27,7 +27,7 @@ export function AccountNavigation() {
           <p>Personal Information</p>
         </Link>
         <Link
-          href={"account/address"}
+          href={"/account/address"}
           className={`AccountPage-content-row ${
             pathname === "/account/address" && "active"
           }`}
