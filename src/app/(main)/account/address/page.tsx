@@ -10,6 +10,10 @@ import prisma from "@/lib/prisma";
 export default async function page() {
   const session = await getServerSession(authOptions);
 
+  if (!session?.user?.email) {
+    redirect("/");
+  }
+
   const user = await prisma.user.findUnique({
     where: { id: session?.user.id },
     select: {
@@ -19,10 +23,6 @@ export default async function page() {
   });
 
   if (!user) {
-    redirect("/");
-  }
-
-  if (!session?.user?.email) {
     redirect("/");
   }
 
