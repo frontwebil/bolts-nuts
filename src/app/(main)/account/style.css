@@ -281,6 +281,8 @@
   }
   .Adressess-card-top-text {
     max-width: 40%;
+    display: flex;
+    justify-content: space-between;
   }
   .Adressess-card-top-adressline {
     font-size: 19px;
@@ -402,6 +404,12 @@
 }
 
 @media (max-width: 640px) {
+  .Adressess-card-top {
+    flex-direction: column;
+  }
+  .Adressess-card-top-text {
+    max-width: 100%;
+  }
   .input-wrapper-group {
     flex-direction: column;
     gap: 15px;
@@ -441,7 +449,7 @@
   .Adressess-card-funcional {
     padding-top: 10px;
   }
-  .AccountPage-content{
+  .AccountPage-content {
     gap: 20px;
   }
 }

@@ -4,6 +4,7 @@ import { DeleteAdress } from "./DeleteAdress";
 import { MakePrimaryAdress } from "./MakePrimaryAdress";
 import { useState } from "react";
 import { ManageAddressUpdate } from "./ManageAddressUpdate";
+import { useWindowWidth } from "@/hooks/useWidth";
 
 type Props = {
   address: Address;
@@ -13,6 +14,7 @@ type Props = {
 
 export function AdressessCard({ address, i, isMain }: Props) {
   const [isOpenEditForm, setIsOpenEditForm] = useState(false);
+  const screenWidth = useWindowWidth();
 
   return (
     <>
@@ -26,6 +28,9 @@ export function AdressessCard({ address, i, isMain }: Props) {
           <div className="Adressess-card-top">
             <div className="Adressess-card-top-text">
               {isMain ? "Primary Address" : `Adress ${i + 1}`}
+              {screenWidth && screenWidth < 640 && !isMain && (
+                <MakePrimaryAdress id={address.id} isMain={isMain} />
+              )}
             </div>
             <div className="Adressess-card-top-adressline">{`${address.addressLine}, ${address.city} , ${address.province} , ${address.postalCode}`}</div>
           </div>
@@ -38,7 +43,9 @@ export function AdressessCard({ address, i, isMain }: Props) {
                 <PiPencilSimpleLine />
                 <p>Manage</p>
               </div>
-              {!isMain && <MakePrimaryAdress id={address.id} isMain={isMain} />}
+              {screenWidth && screenWidth > 640 && !isMain && (
+                <MakePrimaryAdress id={address.id} isMain={isMain} />
+              )}
             </div>
             <DeleteAdress id={address.id} />
           </div>
