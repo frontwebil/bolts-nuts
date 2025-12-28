@@ -33,6 +33,10 @@ export default async function AccountPage() {
     redirect("/");
   }
 
+  if (!accountData) {
+    redirect("/");
+  }
+
   return (
     <section className="AccountPage">
       <div className="container">
