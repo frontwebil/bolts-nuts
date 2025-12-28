@@ -289,6 +289,14 @@
   }
 }
 @media (max-width: 1124px) {
+  .save-btn,
+  .cancel-btn {
+    padding: 10px 20px;
+  }
+  .input-wrapper-save-buttons {
+    margin-top: 0;
+    font-size: 18px;
+  }
   .Adressess-card-top-text {
     font-size: 16px;
   }
@@ -335,6 +343,14 @@
   }
   .Adressess-cards {
     margin-top: 26px;
+  }
+}
+@media (max-width: 1024px) {
+  .Account-section-top-line {
+    display: none;
+  }
+  .Account-section-top {
+    justify-content: space-between;
   }
 }
 @media (max-width: 980px) {
@@ -422,6 +438,17 @@
     align-items: flex-start;
     gap: 10px;
   }
+  .input-wrapper-save-buttons {
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .save-btn,
+  .cancel-btn {
+    max-width: 100%;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -473,6 +500,13 @@
 }
 
 @media (max-width: 400px) {
+  .save-btn,
+  .cancel-btn {
+    max-width: 100%;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
   .Account-section-top-manage,
   .Account-section-top-delete,
   .Account-section-top-make-primary {

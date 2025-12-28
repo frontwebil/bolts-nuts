@@ -28,7 +28,7 @@ export function AddAdressForm({
 
   const [loading, setLoading] = useState(false);
 
-  const [isOpenAddForm, setIsOpenAddForm] = useState(false);
+  const [isOpenAddForm, setIsOpenAddForm] = useState(true);
 
   const handleAddAddress = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -65,3 +65,15 @@
   justify-content: space-between;
   padding-top: 24px;
 }
+
+@media (max-width: 1340px) {
+  .Add-address-form-top h2 {
+    font-size: 22px;
+  }
+}
+@media (max-width: 1124px) {
+}
+@media (max-width: 815px) {
+}
+@media (max-width: 440px) {
+}
