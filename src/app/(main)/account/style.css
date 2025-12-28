@@ -17,6 +17,10 @@
   width: 100%;
 }
 
+.form-field .error {
+  font-size: 15px;
+}
+
 .Account-section-top-line {
   border: 1px solid var(--gray-0460, #c3c3c399);
   width: 100%;
@@ -184,7 +188,7 @@
 }
 
 .form-field input[readonly] {
-  background: #f7f8fa;
+  background: #cfcfcf;
   cursor: not-allowed;
   outline: none;
 }
@@ -267,9 +271,11 @@
   .form-field {
     gap: 12px;
   }
-  .Account-section-content {
+  .Account-section-content,
+  .Add-address-form {
     margin-top: 32px;
   }
+
   .input-wrapper-group {
     gap: 16px;
   }
@@ -287,8 +293,17 @@
   .Adressess-card-top-adressline {
     font-size: 19px;
   }
+  .form-field .error {
+    font-size: 14px;
+  }
 }
 @media (max-width: 1124px) {
+  .Add-address-form-top h2 {
+    font-size: 20px;
+  }
+  .form-field .error {
+    font-size: 13px;
+  }
   .save-btn,
   .cancel-btn {
     padding: 10px 20px;
@@ -344,8 +359,15 @@
   .Adressess-cards {
     margin-top: 26px;
   }
+  .Add-address-form .input-wrapper-group {
+    flex-direction: column;
+  }
 }
+
 @media (max-width: 1024px) {
+  .form-field .error {
+    font-size: 12px;
+  }
   .Account-section-top-line {
     display: none;
   }
@@ -479,6 +501,16 @@
   .AccountPage-content {
     gap: 20px;
   }
+  .save-btn,
+  .cancel-btn {
+    max-width: 100%;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+  .input-wrapper-save-buttons {
+    gap: 8px;
+  }
 }
 
 @media (max-width: 440px) {
@@ -500,13 +532,6 @@
 }
 
 @media (max-width: 400px) {
-  .save-btn,
-  .cancel-btn {
-    max-width: 100%;
-    width: 100%;
-    padding: 10px 20px;
-    font-size: 15px;
-  }
   .Account-section-top-manage,
   .Account-section-top-delete,
   .Account-section-top-make-primary {
@@ -529,5 +554,8 @@
   .Account-section-top-delete,
   .Account-section-top-make-primary {
     font-size: 12px;
+  }
+  .Account-section-top h2 {
+    font-size: 15px;
   }
 }

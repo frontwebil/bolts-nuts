@@ -74,6 +74,18 @@
 @media (max-width: 1124px) {
 }
 @media (max-width: 815px) {
+  .Add-address-form {
+    padding: 24px;
+  }
+  .Add-address-form-top {
+    margin-bottom: 28px;
+  }
 }
 @media (max-width: 440px) {
+  .Add-address-form {
+    padding: 20px;
+  }
+  .Add-address-form-top {
+    margin-bottom: 24px;
+  }
 }
