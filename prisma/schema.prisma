@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  login    String @unique
+  password String
+}
+
 model User {
   id                String    @map("_id") @id @default(auto()) @db.ObjectId
   name              String
@@ -94,7 +100,7 @@ model Option {
   price     Float
   discount  Float?
 
-  quantity  Float?
+  quantity  String?
 
   isMain    Boolean             @default(false)
   inStock   Boolean             @default(true)

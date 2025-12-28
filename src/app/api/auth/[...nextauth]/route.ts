@@ -167,7 +167,36 @@ export const authOptions: AuthOptions = {
           surname: user.surname,
           email: user.email,
           phoneNumber: user.phoneNumber ?? undefined,
+          role: "user",
         };
+      },
+    }),
+    Credentials({
+      id: "admin-login",
+      name: "Admin login",
+      credentials: {
+        login: { label: "Login", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        const login = credentials?.login?.toLowerCase().trim();
+        const password = credentials?.password?.trim();
+
+        const envLogin = process.env.ADMIN_LOGIN?.toLowerCase().trim();
+        const envPass = process.env.ADMIN_PASSWORD?.trim();
+
+        if (!login || !password || !envLogin || !envPass) return null;
+
+        if (login === envLogin && password === envPass) {
+          return {
+            id: "admin",
+            email: envLogin,
+            name: "Admin",
+            role: "admin",
+          };
+        }
+
+        return null;
       },
     }),
   ],
@@ -182,6 +211,7 @@ export const authOptions: AuthOptions = {
         token.name = user.name;
         token.surname = user.surname;
         token.phoneNumber = user.phoneNumber;
+        token.role = user.role ?? "user";
       }
       return token;
     },
@@ -192,6 +222,7 @@ export const authOptions: AuthOptions = {
         session.user.email = token.email as string;
         session.user.surname = token.surname as string;
         session.user.phoneNumber = token.phoneNumber as string;
+        session.user.role = token.role as string;
       }
 
       return session;

@@ -4,6 +4,7 @@ import { PopularSearch } from "@/components/hero/PopularSearch/PopularSearch";
 import { SwiperCards } from "@/components/swiperCards/SwiperCards";
 
 export default function Home() {
+
   const cards = [
     {
       title: "DuraDrive #8 x 3 in.",

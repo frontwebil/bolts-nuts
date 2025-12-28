@@ -6,9 +6,12 @@ import "../account/style.css";
 import { AccountNavigation } from "@/components/account/navigation/AccountNavigation";
 import { redirect } from "next/navigation";
 import { GeneralInfo } from "@/components/account/general-info/GeneralInfo";
+import { AdminAlert } from "@/components/account/general-info/AdminAlert";
 
 export default async function AccountPage() {
   const session = await getServerSession(authOptions);
+
+  const isAdmin = session?.user.role == "admin";
 
   if (!session?.user?.email) {
     redirect("/");
@@ -26,20 +29,29 @@ export default async function AccountPage() {
     },
   });
 
-  if (!accountData) {
+  if (!accountData && !isAdmin) {
     redirect("/");
   }
 
   return (
     <section className="AccountPage">
       <div className="container">
-        <Breadcrums
-          links={[{ title: "Home", href: "/" }, { title: "Personal Account" }]}
-        />
-        <div className="AccountPage-content">
-          <AccountNavigation />
-          <GeneralInfo accountData={accountData} />
-        </div>
+        {!isAdmin ? (
+          <>
+            <Breadcrums
+              links={[
+                { title: "Home", href: "/" },
+                { title: "Personal Account" },
+              ]}
+            />
+            <div className="AccountPage-content">
+              <AccountNavigation />
+              <GeneralInfo accountData={accountData} />
+            </div>
+          </>
+        ) : (
+          <AdminAlert />
+        )}
       </div>
     </section>
   );
