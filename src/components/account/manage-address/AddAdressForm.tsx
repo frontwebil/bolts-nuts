@@ -167,10 +167,7 @@ export function AddAdressForm() {
               </div>
               <div className="form-field">
                 <label>
-                  City{" "}
-                  <span className="auto-label">
-                    Filled automatically from postal code
-                  </span>
+                  City <span className="auto-label">Filled automatically</span>
                 </label>
                 <input
                   type="text"
@@ -183,9 +180,7 @@ export function AddAdressForm() {
               <div className="form-field">
                 <label>
                   Province{" "}
-                  <span className="auto-label">
-                    Filled automatically from postal code
-                  </span>
+                  <span className="auto-label">Filled automatically</span>
                 </label>
                 <input
                   type="text"

@@ -30,15 +30,6 @@ export default async function AccountPage() {
     redirect("/");
   }
 
-  //   select: {
-  //   name: true,
-  //   surname: true,
-  //   email: true,
-  //   phoneNumber: true,
-  //   favoriteProducts: true,
-  //   adressses: true,
-  // },
-
   return (
     <section className="AccountPage">
       <div className="container">

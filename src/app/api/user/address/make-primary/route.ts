@@ -17,7 +17,6 @@ export async function PATCH(req: Request) {
       return NextResponse.json({ error: "Invalid addressId" }, { status: 400 });
     }
 
-    // Перевірка: адреса належить цьому юзеру
     const address = await prisma.address.findFirst({
       where: { id: String(addressId), userId: session.user.id },
       select: { id: true },
@@ -29,7 +28,7 @@ export async function PATCH(req: Request) {
 
     await prisma.user.update({
       where: { id: session.user.id },
-      data: { mainAddressId: String(addressId) }, // ✅ ОЦЕ ГОЛОВНЕ
+      data: { mainAddressId: String(addressId) },
     });
 
     return NextResponse.json({ ok: true, mainAddressId: addressId });
