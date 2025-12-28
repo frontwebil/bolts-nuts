@@ -13,8 +13,11 @@ type Props = {
 export function ManageAddress({ userAdresses, mainAddressId }: Props) {
   return (
     <div className="Account-section">
-      <AddAdressForm />
-      <AdressessCards userAdresses={userAdresses} mainAddressId={mainAddressId}/>
+      <AddAdressForm AdressListLength={userAdresses.length} />
+      <AdressessCards
+        userAdresses={userAdresses}
+        mainAddressId={mainAddressId}
+      />
     </div>
   );
 }

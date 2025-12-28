@@ -279,8 +279,17 @@
   .form-field input {
     padding: 16px 20px;
   }
+  .Adressess-card-top-text {
+    max-width: 40%;
+  }
+  .Adressess-card-top-adressline {
+    font-size: 19px;
+  }
 }
 @media (max-width: 1124px) {
+  .Adressess-card-top-text {
+    font-size: 16px;
+  }
   .form-field input {
     font-size: 18px;
     padding: 14px 18px;
@@ -301,8 +310,43 @@
   .Account-section-top {
     gap: 15px;
   }
+  .Adressess-card-top-text {
+    max-width: 30%;
+  }
+  .Adressess-card-top-adressline {
+    font-size: 18px;
+  }
+  .Adressess-card-top {
+    padding-bottom: 16px;
+  }
+  .Adressess-card-funcional {
+    padding-top: 16px;
+  }
+  .Account-section-top-delete {
+    font-size: 18px;
+  }
+  .Account-section-top-make-primary {
+    font-size: 18px;
+  }
+  .Adressess-card {
+    padding: 18px;
+  }
+  .Adressess-cards {
+    margin-top: 26px;
+  }
+}
+@media (max-width: 980px) {
+  .Adressess-card-top-adressline {
+    font-size: 16px;
+  }
 }
 @media (max-width: 880px) {
+  .Account-section-top-delete {
+    font-size: 16px;
+  }
+  .Account-section-top-make-primary {
+    font-size: 16px;
+  }
   .Account-section-top h2 {
     font-size: 18px;
     text-wrap: nowrap;
@@ -319,6 +363,15 @@
 }
 
 @media (max-width: 815px) {
+  .Adressess-card-top {
+    gap: 10px;
+  }
+  .Account-section-top-delete {
+    font-size: 18px;
+  }
+  .Account-section-top-make-primary {
+    font-size: 18px;
+  }
   .AccountPage-content {
     flex-direction: column;
     gap: 40px;
@@ -343,6 +396,54 @@
   .form-field label {
     font-size: 14px;
   }
+  .AccountPage {
+    margin-bottom: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .input-wrapper-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .Adressess-card-funcional {
+    align-items: flex-start;
+  }
+  .Adressess-card-funcional-left-func {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .Adressess-card-top-adressline {
+    font-size: 14px;
+  }
+  .Adressess-card-top-text {
+    font-size: 13px;
+  }
+  .Adressess-card {
+    padding: 16px;
+  }
+  .Account-section-top-manage {
+    font-size: 16px;
+  }
+  .Account-section-top-delete {
+    font-size: 16px;
+  }
+  .Account-section-top-make-primary {
+    font-size: 16px;
+  }
+  .Adressess-card-top {
+    padding-bottom: 10px;
+  }
+  .Adressess-card-funcional {
+    padding-top: 10px;
+  }
+  .AccountPage-content{
+    gap: 20px;
+  }
 }
 
 @media (max-width: 440px) {
@@ -350,11 +451,41 @@
     font-size: 18px;
     text-wrap: nowrap;
   }
-  .Account-section-top-manage {
-    font-size: 16px;
+  .Account-section-top-manage,
+  .Account-section-top-delete,
+  .Account-section-top-make-primary {
+    font-size: 15px;
   }
-  .input-wrapper-group {
-    flex-direction: column;
-    gap: 15px;
+  .Account-section-top-line {
+    display: none;
+  }
+  .Account-section-top {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 400px) {
+  .Account-section-top-manage,
+  .Account-section-top-delete,
+  .Account-section-top-make-primary {
+    font-size: 14px;
+  }
+  .Adressess-card-top-adressline {
+    font-size: 13px;
+  }
+  .Adressess-card-top-text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 375px) {
+  .Adressess-card {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .Account-section-top-manage,
+  .Account-section-top-delete,
+  .Account-section-top-make-primary {
+    font-size: 12px;
   }
 }

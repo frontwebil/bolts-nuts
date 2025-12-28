@@ -5,7 +5,11 @@ import { FaPlus } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 
-export function AddAdressForm() {
+export function AddAdressForm({
+  AdressListLength,
+}: {
+  AdressListLength: number;
+}) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const caRegex = /^[A-Z]\d[A-Z][ -]?\d[A-Z]\d$/i;
   const [postalError, setPostalError] = useState(
@@ -123,7 +127,13 @@ export function AddAdressForm() {
         <div className="Account-section-top-line"></div>
         <div
           className="Account-section-top-manage"
-          onClick={() => setIsOpenAddForm(true)}
+          onClick={() => {
+            if (AdressListLength >= 3) {
+              toast("You already have 3 addresses");
+              return;
+            }
+            setIsOpenAddForm(true);
+          }}
         >
           <FaPlus />
           <p>Add new</p>

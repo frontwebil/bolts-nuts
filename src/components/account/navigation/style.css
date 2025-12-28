@@ -134,4 +134,29 @@
   }
 }
 @media (max-width: 440px) {
+  .AccountPage-content-row {
+    gap: 10px;
+  }
+  .AccountPage-content-img svg,
+  .AccountPage-content-img-logout svg {
+    width: 20px;
+    height: 20px;
+  }
+  .AccountPage-content-navigation-top-info {
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  .AccountPage-content-navigation-order-history {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .AccountPage-content-navigation-logout {
+    padding-top: 10px;
+  }
+  .AccountPage-content-navigation p {
+    font-size: 15px;
+  }
+  .AccountPage-content-navigation {
+    padding: 15px;
+  }
 }
