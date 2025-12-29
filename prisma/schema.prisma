@@ -86,6 +86,7 @@ model Spec {
 
   @@index([group])
   @@index([group, value])
+  @@index([productId])
 }
 
 
@@ -100,7 +101,7 @@ model Option {
   price     Float
   discount  Float?
 
-  quantity  String?
+  unit  String?
 
   isMain    Boolean             @default(false)
   inStock   Boolean             @default(true)

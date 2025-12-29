@@ -10,6 +10,7 @@ export type SpecTemplateItem = {
 export type CategoryTemplate = {
   id: string;
   title: string;
+  labelOptions: string;
   specs: SpecTemplateItem[];
 };
 
@@ -17,6 +18,7 @@ export const CATEGORY_TEMPLATES: CategoryTemplate[] = [
   {
     id: "bolts-screws",
     title: "Bolts / Screws",
+    labelOptions: "Pieces per package",
     specs: [
       {
         group: "Dimensions",
@@ -61,6 +63,7 @@ export const CATEGORY_TEMPLATES: CategoryTemplate[] = [
   {
     id: "anchors",
     title: "Anchors",
+    labelOptions: "Pieces per package",
     specs: [
       {
         group: "Dimensions",

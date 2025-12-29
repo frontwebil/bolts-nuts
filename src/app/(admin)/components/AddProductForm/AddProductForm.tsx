@@ -5,6 +5,7 @@ import { ProductSwitchers } from "../ProductSwitchers/ProductSwitchers";
 import { RootState } from "@/redux/admin/store";
 import { ProductGeneralInfo } from "../ProductGeneralInfo/ProductGeneralInfo";
 import UploadImage from "../UploadImage/UploadImage";
+import { ProductOptionsManager } from "../ProductOptionsManager/ProductOptionsManager";
 
 export function AddProductForm() {
   const { category, selectedCategoryId } = useSelector(
@@ -20,6 +21,7 @@ export function AddProductForm() {
       <ProductSwitchers />
       <ProductGeneralInfo />
       <UploadImage />
+      <ProductOptionsManager />
     </form>
   );
 }

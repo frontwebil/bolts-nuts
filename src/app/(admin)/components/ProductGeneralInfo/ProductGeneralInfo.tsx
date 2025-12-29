@@ -18,6 +18,7 @@ export function ProductGeneralInfo() {
           Product title
         </label>
         <input
+          required
           type="text"
           value={title}
           onChange={(e) =>
@@ -34,6 +35,7 @@ export function ProductGeneralInfo() {
           Product description
         </label>
         <textarea
+          required
           value={description}
           onChange={(e) =>
             dispatch(

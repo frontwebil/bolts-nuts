@@ -1,35 +1,38 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function LoginAdminForm() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
+  const router = useRouter();
   const session = useSession();
 
-  if (session.data?.user.role == "admin") {
-    router.replace("/admin-page-21sQsafaboltsnuts");
-  }
+  useEffect(() => {
+    if (
+      session.status === "authenticated" &&
+      session.data?.user?.role === "admin"
+    ) {
+      router.replace("/admin-page-21sQsafaboltsnuts");
+    }
+  }, [session.status, session.data?.user?.role, router]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (loading) return;
+
+    if (!password || !login) {
+      toast("All fields are required");
+      return;
+    }
 
     setLoading(true);
 
     await signOut({ redirect: false });
-
-    if (!password || !login) {
-      toast("All fields are required");
-      setLoading(false);
-      return;
-    }
 
     const res = await signIn("admin-login", {
       login,
@@ -38,18 +41,23 @@ export default function LoginAdminForm() {
     });
 
     if (res?.ok) {
-      router.replace("/admin-page-21sQsafaboltsnuts");
       toast.success("You are logged in!");
+      router.replace("/admin-page-21sQsafaboltsnuts");
     } else {
-      if (res?.error === "CredentialsSignin") {
-        toast.error("Wrong login or password");
-      } else {
-        toast.error("Login error");
-      }
+      toast.error(
+        res?.error === "CredentialsSignin"
+          ? "Wrong login or password"
+          : "Login error"
+      );
     }
 
     setLoading(false);
   };
+
+  // (опціонально) поки перевіряється сесія — не показувати форму
+  if (session.status === "loading") {
+    return <div className="mt-40 flex justify-center">Loading...</div>;
+  }
 
   return (
     <div className="mt-40 flex items-center justify-center bg-gray-50">
