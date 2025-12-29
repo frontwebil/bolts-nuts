@@ -4,13 +4,12 @@ import { PopularSearch } from "@/components/hero/PopularSearch/PopularSearch";
 import { SwiperCards } from "@/components/swiperCards/SwiperCards";
 
 export default function Home() {
-
   const cards = [
     {
       title: "DuraDrive #8 x 3 in.",
       subTitle: "Square Drive Deck Screws",
       price: "34.95",
-      img: "/images/swiper-example/1.png",
+      img: "/images/swiper-example/1.jpg",
     },
     {
       title: "DuraDrive #8 x 3 in.",

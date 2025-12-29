@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Admin {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  login    String @unique
+  id       String @map("_id") @id @default(auto()) @db.ObjectId
+  login    String             @unique
   password String
 }
 
@@ -61,6 +61,7 @@ model Product {
   isActive     Boolean
   id           String   @map("_id") @id @default(auto()) @db.ObjectId
   title        String
+  description  String
   slug         String               @unique
   category     String
 
@@ -71,7 +72,6 @@ model Product {
   options      Option[] @relation("ProductOptions")
 
   createdAt    DateTime             @default(now())
-
 }
 
 model Spec {

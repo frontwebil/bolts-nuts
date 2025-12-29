@@ -17,6 +17,10 @@ export default async function AccountPage() {
     redirect("/");
   }
 
+  if (isAdmin) {
+    return <AdminAlert />;
+  }
+
   const accountData = await prisma.user.findUnique({
     where: {
       email: session?.user.email,
@@ -29,10 +33,6 @@ export default async function AccountPage() {
     },
   });
 
-  if (!accountData && !isAdmin) {
-    redirect("/");
-  }
-
   if (!accountData) {
     redirect("/");
   }
@@ -40,22 +40,18 @@ export default async function AccountPage() {
   return (
     <section className="AccountPage">
       <div className="container">
-        {!isAdmin ? (
-          <>
-            <Breadcrums
-              links={[
-                { title: "Home", href: "/" },
-                { title: "Personal Account" },
-              ]}
-            />
-            <div className="AccountPage-content">
-              <AccountNavigation />
-              <GeneralInfo accountData={accountData} />
-            </div>
-          </>
-        ) : (
-          <AdminAlert />
-        )}
+        <>
+          <Breadcrums
+            links={[
+              { title: "Home", href: "/" },
+              { title: "Personal Account" },
+            ]}
+          />
+          <div className="AccountPage-content">
+            <AccountNavigation />
+            <GeneralInfo accountData={accountData} />
+          </div>
+        </>
       </div>
     </section>
   );
