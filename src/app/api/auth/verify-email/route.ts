@@ -38,6 +38,7 @@ export async function POST(req: Request) {
 
   const sessionToken = await encode({
     token: {
+      role: "user",
       id: user.id,
       email: user.email,
       name: user.name,
