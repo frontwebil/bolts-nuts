@@ -1,9 +1,12 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -14,12 +17,11 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     return NextResponse.json({ error: "Access denied" }, { status: 403 });
   }
 
-  const productId = await params;
-
-  console.log(productId.id);
+  const { id } = await params; // ✅ Next 15
+  // console.log(id);
 
   const product = await prisma.product.findFirst({
-    where: { id: productId.id },
+    where: { id },
     include: { options: true, specs: true },
   });
 
