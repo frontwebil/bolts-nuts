@@ -101,7 +101,7 @@ export function AddProductForm() {
         category: addProduct.category,
         title: addProduct.title.trim(),
         description: addProduct.description.trim(),
-        anotherInfo: addProduct.anotherInfo.trim(),
+        anotherInfo: (addProduct.anotherInfo ?? "").trim(),
         isActive: addProduct.isActive,
         isBestSeller: addProduct.isBestSeller,
         inStock: addProduct.inStock,
