@@ -8,14 +8,15 @@ import {
   updateOptionField,
   setMainOption,
   moveOption,
-} from "@/redux/admin/slices/addProduct";
-
-// ✅ Category template label (later you can pull it from CATEGORY_TEMPLATES by selectedCategoryId)
-const OPTION_LABEL_FROM_TEMPLATE = "Number of pieces per package";
+} from "@/redux/admin/slices/Product";
+import { useEffect, useState } from "react";
 
 export function ProductOptionsManager() {
-  const { options } = useSelector((s: RootState) => s.addProductSlice);
+  const { options, selectedCategoryId } = useSelector(
+    (s: RootState) => s.ProductSlice
+  );
   const dispatch = useDispatch();
+  const OPTION_LABEL_FROM_TEMPLATE = "Number of pieces per package";
 
   return (
     <div className="mt-6 space-y-3">
@@ -233,15 +234,80 @@ function NumberField({
   onChange: (v: number) => void;
   className?: string;
 }) {
+  const [raw, setRaw] = useState<string>(
+    Number.isFinite(value) ? String(value) : ""
+  );
+
+  // якщо value зміниться ззовні (reset/hydrate) — синхронізуємо raw
+  useEffect(() => {
+    setRaw(Number.isFinite(value) ? String(value) : "");
+  }, [value]);
+
+  const sanitize = (input: string) => {
+    // 1) коми не дозволяємо
+    let s = input.replace(/,/g, "");
+
+    // 2) тільки цифри і крапка
+    s = s.replace(/[^0-9.]/g, "");
+
+    // 3) тільки одна крапка
+    const parts = s.split(".");
+    if (parts.length > 2) {
+      s = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // 4) якщо починається з крапки — робимо 0.
+    if (s.startsWith(".")) s = "0" + s;
+
+    return s;
+  };
+
+  const commitIfValidNumber = (s: string) => {
+    // дозволяємо проміжні стани без commit в redux
+    if (s === "" || s === "0." || s.endsWith(".")) return;
+
+    const num = Number(s);
+    if (Number.isNaN(num)) return;
+
+    // обмежимо до 2 знаків після крапки (для грошей)
+    const fixed = Math.round(num * 100) / 100;
+    onChange(fixed);
+  };
+
   return (
     <div className={className}>
       <label className="mb-1 block text-xs font-medium text-gray-700">
         {label}
       </label>
+
       <input
         type="text"
-        value={Number.isFinite(value) ? value : 0}
-        onChange={(e) => onChange(Number(e.target.value))}
+        inputMode="decimal"
+        value={raw}
+        onChange={(e) => {
+          const s = sanitize(e.target.value);
+          setRaw(s);
+          commitIfValidNumber(s);
+        }}
+        onBlur={() => {
+          // на blur доводимо до нормального числа
+          if (raw === "" || raw === "0." || raw.endsWith(".")) {
+            setRaw("0");
+            onChange(0);
+            return;
+          }
+          const num = Number(raw);
+          if (Number.isNaN(num)) {
+            setRaw("0");
+            onChange(0);
+            return;
+          }
+          const fixed = Math.round(num * 100) / 100;
+          const normalized = fixed.toFixed(2); // красиво для грошей
+          setRaw(normalized);
+          onChange(fixed);
+        }}
+        placeholder="0.00"
         className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-900/10"
       />
     </div>

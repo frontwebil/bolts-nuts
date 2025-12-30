@@ -1,12 +1,12 @@
 "use client";
 
 import { RootState } from "@/redux/admin/store";
-import { setTextField } from "@/redux/admin/slices/addProduct";
+import { setTextField } from "@/redux/admin/slices/Product";
 import { useDispatch, useSelector } from "react-redux";
 
 export function ProductGeneralInfo() {
-  const { title, description } = useSelector(
-    (store: RootState) => store.addProductSlice
+  const { title, description, anotherInfo } = useSelector(
+    (store: RootState) => store.ProductSlice
   );
   const dispatch = useDispatch();
 
@@ -40,6 +40,23 @@ export function ProductGeneralInfo() {
           onChange={(e) =>
             dispatch(
               setTextField({ field: "description", value: e.target.value })
+            )
+          }
+          placeholder="Enter product description"
+          rows={4}
+          className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black-500"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Another Info
+        </label>
+        <textarea
+          required
+          value={anotherInfo}
+          onChange={(e) =>
+            dispatch(
+              setTextField({ field: "anotherInfo", value: e.target.value })
             )
           }
           placeholder="Enter product description"

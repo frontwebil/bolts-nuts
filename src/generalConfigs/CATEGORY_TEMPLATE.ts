@@ -24,14 +24,14 @@ export const CATEGORY_TEMPLATES: CategoryTemplate[] = [
         group: "Dimensions",
         key: "Length",
         type: "text",
-        placeholder: '50 mm or 2"',
+        placeholder: "50 mm or 2 in",
         required: true,
       },
       {
         group: "Dimensions",
         key: "Diameter",
         type: "text",
-        placeholder: '4 mm or 1/4"',
+        placeholder: "4 mm or 1/4 in",
         required: true,
       },
 
@@ -69,14 +69,14 @@ export const CATEGORY_TEMPLATES: CategoryTemplate[] = [
         group: "Dimensions",
         key: "Length",
         type: "text",
-        placeholder: '60 mm or 2-1/2"',
+        placeholder: "60 mm or 2-1/2 in",
         required: true,
       },
       {
         group: "Dimensions",
         key: "Diameter",
         type: "text",
-        placeholder: '8 mm or 3/8"',
+        placeholder: "8 mm or 3/8 in",
         required: true,
       },
 

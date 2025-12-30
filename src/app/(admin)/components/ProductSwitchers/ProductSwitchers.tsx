@@ -1,12 +1,12 @@
 "use client";
 
-import { setBooleanField } from "@/redux/admin/slices/addProduct";
+import { setBooleanField } from "@/redux/admin/slices/Product";
 import { RootState } from "@/redux/admin/store";
 import { useDispatch, useSelector } from "react-redux";
 
 export function ProductSwitchers() {
   const { isActive, isBestSeller, inStock } = useSelector(
-    (store: RootState) => store.addProductSlice
+    (store: RootState) => store.ProductSlice
   );
   const dispatch = useDispatch();
 

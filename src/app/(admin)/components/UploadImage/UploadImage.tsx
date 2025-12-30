@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setImages } from "@/redux/admin/slices/addProduct";
+import { setImages } from "@/redux/admin/slices/Product";
 import { RootState } from "@/redux/admin/store";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function UploadImage() {
-  const { images } = useSelector((store: RootState) => store.addProductSlice);
+  const { images } = useSelector((store: RootState) => store.ProductSlice);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();

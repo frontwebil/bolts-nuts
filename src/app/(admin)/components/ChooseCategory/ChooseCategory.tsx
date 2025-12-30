@@ -1,13 +1,13 @@
 "use client";
 
 import { CATEGORY_TEMPLATES } from "@/generalConfigs/CATEGORY_TEMPLATE";
-import { setSelectedCategoryId } from "@/redux/admin/slices/addProduct";
+import { setSelectedCategoryId } from "@/redux/admin/slices/Product";
 import { RootState } from "@/redux/admin/store";
 import { useDispatch, useSelector } from "react-redux";
 
 export function ChooseCategory() {
   const { selectedCategoryId } = useSelector(
-    (store: RootState) => store.addProductSlice
+    (store: RootState) => store.ProductSlice
   );
   const dispatch = useDispatch();
 

@@ -1,6 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Catalog from "../components/Catalog/Catalog";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -9,5 +11,17 @@ export default async function AdminPage() {
     redirect("/admin-page-21sQsafaboltsnuts/login");
   }
 
-  return <div>Admin Page</div>;
+  const products = await prisma.product.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      options: true,
+      specs: true,
+    },
+  });
+
+  if (!products) {
+    return;
+  }
+
+  return <Catalog products={products} />;
 }

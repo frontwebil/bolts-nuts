@@ -3,11 +3,24 @@ import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 type BooleanFields = "isActive" | "isBestSeller" | "inStock";
 
-type TextFields = "title" | "description";
+type TextFields = "title" | "description" | "anotherInfo";
+
+export type ProductSpecDraft = {
+  clientId: string;
+  group: string;
+  dbId?: string | null;
+  key: string;
+  value: string;
+  type?: "text" | "select";
+  options?: string[];
+  placeholder?: string;
+  required?: boolean;
+};
 
 export type ProductOptionDraft = {
-  clientId: string; // фронтовий id
+  clientId: string;
   label: string;
+  dbId?: string | null;
   value?: string;
   price: number;
   discount?: number;
@@ -17,30 +30,55 @@ export type ProductOptionDraft = {
 };
 
 type AddProductState = {
+  productId?: string | null;
   selectedCategoryId: string;
   category: string;
   title: string;
   description: string;
+  anotherInfo?: string;
   isActive: boolean;
   isBestSeller: boolean;
   inStock: boolean;
   images: string[];
   options: ProductOptionDraft[];
+  specs: ProductSpecDraft[];
 };
 
+function buildSpecsFromCategory(categoryId: string): ProductSpecDraft[] {
+  const tpl = CATEGORY_TEMPLATES.find((c) => c.id === categoryId);
+  if (!tpl) return [];
+
+  return tpl.specs.map((s) => ({
+    clientId: nanoid(),
+    group: s.group,
+    key: s.key,
+    type: s.type,
+    options: s.options,
+    placeholder: s.placeholder,
+    required: s.required,
+    value: "",
+    dbId: null,
+  }));
+}
+
+const defaultCategoryId = "bolts-screws";
+
 const initialState: AddProductState = {
-  selectedCategoryId: "bolts-screws",
+  selectedCategoryId: defaultCategoryId,
+  productId: null,
   title: "",
   description: "",
+  anotherInfo: "",
   category: "Bolts / Screws",
   isActive: true,
   isBestSeller: false,
   inStock: true,
   images: [],
   options: [],
+  specs: buildSpecsFromCategory(defaultCategoryId),
 };
 
-const addProductSlice = createSlice({
+const ProductSlice = createSlice({
   name: "UIslice",
   initialState,
   reducers: {
@@ -50,9 +88,11 @@ const addProductSlice = createSlice({
 
       state.title = "";
       state.description = "";
+
+      state.specs = buildSpecsFromCategory(action.payload.category);
     },
     resetAddProduct() {
-      return initialState;
+      return { ...initialState, productId: null };
     },
     setBooleanField(
       state,
@@ -78,6 +118,7 @@ const addProductSlice = createSlice({
 
       state.options.push({
         clientId: nanoid(),
+        dbId: null,
         label: OPTION_LABEL_FROM_TEMPLATE,
         value: "",
         price: 0,
@@ -124,6 +165,69 @@ const addProductSlice = createSlice({
       const [item] = state.options.splice(from, 1);
       state.options.splice(to, 0, item);
     },
+
+    updateSpecValue(
+      state,
+      action: PayloadAction<{ clientId: string; value: string }>
+    ) {
+      const { clientId, value } = action.payload;
+      const spec = state.specs.find((s) => s.clientId === clientId);
+      if (!spec) return;
+      spec.value = value;
+    },
+
+    // якщо хочеш оновлювати по (group+key) замість clientId:
+    updateSpecByKey(
+      state,
+      action: PayloadAction<{ group: string; key: string; value: string }>
+    ) {
+      const { group, key, value } = action.payload;
+      const spec = state.specs.find((s) => s.group === group && s.key === key);
+      if (!spec) return;
+      spec.value = value;
+    },
+
+    // щоб одним махом залити specs (наприклад при edit product)
+    setSpecs(state, action: PayloadAction<ProductSpecDraft[]>) {
+      state.specs = action.payload;
+    },
+
+    hydrateForEdit(state, action) {
+      state.productId = action.payload.productId; // ✅
+
+      state.selectedCategoryId = action.payload.categoryId;
+      state.category = action.payload.category;
+
+      state.title = action.payload.title;
+      state.description = action.payload.description;
+      state.anotherInfo = action.payload.anotherInfo ?? "";
+
+      state.isActive = action.payload.isActive;
+      state.isBestSeller = action.payload.isBestSeller;
+      state.inStock = action.payload.inStock;
+
+      state.images = action.payload.images;
+
+      state.options = action.payload.options.map((o) => ({
+        clientId: nanoid(),
+        dbId: o.id ?? null, // ✅
+        label: o.label,
+        value: o.value ?? "",
+        price: o.price,
+        discount: o.discount ?? 0,
+        unit: o.unit ?? "",
+        isMain: o.isMain,
+        inStock: o.inStock,
+      }));
+
+      state.specs = action.payload.specs.map((s) => ({
+        clientId: nanoid(),
+        dbId: s.id ?? null, // ✅
+        group: s.group,
+        key: s.key,
+        value: s.value,
+      }));
+    },
   },
 });
 
@@ -138,6 +242,11 @@ export const {
   updateOptionField,
   setMainOption,
   moveOption,
-} = addProductSlice.actions;
 
-export default addProductSlice.reducer;
+  updateSpecValue,
+  updateSpecByKey,
+  setSpecs,
+  hydrateForEdit,
+} = ProductSlice.actions;
+
+export default ProductSlice.reducer;
