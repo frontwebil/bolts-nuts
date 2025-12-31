@@ -102,7 +102,7 @@ export default function CatalogCard({
 
       <div className="col-span-1 flex items-center">
         <div className="font-semibold text-neutral-900">
-          {hasDiscount ? mainVariant.discount : "No discount"}
+          {hasDiscount ? `${mainVariant.discount}%` : "No discount"}
         </div>
       </div>
 

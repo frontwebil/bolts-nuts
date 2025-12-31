@@ -21,6 +21,12 @@ export default function Catalog({
   const [mounted, setMounted] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedStatus, setSelectedStatus] = useState<
+    "All" | "true" | "false"
+  >("All");
+  const [selectedStock, setSelectedStock] = useState<"All" | "true" | "false">(
+    "All"
+  );
   const [sortType, setSortType] = useState("Newest");
 
   useEffect(() => {
@@ -44,7 +50,13 @@ export default function Catalog({
       const matchCategory =
         selectedCategory === "All" || p.category === selectedCategory;
 
-      return matchSearch && matchCategory;
+      const matchStatus =
+        selectedStatus === "All" || p.isActive === (selectedStatus === "true");
+
+      const matchStock =
+        selectedStock === "All" || p.inStock === (selectedStock === "true");
+
+      return matchSearch && matchCategory && matchStatus && matchStock;
     });
 
     if (sortType === "Newest") {
@@ -78,7 +90,14 @@ export default function Catalog({
     }
 
     return result;
-  }, [products, searchTerm, selectedCategory, sortType]);
+  }, [
+    products,
+    searchTerm,
+    selectedCategory,
+    sortType,
+    selectedStatus,
+    selectedStock,
+  ]);
 
   if (!mounted) return null;
 
@@ -145,6 +164,10 @@ export default function Catalog({
                 Status
               </label>
               <select
+                value={selectedStatus}
+                onChange={(e) =>
+                  setSelectedStatus(e.target.value as "All" | "true" | "false")
+                }
                 className="
                   w-full rounded-xl border border-black/10
                   px-3 py-2.5 text-sm
@@ -152,9 +175,9 @@ export default function Catalog({
                   focus:ring-2 focus:ring-neutral-900/10
                 "
               >
-                <option>All</option>
-                <option>Active</option>
-                <option>Inactive</option>
+                <option value="All">All</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
               </select>
             </div>
 
@@ -164,6 +187,10 @@ export default function Catalog({
                 Stock
               </label>
               <select
+                value={selectedStock}
+                onChange={(e) =>
+                  setSelectedStock(e.target.value as "All" | "true" | "false")
+                }
                 className="
                   w-full rounded-xl border border-black/10
                   px-3 py-2.5 text-sm
@@ -171,9 +198,9 @@ export default function Catalog({
                   focus:ring-2 focus:ring-neutral-900/10
                 "
               >
-                <option>All</option>
-                <option>In stock</option>
-                <option>Out of stock</option>
+                <option value="All">All</option>
+                <option value="true">In stock</option>
+                <option value="false">Out of stock</option>
               </select>
             </div>
           </div>
