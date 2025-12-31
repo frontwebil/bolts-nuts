@@ -196,8 +196,13 @@ const ProductSlice = createSlice({
     hydrateForEdit(state, action) {
       state.productId = action.payload.productId; // ✅
 
-      state.selectedCategoryId = action.payload.categoryId;
+      const categoryId = CATEGORY_TEMPLATES.find(
+        (el) => el.title === action.payload.category
+      )?.id;
+
+      // state.selectedCategoryId = action.payload.categoryId;
       state.category = action.payload.category;
+      state.selectedCategoryId = categoryId || "";
 
       state.title = action.payload.title;
       state.description = action.payload.description;
