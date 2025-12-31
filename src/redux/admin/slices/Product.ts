@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CATEGORY_TEMPLATES } from "@/generalConfigs/CATEGORY_TEMPLATE";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
@@ -208,7 +209,7 @@ const ProductSlice = createSlice({
 
       state.images = action.payload.images;
 
-      state.options = action.payload.options.map((o) => ({
+      state.options = action.payload.options.map((o: any) => ({
         clientId: nanoid(),
         dbId: o.id ?? null, // ✅
         label: o.label,
@@ -220,7 +221,7 @@ const ProductSlice = createSlice({
         inStock: o.inStock,
       }));
 
-      state.specs = action.payload.specs.map((s) => ({
+      state.specs = action.payload.specs.map((s: any) => ({
         clientId: nanoid(),
         dbId: s.id ?? null, // ✅
         group: s.group,
