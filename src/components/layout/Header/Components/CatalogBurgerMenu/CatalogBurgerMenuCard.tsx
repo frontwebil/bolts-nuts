@@ -1,17 +1,15 @@
+import { ProductWithRelations } from "@/types/ProductType";
 import Image from "next/image";
 
-type Card = {
-  title: string;
-  subTitle: string;
-  price: string;
-  img: string;
-};
-
-export function CatalogBurgerMenuCard({ card }: { card: Card }) {
+export function CatalogBurgerMenuCard({
+  card,
+}: {
+  card: ProductWithRelations;
+}) {
   return (
     <div className="CatalogBurgerMenuCard">
-      <div className="CatalogBurgerMenuCard-container">
-        <Image src={card.img} alt={card.title} width={300} height={300} />
+      <div className="CatalogBurgerMenuCard-img">
+        <Image src={card.images[0]} alt={card.title} width={300} height={300} />
       </div>
       <h2>{card.title}</h2>
     </div>

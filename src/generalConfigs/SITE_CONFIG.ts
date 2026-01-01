@@ -1,6 +1,6 @@
 export const CATEGORYES = [
   {
-    category: "Bolts/Screws",
+    category: "Bolts / Screws",
   },
   {
     category: "Anchors",

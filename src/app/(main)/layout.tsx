@@ -1,6 +1,8 @@
 import { AuthFormLayout } from "@/components/authForms/AuthFormLayout";
 import { Footer } from "@/components/layout/Footer/Footer";
 import { Header } from "@/components/layout/Header/Header";
+import { SetProductsToRedux } from "@/hooks/setProductsToRedux";
+import { QueryProviders } from "@/providers/QueryProvider";
 import { ReduxProviderWrapper } from "@/providers/ReduxMainProvider";
 import { SessionProviderWrapper } from "@/providers/SessionProviderWrapper";
 import { ToastContainer } from "react-toastify";
@@ -11,19 +13,22 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SessionProviderWrapper>
-      <ReduxProviderWrapper>
-        <AuthFormLayout />
-        <ToastContainer
-          position="top-right"
-          theme="light"
-          // hideProgressBar={true}
-          autoClose={3000}
-        />
-        <Header />
-        {children}
-        <Footer />
-      </ReduxProviderWrapper>
-    </SessionProviderWrapper>
+    <QueryProviders>
+      <SessionProviderWrapper>
+        <ReduxProviderWrapper>
+          <SetProductsToRedux />
+          <AuthFormLayout />
+          <ToastContainer
+            position="top-right"
+            theme="light"
+            // hideProgressBar={true}
+            autoClose={3000}
+          />
+          <Header />
+          {children}
+          <Footer />
+        </ReduxProviderWrapper>
+      </SessionProviderWrapper>
+    </QueryProviders>
   );
 }

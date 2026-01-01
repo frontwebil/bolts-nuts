@@ -8,17 +8,11 @@ import { Pagination, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useState } from "react";
-
-type Card = {
-  title: string;
-  subTitle: string;
-  price: string;
-  img: string;
-};
+import { ProductWithRelations } from "@/types/ProductType";
 
 type Props = {
   title: string;
-  cards: Card[];
+  cards: ProductWithRelations[];
 };
 
 export function SwiperCards({ cards, title }: Props) {
@@ -47,15 +41,15 @@ export function SwiperCards({ cards, title }: Props) {
         breakpoints={{
           320: {
             slidesPerView: 1.7,
-            spaceBetween: 12,
+            spaceBetween: 10,
           },
           350: {
             slidesPerView: 2,
-            spaceBetween: 12,
+            spaceBetween: 10,
           },
           700: {
             slidesPerView: 4,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           1340: {
             slidesPerView: 5,

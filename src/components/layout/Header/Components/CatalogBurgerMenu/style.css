@@ -91,29 +91,37 @@
 
 .CatalogBurgerMenuCard {
   background: var(--gray-0420, #c3c3c333);
-  padding: 20px;
+  padding: 16px;
   border-radius: 20px;
-  max-width: 100%;
   width: 100%;
+  height: 340px; /* ← ЖОРСТКО фіксуємо */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
-.CatalogBurgerMenuCard img {
-  padding: 0 20px 20px;
-  margin: 0 auto;
+
+.CatalogBurgerMenuCard-img {
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CatalogBurgerMenuCard-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
 }
 /* .CatalogBurgerMenuCard-container {
 } */
 
 .CatalogBurgerMenuCard h2 {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
+  margin-top: auto;
   display: -webkit-box;
-  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .mobile-funcional-buttons {

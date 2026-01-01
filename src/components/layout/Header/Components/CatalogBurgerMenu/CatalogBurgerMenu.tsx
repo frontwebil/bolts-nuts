@@ -29,38 +29,11 @@ export function CatalogBurgerMenu() {
     dispatch(setAtiveCategory(category));
   };
 
-  const cards = [
-    {
-      title: "Square Drive Deck Screws (1,500 Per Box)",
-      subTitle: "Square Drive Deck Screws",
-      price: "34.95",
-      img: "/images/swiper-example/1.png",
-    },
-    {
-      title: "Square Drive Deck Screws (1,500 Per Box)",
-      subTitle: "Square Drive Deck Screws",
-      price: "34.95",
-      img: "/images/swiper-example/2.png",
-    },
-    {
-      title: "DuraDrive #8 x 3 in.",
-      subTitle: "Square Drive Deck Screws",
-      price: "34.95",
-      img: "/images/swiper-example/3.png",
-    },
-    {
-      title: "DuraDrive #8 x 3 in.",
-      subTitle: "Square Drive Deck Screws",
-      price: "34.95",
-      img: "/images/swiper-example/4.png",
-    },
-    {
-      title: "DuraDrive #8 x 3 in.",
-      subTitle: "Square Drive Deck Screws",
-      price: "34.95",
-      img: "/images/swiper-example/4.png",
-    },
-  ];
+  const { products } = useSelector((store: RootState) => store.productSlice);
+
+  const cardsToShowCategoryes = products.filter(
+    (el) => el.category == activeCategory
+  );
 
   useEffect(() => {
     if (isOpenCatalog) {
@@ -94,7 +67,7 @@ export function CatalogBurgerMenu() {
               </div>
               <div className="mobile-funcional-button-row">
                 <div className="mobile-funcional-button-row-content">
-                  <FaRegBookmark height={17}/>
+                  <FaRegBookmark height={17} />
                   <p>Personal Account</p>
                 </div>
                 <p className="mobile-funcional-button-row-count">0 items</p>
@@ -129,7 +102,7 @@ export function CatalogBurgerMenu() {
           <div className="catalog-burger-menu-content-cards">
             <h3>{activeCategory}</h3>
             <div className="catalog-burger-menu-content-cards-container">
-              {cards.slice(0, cardsToShows).map((el, i) => (
+              {cardsToShowCategoryes.slice(0, cardsToShows).map((el, i) => (
                 <CatalogBurgerMenuCard card={el} key={i} />
               ))}
             </div>
