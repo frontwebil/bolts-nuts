@@ -83,6 +83,7 @@ export function EditProductForm() {
     dispatch(
       hydrateForEdit({
         productId: p.id,
+        productGroup: p.productGroup ?? "",
         categoryId: p.categoryId ?? "",
         category: p.category ?? "",
         title: p.title ?? "",
@@ -122,6 +123,7 @@ export function EditProductForm() {
         category: addProduct.category,
         title: addProduct.title.trim(),
         description: addProduct.description.trim(),
+        productGroup: addProduct.productGroup.trim(),
         anotherInfo: (addProduct.anotherInfo ?? "").trim(),
         isActive: addProduct.isActive,
         isBestSeller: addProduct.isBestSeller,

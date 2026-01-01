@@ -59,6 +59,7 @@ export async function PATCH(
       title,
       description,
       anotherInfo,
+      productGroup,
       category,
       isActive,
       isBestSeller,
@@ -112,6 +113,7 @@ export async function PATCH(
         title: nextTitle,
         description: description.trim(),
         anotherInfo: (anotherInfo ?? "").trim(),
+        productGroup: (productGroup ?? "").trim(),
         category: category.trim(),
         slug,
 

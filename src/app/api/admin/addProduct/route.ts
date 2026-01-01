@@ -39,6 +39,7 @@ export async function POST(req: Request) {
     const {
       title,
       description,
+      productGroup,
       anotherInfo,
       category,
       isActive,
@@ -85,6 +86,7 @@ export async function POST(req: Request) {
         title: title.trim(),
         description: description.trim(),
         anotherInfo: anotherInfo.trim(),
+        productGroup: productGroup.trim(),
         slug,
         category: category.trim(),
         isActive: Boolean(isActive),

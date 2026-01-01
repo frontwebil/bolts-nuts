@@ -57,6 +57,7 @@ model Address {
 }
 
 model Product {
+  productGroup String?
   isBestSeller Boolean
   isActive     Boolean
   id           String   @map("_id") @id @default(auto()) @db.ObjectId

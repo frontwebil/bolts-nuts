@@ -99,6 +99,7 @@ export function AddProductForm() {
       const payload = {
         categoryId: addProduct.selectedCategoryId,
         category: addProduct.category,
+        productGroup: addProduct.productGroup.trim(),
         title: addProduct.title.trim(),
         description: addProduct.description.trim(),
         anotherInfo: (addProduct.anotherInfo ?? "").trim(),
