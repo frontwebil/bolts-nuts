@@ -18,7 +18,6 @@ export function ProductGeneralInfo() {
           Product group
         </label>
         <input
-          required
           type="text"
           value={productGroup}
           onChange={(e) =>

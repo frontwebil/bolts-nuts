@@ -204,7 +204,7 @@ const ProductSlice = createSlice({
       )?.id;
 
       // state.selectedCategoryId = action.payload.categoryId;
-      state.productGroup = action.payload.productGroup;
+      state.productGroup = action.payload.productGroup || "";
       state.category = action.payload.category;
       state.selectedCategoryId = categoryId || "";
 
