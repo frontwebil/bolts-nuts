@@ -9,7 +9,7 @@ import Loader from "@/components/loader/Loader";
 import { PiCaretDownBold } from "react-icons/pi";
 
 export function CatalogCardsContainer() {
-  const { products, selectedCategory } = useSelector(
+  const { products, selectedCategory, typeCatalog } = useSelector(
     (store: RootState) => store.productSlice
   );
 
@@ -25,7 +25,13 @@ export function CatalogCardsContainer() {
     <div className="CatalogCards-wrapper">
       <div className="CatalogCards-top">
         <div className="CatalogCards-top-start-content">
-          <h2>{selectedCategory == "" ? "New Arrivals" : selectedCategory}</h2>
+          <h2>
+            {typeCatalog == ""
+              ? selectedCategory
+                ? selectedCategory
+                : "Catalog"
+              : typeCatalog.replaceAll("-", " ").toUpperCase()}
+          </h2>
           <p>{cardsToShow.length} products</p>
         </div>
         <div className="CatalogCards-top-end-content">

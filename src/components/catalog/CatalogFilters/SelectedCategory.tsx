@@ -52,7 +52,10 @@ export function SelectedCategory() {
         {CATEGORYES.map((el, i) => (
           <div className="filter-content-button-wrapper" key={i}>
             <button
-              onClick={() => dispatch(setSelectedCategory(el.category))}
+              onClick={() => {
+                dispatch(setSelectedCategory(el.category));
+                setIsOpen(false);
+              }}
               className={el.category === selectedCategory ? "active" : ""}
             >
               {el.category}

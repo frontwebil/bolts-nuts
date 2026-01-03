@@ -3,11 +3,12 @@ import Image from "next/image";
 import "../productCard/style.css";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { ProductWithRelations } from "@/types/ProductType";
+import Link from "next/link";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
   const mainVariant = data.options.filter((el) => el.isMain);
   return (
-    <div className="ProductCard">
+    <Link href={`/product/${data.slug}`} className="ProductCard">
       <div className="ProductCard-top">
         <div className="ProductCard-img">
           <Image
@@ -29,6 +30,6 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
           <p>Add</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -15,6 +15,7 @@
   font-size: 20px;
   transition: all 0.3s ease;
   color: #6c6c6c;
+  text-transform: capitalize;
 }
 
 .breadcrumb-item:hover {
