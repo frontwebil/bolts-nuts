@@ -1,0 +1,29 @@
+.ProductPageWrapper-main-content-images {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  gap: 15px;
+}
+.ProductPageWrapper-main-content-images-sidebar {
+  max-width: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ProductPageWrapper-main-content-images-sidebar-img {
+  background: var(--gray-0310, #5a5a5a1a);
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.ProductPageWrapper-main-content-images-sidebar-img.active {
+  border: 1px solid #ff5a00;
+}
+
+.ProductPageWrapper-main-content-images-main-image {
+  background: var(--gray-0310, #5a5a5a1a);
+  border-radius: 10px;
+}

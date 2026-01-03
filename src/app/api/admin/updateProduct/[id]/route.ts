@@ -64,9 +64,11 @@ export async function PATCH(
       isActive,
       isBestSeller,
       inStock,
+      brandName,
       images,
       options,
       specs,
+      technicalImg,
     } = body;
 
     // валідації (аналогічно POST, але anotherInfo можеш зробити НЕ required якщо хочеш)
@@ -114,6 +116,8 @@ export async function PATCH(
         description: description.trim(),
         anotherInfo: (anotherInfo ?? "").trim(),
         productGroup: (productGroup ?? "").trim(),
+        brandName: (brandName ?? "").trim(),
+        technicalImg: (technicalImg ?? "").trim(),
         category: category.trim(),
         slug,
 

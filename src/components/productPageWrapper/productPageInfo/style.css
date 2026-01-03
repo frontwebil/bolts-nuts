@@ -1,0 +1,34 @@
+.ProductPageWrapper-main-content-info {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProductPageWrapper-main-content-info-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.ProductPageWrapper-main-content-info-top h3 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+}
+
+.ProductPageWrapper-main-content-info-top p {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  color: #5a5a5a;
+}
+
+.ProductPageWrapper-main-content-options {
+  padding-top: 24px;
+  border-top: 1px solid #c3c3c399;
+}
+.ProductPageWrapper-main-content-options-title {
+  font-size: 24px;
+}

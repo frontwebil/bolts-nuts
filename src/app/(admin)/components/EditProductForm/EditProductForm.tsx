@@ -14,6 +14,7 @@ import { ProductSpecsForm } from "../ProductSpecsForm/ProductSpecsForm";
 import Link from "next/link";
 import { RootState } from "@/redux/admin/store";
 import { toast } from "react-toastify";
+import { UploadTechImg } from "../UploadTechImg/UploadTechImg";
 
 type FormErrors = {
   title?: string;
@@ -77,7 +78,6 @@ export function EditProductForm() {
 
   const getData = async () => {
     const res = await axios.get(`/api/admin/getProduct/${id}`);
-
     const p = res.data.product;
 
     dispatch(
@@ -89,6 +89,8 @@ export function EditProductForm() {
         title: p.title ?? "",
         description: p.description ?? "",
         anotherInfo: p.anotherInfo ?? "",
+        brandName: p.brandName ?? "",
+        technicalImg: p.technicalImg ?? "",
         isActive: !!p.isActive,
         isBestSeller: !!p.isBestSeller,
         inStock: !!p.inStock,
@@ -125,6 +127,8 @@ export function EditProductForm() {
         description: addProduct.description.trim(),
         productGroup: addProduct.productGroup.trim(),
         anotherInfo: (addProduct.anotherInfo ?? "").trim(),
+        brandName: (addProduct.brandName ?? "").trim(),
+        technicalImg: (addProduct.technicalImg ?? "").trim(),
         isActive: addProduct.isActive,
         isBestSeller: addProduct.isBestSeller,
         inStock: addProduct.inStock,
@@ -176,6 +180,8 @@ export function EditProductForm() {
       {errors.options ? (
         <div className="text-sm text-red-700">{errors.options}</div>
       ) : null}
+
+      <UploadTechImg />
 
       <ProductSpecsForm />
       {errors.specs ? (

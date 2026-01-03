@@ -10,6 +10,9 @@ import {
   setSelectedCategory,
 } from "@/redux/main/slices/productSlice";
 import Loader from "../loader/Loader";
+import { ProductPageInfo } from "./productPageInfo/ProductPageInfo";
+import { ProductPageImages } from "./productPageImages/ProductPageImages";
+import "./style.css";
 
 export function ProductPageWrapper() {
   const dispatch = useDispatch();
@@ -35,7 +38,7 @@ export function ProductPageWrapper() {
     <div>
       <ProductBreadcrums
         links={[
-          { title: "Home", href: "/" },
+          { title: "Catalog", href: "/catalog" },
           {
             title: currentProduct?.category,
             onClick: () => {
@@ -46,6 +49,12 @@ export function ProductPageWrapper() {
           { title: currentProduct.title },
         ]}
       />
+      <div className="ProductPageWrapper-container">
+        <div className="ProductPageWrapper-main-content">
+          <ProductPageImages />
+          <ProductPageInfo />
+        </div>
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useState } from "react";
 import { ProductWithRelations } from "@/types/ProductType";
+import Loader from "../loader/Loader";
 
 type Props = {
   title: string;
@@ -17,6 +18,17 @@ type Props = {
 
 export function SwiperCards({ cards, title }: Props) {
   const [isReady, setIsReady] = useState(false);
+
+  if (!cards || cards.length === 0) {
+    return (
+      <section className="SwiperCards">
+        <div className="SwiperCards-top">
+          <h3>{title}</h3>
+        </div>
+        <Loader />
+      </section>
+    );
+  }
 
   return (
     <section className="SwiperCards">

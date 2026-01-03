@@ -64,6 +64,8 @@ model Product {
   title        String
   description  String
   anotherInfo  String?
+  brandName    String?
+  technicalImg String?
   slug         String               @unique
   category     String
 
@@ -103,7 +105,7 @@ model Option {
   price     Float
   discount  Float?
 
-  unit  String?
+  unit      String?
 
   isMain    Boolean             @default(false)
   inStock   Boolean             @default(true)

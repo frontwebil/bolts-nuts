@@ -5,9 +5,8 @@ import { setTextField } from "@/redux/admin/slices/Product";
 import { useDispatch, useSelector } from "react-redux";
 
 export function ProductGeneralInfo() {
-  const { title, description, anotherInfo, productGroup } = useSelector(
-    (store: RootState) => store.ProductSlice
-  );
+  const { title, description, anotherInfo, productGroup, brandName } =
+    useSelector((store: RootState) => store.ProductSlice);
   const dispatch = useDispatch();
 
   return (
@@ -63,6 +62,24 @@ export function ProductGeneralInfo() {
           placeholder="Enter product description"
           rows={4}
           className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black-500"
+        />
+      </div>
+      {/* Brand */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Product Brand
+        </label>
+        <input
+          required
+          type="text"
+          value={brandName}
+          onChange={(e) =>
+            dispatch(
+              setTextField({ field: "brandName", value: e.target.value })
+            )
+          }
+          placeholder="Enter product brand"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black-500"
         />
       </div>
       <div>

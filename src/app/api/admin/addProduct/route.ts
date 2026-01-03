@@ -48,6 +48,8 @@ export async function POST(req: Request) {
       images,
       options,
       specs,
+      brandName,
+      technicalImg,
     } = body;
 
     if (
@@ -87,6 +89,8 @@ export async function POST(req: Request) {
         description: description.trim(),
         anotherInfo: anotherInfo.trim(),
         productGroup: productGroup.trim(),
+        technicalImg: technicalImg.trim(),
+        brandName: brandName.trim(),
         slug,
         category: category.trim(),
         isActive: Boolean(isActive),

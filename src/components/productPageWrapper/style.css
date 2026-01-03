@@ -1,0 +1,9 @@
+.ProductPageWrapper-container {
+  max-width: 1550px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.ProductPageWrapper-main-content {
+  display: flex;
+  gap: 20px;
+}

@@ -4,7 +4,13 @@ import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 type BooleanFields = "isActive" | "isBestSeller" | "inStock";
 
-type TextFields = "title" | "description" | "anotherInfo" | "productGroup";
+type TextFields =
+  | "title"
+  | "description"
+  | "anotherInfo"
+  | "productGroup"
+  | "brandName"
+  | "technicalImg";
 
 export type ProductSpecDraft = {
   clientId: string;
@@ -36,6 +42,8 @@ type AddProductState = {
   category: string;
   title: string;
   productGroup: string;
+  brandName: string;
+  technicalImg: string;
   description: string;
   anotherInfo?: string;
   isActive: boolean;
@@ -70,6 +78,8 @@ const initialState: AddProductState = {
   productId: null,
   productGroup: "",
   title: "",
+  technicalImg: "",
+  brandName: "",
   description: "",
   anotherInfo: "",
   category: "Bolts / Screws",
@@ -211,6 +221,8 @@ const ProductSlice = createSlice({
       state.title = action.payload.title;
       state.description = action.payload.description;
       state.anotherInfo = action.payload.anotherInfo ?? "";
+      state.brandName = action.payload.brandName ?? "";
+      state.technicalImg = action.payload.technicalImg ?? "";
 
       state.isActive = action.payload.isActive;
       state.isBestSeller = action.payload.isBestSeller;

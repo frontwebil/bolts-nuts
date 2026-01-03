@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { resetAddProduct } from "@/redux/admin/slices/Product";
+import { UploadTechImg } from "../UploadTechImg/UploadTechImg";
 
 type FormErrors = {
   title?: string;
@@ -103,6 +104,8 @@ export function AddProductForm() {
         title: addProduct.title.trim(),
         description: addProduct.description.trim(),
         anotherInfo: (addProduct.anotherInfo ?? "").trim(),
+        brandName: (addProduct.brandName ?? "").trim(),
+        technicalImg: (addProduct.technicalImg ?? "").trim(),
         isActive: addProduct.isActive,
         isBestSeller: addProduct.isBestSeller,
         inStock: addProduct.inStock,
@@ -158,6 +161,8 @@ export function AddProductForm() {
       {errors.options ? (
         <div className="text-sm text-red-700">{errors.options}</div>
       ) : null}
+
+      <UploadTechImg />
 
       <ProductSpecsForm />
       {errors.specs ? (
