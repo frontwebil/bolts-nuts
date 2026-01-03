@@ -6,12 +6,12 @@ import { PiCaretDownBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 
 export function SelectedCategory() {
-  const { selectedCategory } = useSelector(
+  const { selectedCategory, products } = useSelector(
     (store: RootState) => store.productSlice
   );
 
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,6 +24,18 @@ export function SelectedCategory() {
       contentRef.current.style.maxHeight = "0px";
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setIsOpen(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const categoryMap = products.reduce((acc, product) => {
+    acc[product.category] = (acc[product.category] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  console.log(categoryMap);
 
   return (
     <div className="filter-content-group">
@@ -40,13 +52,15 @@ export function SelectedCategory() {
         className={`filter-content-group-buttons ${isOpen ? "open" : ""}`}
       >
         {CATEGORYES.map((el, i) => (
-          <button
-            key={i}
-            onClick={() => dispatch(setSelectedCategory(el.category))}
-            className={el.category === selectedCategory ? "active" : ""}
-          >
-            {el.category}
-          </button>
+          <div className="filter-content-button-wrapper" key={i}>
+            <button
+              onClick={() => dispatch(setSelectedCategory(el.category))}
+              className={el.category === selectedCategory ? "active" : ""}
+            >
+              {el.category}
+            </button>
+            <p>({categoryMap[el.category] ? categoryMap[el.category] : 0})</p>
+          </div>
         ))}
       </div>
     </div>
