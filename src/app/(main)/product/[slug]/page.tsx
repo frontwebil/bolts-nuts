@@ -1,4 +1,5 @@
-import { ProductPageWrapper } from "@/components/productPageWrapper/ProductPageWrapper";
+import { ProductPageWrapper } from "@/components/productPageWrapper/productPageWrapper";
+
 
 export default function ProductPage() {
   return (
