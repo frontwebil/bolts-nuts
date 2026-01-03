@@ -29,6 +29,11 @@
   width: 100%;
 }
 
+.catalog-burger-menu-content-cards {
+  max-width: 100%;
+  width: 100%;
+}
+
 .catalog-burger-menu-content h3,
 .catalog-burger-menu-content-cards h3 {
   margin-bottom: 32px;

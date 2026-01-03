@@ -1,0 +1,35 @@
+.CatalogCardsContainer {
+  max-width: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.CatalogCards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.CatalogCards-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CatalogCards-top-start-content {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.CatalogCards-top-start-content h2 {
+  font-size: 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.CatalogCards-top-start-content p {
+  color: #6c6c6c;
+  font-size: 18px;
+}

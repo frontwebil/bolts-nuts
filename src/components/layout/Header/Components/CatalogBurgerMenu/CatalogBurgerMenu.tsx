@@ -2,12 +2,15 @@ import { CATEGORYES } from "@/generalConfigs/SITE_CONFIG";
 import { RootState } from "@/redux/main/store";
 import { useDispatch, useSelector } from "react-redux";
 import "../CatalogBurgerMenu/style.css";
-import { setAtiveCategory } from "@/redux/main/slices/uiSlice";
+import { closeBurger, setAtiveCategory } from "@/redux/main/slices/uiSlice";
 import { CatalogBurgerMenuCard } from "./CatalogBurgerMenuCard";
 import { useWindowWidth } from "@/hooks/useWidth";
 import { useEffect } from "react";
 import { PiShoppingCartSimpleBold, PiUserCircle } from "react-icons/pi";
 import { FaRegBookmark } from "react-icons/fa";
+import Loader from "@/components/loader/Loader";
+import { setSelectedCategory } from "@/redux/main/slices/productSlice";
+import { useRouter } from "next/navigation";
 
 const getCardsCount = (width: number) => {
   if (width >= 1550) return 5;
@@ -28,6 +31,7 @@ export function CatalogBurgerMenu() {
   const handleChangeCategory = (category: string) => {
     dispatch(setAtiveCategory(category));
   };
+  const router = useRouter();
 
   const { products } = useSelector((store: RootState) => store.productSlice);
 
@@ -88,6 +92,11 @@ export function CatalogBurgerMenu() {
                 {CATEGORYES.map((el, i) => (
                   <button
                     onMouseEnter={() => handleChangeCategory(el.category)}
+                    onClick={() => {
+                      dispatch(setSelectedCategory(el.category));
+                      dispatch(closeBurger());
+                      router.replace("/catalog");
+                    }}
                     key={i}
                     className={`${
                       el.category === activeCategory ? "active" : ""
@@ -99,14 +108,19 @@ export function CatalogBurgerMenu() {
               </div>
             </div>
           </div>
-          <div className="catalog-burger-menu-content-cards">
-            <h3>{activeCategory}</h3>
-            <div className="catalog-burger-menu-content-cards-container">
-              {cardsToShowCategoryes.slice(0, cardsToShows).map((el, i) => (
-                <CatalogBurgerMenuCard card={el} key={i} />
-              ))}
+          {cardsToShowCategoryes.length <= 0 ? (
+            <Loader />
+          ) : (
+            <div className="catalog-burger-menu-content-cards">
+              <h3>{activeCategory}</h3>
+
+              <div className="catalog-burger-menu-content-cards-container">
+                {cardsToShowCategoryes.slice(0, cardsToShows).map((el, i) => (
+                  <CatalogBurgerMenuCard card={el} key={i} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
