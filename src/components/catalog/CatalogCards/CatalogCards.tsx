@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import "../CatalogCards/style.css";
 import Loader from "@/components/loader/Loader";
+import { PiCaretDownBold } from "react-icons/pi";
 
 export function CatalogCardsContainer() {
   const { products, selectedCategory } = useSelector(
@@ -30,7 +31,11 @@ export function CatalogCardsContainer() {
         <div className="CatalogCards-top-end-content">
           <div className="CatalogCards-sort-component">
             <div className="CatalogCards-sort-component-title">
-              <p></p>
+              <p>Sort by:</p>
+              <div className="CatalogCards-sort-component-title-sort-option">
+                <p>Newest Arrivals</p>
+                <PiCaretDownBold />
+              </div>
             </div>
           </div>
         </div>

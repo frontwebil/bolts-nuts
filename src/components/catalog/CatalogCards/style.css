@@ -15,6 +15,7 @@
 .CatalogCards-top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .CatalogCards-top-start-content {
@@ -32,4 +33,30 @@
 .CatalogCards-top-start-content p {
   color: #6c6c6c;
   font-size: 18px;
+}
+
+/* .CatalogCards-top-end-content {
+}
+.CatalogCards-sort-component {
+} */
+
+.CatalogCards-sort-component-title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.CatalogCards-sort-component-title p {
+  color: #5a5a5a;
+}
+
+.CatalogCards-sort-component-title-sort-option p {
+  color: #222222;
+}
+.CatalogCards-sort-component-title-sort-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
 }

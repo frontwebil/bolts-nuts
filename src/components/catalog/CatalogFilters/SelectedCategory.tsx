@@ -35,8 +35,6 @@ export function SelectedCategory() {
     return acc;
   }, {} as Record<string, number>);
 
-  console.log(categoryMap);
-
   return (
     <div className="filter-content-group">
       <div
