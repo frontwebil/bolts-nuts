@@ -14,7 +14,7 @@ export function ProductPageInfo() {
     <div className="ProductPageWrapper-main-content-info">
       <div className="ProductPageWrapper-main-content-info-top">
         <h3>{currentProduct.title}</h3>
-        <p>{currentProduct.anotherInfo}</p>
+        <p>{currentProduct.brandName}</p>
       </div>
       <ProductOptions />
     </div>
