@@ -13,15 +13,17 @@ export function SetProductsToRedux() {
   const reduxProducts = useSelector(
     (state: RootState) => state.productSlice.products
   );
+  const { productsLoaded } = useSelector((s: RootState) => s.productSlice);
 
   useEffect(() => {
     if (!data || isLoading) return;
+    if (productsLoaded) return;
 
     // не диспатчимо якщо нічого не змінилось
     if (reduxProducts.length === data.length) return;
 
     dispatch(setProducts(data));
-  }, [data, isLoading, dispatch, reduxProducts.length]);
+  }, [data, isLoading, dispatch, reduxProducts.length, productsLoaded]);
 
   return null;
 }

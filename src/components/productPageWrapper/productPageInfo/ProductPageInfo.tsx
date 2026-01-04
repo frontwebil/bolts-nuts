@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import "../productPageInfo/style.css";
 import { RootState } from "@/redux/main/store";
 import { ProductOptions } from "./ProductOptions";
+import { ProductVariants } from "./ProductVariants";
+import { ProductPageButtons } from "./ProductPageButtons";
 
 export function ProductPageInfo() {
   const { currentProduct } = useSelector(
@@ -16,7 +18,11 @@ export function ProductPageInfo() {
         <h3>{currentProduct.title}</h3>
         <p>{currentProduct.brandName}</p>
       </div>
-      <ProductOptions />
+      <div className="ProductPageWrapper-option-variants-wrapper">
+        <ProductOptions />
+        <ProductVariants />
+      </div>
+      <ProductPageButtons />
     </div>
   );
 }

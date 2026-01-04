@@ -7,3 +7,13 @@
   display: flex;
   gap: 20px;
 }
+
+.ProductPageWrapper-option-variants-wrapper {
+  padding-top: 24px;
+  border-top: 1px solid #c3c3c399;
+  border-bottom: 1px solid #c3c3c399;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

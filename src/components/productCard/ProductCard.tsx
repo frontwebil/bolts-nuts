@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import "../productCard/style.css";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
@@ -20,7 +19,7 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
         </div>
         <div className="ProductCard-text">
           <h3>{data.title}</h3>
-          <p>{data.description}</p>
+          <p>{data.brandName}</p>
         </div>
       </div>
       <div className="ProductCard-buttons">

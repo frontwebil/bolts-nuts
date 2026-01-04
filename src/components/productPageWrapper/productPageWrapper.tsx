@@ -18,13 +18,22 @@ export function ProductPageWrapper() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { slug } = useParams();
-  const { products, currentProduct } = useSelector(
+  const { products, currentProduct, productsLoaded } = useSelector(
     (store: RootState) => store.productSlice
   );
 
   useEffect(() => {
-    dispatch(setCurrentProduct(products.find((el) => el.slug == slug)));
-  }, [products, dispatch, slug]);
+    if (!productsLoaded) return;
+
+    const product = products.find((el) => el.slug === slug);
+
+    if (!product) {
+      router.replace("/catalog");
+      return;
+    }
+
+    dispatch(setCurrentProduct(product));
+  }, [productsLoaded, products, slug, dispatch, router]);
 
   if (!currentProduct || !products) {
     return (
