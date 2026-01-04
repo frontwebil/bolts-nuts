@@ -43,14 +43,14 @@ export const CATEGORY_TEMPLATES: CategoryTemplate[] = [
         group: "Head / Drive",
         key: "Drive Type",
         type: "select",
-        options: ["Torx", "Phillips (+)", "Slotted (-)"],
+        options: ["Torx", "Phillips (+)", "Slotted (-)" , "Square" , "Hex"],
         required: true,
       },
       {
         group: "Head / Drive",
         key: "Head Type",
         type: "select",
-        options: ["Flat Head", "Pan Head", "Hex Head"],
+        options: ["Flat Head", "Pan Head", "Hex Head" , "Hexagon"],
         required: true,
       },
 
