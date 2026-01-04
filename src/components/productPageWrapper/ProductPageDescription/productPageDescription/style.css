@@ -1,0 +1,59 @@
+.ProductPageDescription-container {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ProductPageDescription-accordeon {
+  padding: 24px 12px 0px;
+  border-bottom: 1px solid #5a5a5a99;
+}
+.ProductPageDescription-accordeon-title {
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+.ProductPageDescription-accordeon-title p {
+  font-weight: 600;
+}
+.ProductPageDescription-accordeon-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.ProductPageDescription-accordeon-content.active {
+  opacity: 1;
+}
+
+.ProductPageDescription-delivery {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  gap: 15px;
+}
+.ProductPageDescription-delivery-card {
+  max-width: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.ProductPageDescription-delivery-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+.ProductPageDescription-accordeon-content-text {
+  padding-bottom: 24px;
+}
