@@ -34,12 +34,12 @@ export function SwiperCards({ cards, title }: Props) {
     <section className="SwiperCards">
       <div className="SwiperCards-top">
         <h3>{title}</h3>
-        <div className="SwiperCards-top-look-more">
+        {/* <div className="SwiperCards-top-look-more">
           <p>
             Look for <span className="italic">more</span>
           </p>
           <PiArrowLineUpRightBold />
-        </div>
+        </div> */}
       </div>
 
       <Swiper

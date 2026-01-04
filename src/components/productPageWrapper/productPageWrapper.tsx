@@ -15,6 +15,7 @@ import { ProductPageImages } from "./productPageImages/ProductPageImages";
 import "./style.css";
 import { ProductPageTech } from "./ProductPageDescription/productPageTech/ProductPageTech";
 import { ProductPageDescription } from "./ProductPageDescription/productPageDescription/ProductPageDescription";
+import { SwiperCards } from "../swiperCards/SwiperCards";
 
 export function ProductPageWrapper() {
   const dispatch = useDispatch();
@@ -45,6 +46,21 @@ export function ProductPageWrapper() {
     );
   }
 
+  const alsoMayLike = products.filter((el) => {
+    if (!currentProduct) return false;
+
+    if (el.id === currentProduct.id) return false;
+
+    if (!currentProduct.productGroup?.trim()) {
+      return el.category === currentProduct.category;
+    }
+
+    return (
+      el.category === currentProduct.category &&
+      el.productGroup !== currentProduct.productGroup
+    );
+  });
+
   return (
     <div>
       <ProductBreadcrums
@@ -70,6 +86,7 @@ export function ProductPageWrapper() {
           <ProductPageDescription />
         </div>
       </div>
+      <SwiperCards cards={alsoMayLike} title="you may also like" />
     </div>
   );
 }

@@ -14,7 +14,7 @@ export function ProductPageDescription() {
       <TextAccordeon
         title={"Description"}
         text={currentProduct?.description || ""}
-        isOpenByDefault={true}
+        isOpenByDefault={false}
       />
       <TextAccordeon
         title={"Another Info"}
