@@ -13,6 +13,7 @@ import Loader from "../loader/Loader";
 import { ProductPageInfo } from "./productPageInfo/ProductPageInfo";
 import { ProductPageImages } from "./productPageImages/ProductPageImages";
 import "./style.css";
+import { ProductPageTech } from "./ProductPageDescription/productPageTech/ProductPageTech";
 
 export function ProductPageWrapper() {
   const dispatch = useDispatch();
@@ -62,6 +63,9 @@ export function ProductPageWrapper() {
         <div className="ProductPageWrapper-main-content">
           <ProductPageImages />
           <ProductPageInfo />
+        </div>
+        <div className="ProductPageWrapper-tech-description">
+          <ProductPageTech />
         </div>
       </div>
     </div>

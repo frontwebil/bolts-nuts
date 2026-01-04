@@ -60,6 +60,37 @@
   cursor: default;
 }
 
-.ProductPageWrapper-buttons{
+.ProductPageWrapper-buttons {
   margin-top: auto;
+}
+
+.ProductPageWrapper-buttons {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+}
+.ProductPageWrapper-buttons-price {
+  padding: 20px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #5a5a5a1a;
+  border-radius: 4px;
+  font-size: 28px;
+  font-weight: 700;
+}
+.ProductPageWrapper-buttons-addToCart {
+  padding: 20px 20px;
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #ff5a00;
+  color: #fafafa;
+  font-size: 28px;
+  font-weight: 600;
 }

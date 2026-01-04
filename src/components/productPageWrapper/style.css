@@ -6,6 +6,7 @@
 .ProductPageWrapper-main-content {
   display: flex;
   gap: 20px;
+  margin-bottom: 40px;
 }
 
 .ProductPageWrapper-option-variants-wrapper {
@@ -16,4 +17,10 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+}
+
+.ProductPageWrapper-tech-description {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
 }
