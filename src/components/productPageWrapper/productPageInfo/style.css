@@ -94,3 +94,116 @@
   font-size: 28px;
   font-weight: 600;
 }
+
+@media only screen and (max-width: 1440px) {
+  .ProductPageWrapper-main-content-info-top h3 {
+    font-size: 32px;
+    line-height: 36px;
+  }
+  .ProductPageWrapper-main-content-info-top p,
+  .ProductPageWrapper-main-content-variants-options-title {
+    font-size: 20px;
+  }
+  .ProductPageWrapper-main-content-variants-options-cards {
+    margin-top: 15px;
+  }
+  .ProductPageWrapper-buttons-price,
+  .ProductPageWrapper-buttons-addToCart {
+    font-size: 24px;
+  }
+  .ProductPageWrapper-main-content-info-top {
+    gap: 15px;
+    padding-bottom: 18px;
+  }
+  .ProductPageWrapper-main-content-variants-options-cards {
+    gap: 12px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .ProductPageWrapper-main-content-info-top h3 {
+    font-size: 28px;
+    line-height: 30px;
+  }
+  .ProductPageWrapper-main-content-info-top p,
+  .ProductPageWrapper-main-content-variants-options-title {
+    font-size: 18px;
+  }
+  .ProductPageWrapper-main-content-variants-options-cards {
+    margin-top: 10px;
+  }
+  .ProductPageWrapper-main-content-info-top {
+    gap: 5px;
+    padding-bottom: 12px;
+  }
+  .ProductPageWrapper-buttons-price {
+    font-size: 18px;
+    width: 50%;
+  }
+  .ProductPageWrapper-buttons-addToCart {
+    font-size: 16px;
+    gap: 10px;
+  }
+  .ProductPageWrapper-main-content-variants-options-cards {
+    gap: 10px;
+  }
+}
+@media only screen and (max-width: 830px) {
+  .ProductPageWrapper-main-content-info-top h3 {
+    font-size: 26px;
+    line-height: 29px;
+  }
+  .ProductPageWrapper-main-content-info-top p,
+  .ProductPageWrapper-main-content-variants-options-title {
+    font-size: 18px;
+  }
+  .ProductPageWrapper-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 1);
+
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
+
+    z-index: 1000;
+  }
+
+  .ProductPageWrapper-buttons-price {
+    font-size: 18px;
+    width: 100%;
+  }
+  .ProductPageWrapper-buttons-addToCart,
+  .ProductPageWrapper-buttons-price {
+    padding: 18px;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .ProductPageWrapper-main-content-info-top h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .ProductPageWrapper-main-content-info-top p,
+  .ProductPageWrapper-main-content-variants-options-title {
+    font-size: 16px;
+  }
+  .ProductPageWrapper-main-content-variants-options-card {
+    font-size: 16px;
+  }
+  .ProductPageWrapper-buttons {
+    gap: 10px;
+  }
+  .ProductPageWrapper-buttons-price {
+    width: 60%;
+    font-size: 16px;
+  }
+  .ProductPageWrapper-buttons {
+    padding: 12px;
+  }
+  .ProductPageWrapper-buttons-addToCart,
+  .ProductPageWrapper-buttons-price {
+    padding: 16px;
+  }
+}

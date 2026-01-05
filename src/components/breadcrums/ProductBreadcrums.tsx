@@ -30,7 +30,14 @@ export function ProductBreadcrums({ links }: Props) {
           const isClickable = !!item.href || !!item.onClick;
 
           return isLast ? (
-            <div key={index} className="breadcrumb-item active">
+            <div
+              key={index}
+              className="breadcrumb-item active"
+              style={{
+                textWrap: "nowrap",
+                overflow: "hidden",
+              }}
+            >
               {item.title}
             </div>
           ) : (
