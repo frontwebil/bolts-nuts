@@ -86,7 +86,7 @@ export function ProductPageWrapper() {
         {/* <ProductPageDescription /> */}
         {/* </div> */}
       </div>
-      {/* <SwiperCards cards={alsoMayLike} title="you may also like" /> */}
+      <SwiperCards cards={alsoMayLike} title="you may also like" />
     </div>
   );
 }

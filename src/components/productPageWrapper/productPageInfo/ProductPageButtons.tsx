@@ -4,12 +4,16 @@ import { RootState } from "@/redux/main/store";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useWindowWidth } from "@/hooks/useWidth";
 
 export function ProductPageButtons() {
   const { mainVariant } = useSelector((store: RootState) => store.productSlice);
+  const width = useWindowWidth();
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
+    if (!width) return;
+    if (width > 830) return;
     const anchor = document.getElementById("hide-fixed-buttons-anchor");
     if (!anchor) return;
 
@@ -25,7 +29,7 @@ export function ProductPageButtons() {
 
     observer.observe(anchor);
     return () => observer.disconnect();
-  }, []);
+  }, [width]);
 
   return (
     <div
