@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer>
+    <footer id="hide-fixed-buttons-anchor">
       <div className="footer-logo-mobile">
         <Image src={"/logo.svg"} width={300} height={60} alt="Bolts-Nuts" />
       </div>

@@ -95,6 +95,16 @@
   font-weight: 600;
 }
 
+.ProductPageWrapper-buttons {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.ProductPageWrapper-buttons.buttons-hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 @media only screen and (max-width: 1440px) {
   .ProductPageWrapper-main-content-info-top h3 {
     font-size: 32px;
@@ -168,7 +178,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
 
-    z-index: 1000;
+    z-index: 1;
   }
 
   .ProductPageWrapper-buttons-price {

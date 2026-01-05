@@ -60,6 +60,8 @@
   .ProductPageWrapper-main-content-images-sidebar {
     max-width: 100%;
     gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
   }
   .ProductPageWrapper-main-content-images-sidebar-img {
     max-width: 65px;
