@@ -19,6 +19,7 @@ export default function FiltersGroup({
   const [isOpen, setIsOpen] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectedValues = selectedSpecs[label] ?? [];
 
   useEffect(() => {

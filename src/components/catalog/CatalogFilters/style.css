@@ -9,11 +9,22 @@
   height: max-content;
 }
 .CatalogFilters-top {
+  background: var(--gray-0420, #c3c3c333);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CatalogFilters-top h3 {
   font-size: 20px;
   font-weight: 600;
   text-transform: uppercase;
-  background: var(--gray-0420, #c3c3c333);
-  padding: 20px;
+}
+.CatalogFilters-top p {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .CatalogFilters-content {

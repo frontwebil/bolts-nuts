@@ -108,6 +108,11 @@ const productSlice = createSlice({
         );
       }
     },
+    resetFilters: (state) => {
+      state.filtersSpecs = {};
+      state.selectedSpecs = {};
+      state.selectedCategory = "";
+    },
     setTypeCatalog: (state, action) => {
       const validValues = [
         "bestseller",
@@ -175,6 +180,7 @@ export const {
   setCurrentProduct,
   setMainVariant,
   toggleSpecValue,
+  resetFilters,
 } = productSlice.actions;
 
 export default productSlice.reducer;

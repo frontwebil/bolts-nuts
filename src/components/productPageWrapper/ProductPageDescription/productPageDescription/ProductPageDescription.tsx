@@ -10,7 +10,7 @@ export function ProductPageDescription() {
   );
   return (
     <div className="ProductPageDescription-container">
-      <DeliveryAccordeon />
+      {/* <DeliveryAccordeon /> */}
       <TextAccordeon
         title={"Description"}
         text={currentProduct?.description || ""}
