@@ -10,17 +10,15 @@ import { PiCaretDownBold } from "react-icons/pi";
 import { selectFilteredProducts } from "@/redux/main/selector/selectFilteredProducts";
 
 export function CatalogCardsContainer() {
-  const { products, selectedCategory, typeCatalog, productsLoaded } =
-    useSelector((store: RootState) => store.productSlice);
+  const { selectedCategory, typeCatalog, productsLoaded } = useSelector(
+    (store: RootState) => store.productSlice
+  );
 
   const filteredProducts = useSelector(selectFilteredProducts);
 
-  const productsToShow =
-    filteredProducts.length > 0 ? filteredProducts : products;
-
   const cardsToShow = selectedCategory
-    ? productsToShow.filter((el) => el.category == selectedCategory)
-    : productsToShow;
+    ? filteredProducts.filter((el) => el.category == selectedCategory)
+    : filteredProducts;
 
   if (!productsLoaded) {
     return <Loader />;

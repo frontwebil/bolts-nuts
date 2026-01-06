@@ -136,8 +136,14 @@
   border: 1px solid #ff5a00;
 }
 
-.filter-content-button-wrapper-custom-input.active svg{
+.filter-content-button-wrapper-custom-input.active svg {
   color: #fff;
+}
+
+.filter-content-button-wrapper-left-withinput.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .filter-content-button-wrapper-custom-input svg {

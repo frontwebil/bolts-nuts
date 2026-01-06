@@ -1,6 +1,7 @@
+import { makeSelectAvailableValuesForKey } from "@/redux/main/selector/makeSelectAvailableValuesForKey";
 import { toggleSpecValue } from "@/redux/main/slices/productSlice";
 import { RootState } from "@/redux/main/store";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { PiCaretDownBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,13 @@ export default function FiltersGroup({
     }
   }, [isOpen]);
 
+  const selectAvailable = useMemo(
+    () => makeSelectAvailableValuesForKey(label),
+    [label]
+  );
+
+  const availableSet = useSelector(selectAvailable);
+
   return (
     <div className="filter-content-group">
       <div
@@ -44,25 +52,37 @@ export default function FiltersGroup({
         ref={contentRef}
         className={`filter-content-group-buttons ${isOpen ? "open" : ""}`}
       >
-        {values.map((el, i) => (
-          <div className="filter-content-button-wrapper" key={i}>
-            <div
-              className="filter-content-button-wrapper-left-withinput"
-              onClick={() =>
-                dispatch(toggleSpecValue({ key: label, value: el }))
-              }
-            >
+        {values.map((el) => {
+          const selectedValues = selectedSpecs[label] ?? [];
+          const isActive = selectedValues.includes(el);
+
+          // ✅ disabled тільки якщо НЕ активний і його нема серед доступних
+          const isDisabled = !isActive && !availableSet.has(el);
+
+          return (
+            <div className="filter-content-button-wrapper" key={el}>
               <div
-                className={`filter-content-button-wrapper-custom-input ${
-                  selectedSpecs[label].includes(el) && "active"
+                className={`filter-content-button-wrapper-left-withinput ${
+                  isDisabled ? "disabled" : ""
                 }`}
+                onClick={() => {
+                  if (isDisabled) return;
+                  dispatch(toggleSpecValue({ key: label, value: el }));
+                }}
               >
-                <FaCheck />
+                <div
+                  className={`filter-content-button-wrapper-custom-input ${
+                    isActive ? "active" : ""
+                  }`}
+                >
+                  <FaCheck />
+                </div>
+
+                <button disabled={isDisabled}>{el}</button>
               </div>
-              <button>{el}</button>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
