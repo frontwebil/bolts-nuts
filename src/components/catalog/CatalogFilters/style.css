@@ -18,6 +18,16 @@
 
 .CatalogFilters-content {
   padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-selected-content-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .filter-content-group {
@@ -33,8 +43,30 @@
   align-items: center;
   cursor: pointer;
   user-select: none;
+  width: 100%;
 }
 
+.filter-selected-content-button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-selected-content-button-wrapper-button {
+  padding: 12px;
+  background: var(--gray-0420, #c3c3c333);
+  border-radius: 6px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.filter-selected-content-button-wrapper-button svg {
+  color: #ff5a00;
+  font-size: 20px;
+}
 
 .filter-content-group-title h2 {
   font-size: 20px;

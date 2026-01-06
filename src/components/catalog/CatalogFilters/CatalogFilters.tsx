@@ -2,6 +2,7 @@
 
 import "../CatalogFilters/style.css";
 import { SelectedCategory } from "./SelectedCategory";
+import { SelectedFilters } from "./SelectedFilters";
 
 export function CatalogFilters() {
   return (
@@ -10,6 +11,7 @@ export function CatalogFilters() {
         <h3>Filter</h3>
       </div>
       <div className="CatalogFilters-content">
+        <SelectedFilters />
         <SelectedCategory />
       </div>
     </div>

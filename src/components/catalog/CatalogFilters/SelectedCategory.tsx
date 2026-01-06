@@ -26,6 +26,12 @@ export function SelectedCategory() {
   }, [isOpen]);
 
   useEffect(() => {
+    if (selectedCategory == "") {
+      setIsOpen(true);
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
     const id = requestAnimationFrame(() => setIsOpen(true));
     return () => cancelAnimationFrame(id);
   }, []);
@@ -34,6 +40,10 @@ export function SelectedCategory() {
     acc[product.category] = (acc[product.category] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+
+  if (selectedCategory && selectedCategory.trim() !== "") {
+    return null;
+  }
 
   return (
     <div className="filter-content-group">
