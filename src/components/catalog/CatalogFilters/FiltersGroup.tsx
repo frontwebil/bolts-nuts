@@ -19,6 +19,7 @@ export default function FiltersGroup({
   const [isOpen, setIsOpen] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const selectedValues = selectedSpecs[label] ?? [];
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -37,6 +38,25 @@ export default function FiltersGroup({
   );
 
   const availableSet = useSelector(selectAvailable);
+
+  const sortedValues = [...values].sort((a, b) => {
+    const aActive = selectedValues.includes(a);
+    const bActive = selectedValues.includes(b);
+
+    const aAvailable = availableSet.has(a);
+    const bAvailable = availableSet.has(b);
+
+    // 1️⃣ активні зверху
+    if (aActive && !bActive) return -1;
+    if (!aActive && bActive) return 1;
+
+    // 2️⃣ доступні вище недоступних
+    if (aAvailable && !bAvailable) return -1;
+    if (!aAvailable && bAvailable) return 1;
+
+    // 3️⃣ інакше — як було
+    return 0;
+  });
 
   return (
     <div className="filter-content-group">
