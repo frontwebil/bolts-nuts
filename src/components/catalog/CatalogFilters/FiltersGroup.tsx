@@ -39,24 +39,23 @@ export default function FiltersGroup({
 
   const availableSet = useSelector(selectAvailable);
 
-  const sortedValues = [...values].sort((a, b) => {
-    const aActive = selectedValues.includes(a);
-    const bActive = selectedValues.includes(b);
+  const sortedValues = useMemo(() => {
+    return [...values].sort((a, b) => {
+      const aActive = selectedValues.includes(a);
+      const bActive = selectedValues.includes(b);
 
-    const aAvailable = availableSet.has(a);
-    const bAvailable = availableSet.has(b);
+      const aAvailable = availableSet.has(a);
+      const bAvailable = availableSet.has(b);
 
-    // 1️⃣ активні зверху
-    if (aActive && !bActive) return -1;
-    if (!aActive && bActive) return 1;
+      if (aActive && !bActive) return -1;
+      if (!aActive && bActive) return 1;
 
-    // 2️⃣ доступні вище недоступних
-    if (aAvailable && !bAvailable) return -1;
-    if (!aAvailable && bAvailable) return 1;
+      if (aAvailable && !bAvailable) return -1;
+      if (!aAvailable && bAvailable) return 1;
 
-    // 3️⃣ інакше — як було
-    return 0;
-  });
+      return 0;
+    });
+  }, [values, selectedValues, availableSet]);
 
   return (
     <div className="filter-content-group">
@@ -72,7 +71,7 @@ export default function FiltersGroup({
         ref={contentRef}
         className={`filter-content-group-buttons ${isOpen ? "open" : ""}`}
       >
-        {values.map((el) => {
+        {sortedValues.map((el) => {
           const selectedValues = selectedSpecs[label] ?? [];
           const isActive = selectedValues.includes(el);
 
