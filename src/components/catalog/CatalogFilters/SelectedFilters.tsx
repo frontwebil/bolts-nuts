@@ -30,7 +30,7 @@ export function SelectedFilters() {
           {selectedCategory}
           <IoClose />
         </button>
-        {Object.entries(selectedSpecs).map((row, i) => {
+        {Object.entries(selectedSpecs).map((row) => {
           const label = row[0];
           const values = row[1];
 
