@@ -7,10 +7,14 @@ import { useSelector } from "react-redux";
 import "../CatalogCards/style.css";
 import Loader from "@/components/loader/Loader";
 import { PiCaretDownBold } from "react-icons/pi";
+import { selectFilteredProducts } from "@/redux/main/selector/selectFilteredProducts";
 
 export function CatalogCardsContainer() {
-  const { products, selectedCategory, typeCatalog, productsLoaded } =
-    useSelector((store: RootState) => store.productSlice);
+  const { selectedCategory, typeCatalog, productsLoaded } = useSelector(
+    (store: RootState) => store.productSlice
+  );
+
+  const products = useSelector(selectFilteredProducts);
 
   const cardsToShow = selectedCategory
     ? products.filter((el) => el.category == selectedCategory)

@@ -2,6 +2,9 @@ import { ProductWithRelations } from "@/types/ProductType";
 import { createSlice } from "@reduxjs/toolkit";
 
 type ProductOptions = ProductWithRelations["options"][number];
+type Spec = { key: string; value: string };
+type SpecOptions = Record<string, string[]>;
+type SelectedSpecs = Record<string, string[]>;
 
 type initialStateType = {
   products: ProductWithRelations[];
@@ -11,6 +14,8 @@ type initialStateType = {
   mainVariant: ProductOptions | null;
   productsFromGroups: ProductWithRelations[];
   productsLoaded: boolean;
+  filtersSpecs: SpecOptions;
+  selectedSpecs: SelectedSpecs;
 };
 
 const initialState: initialStateType = {
@@ -21,6 +26,8 @@ const initialState: initialStateType = {
   mainVariant: null,
   productsFromGroups: [],
   productsLoaded: false,
+  filtersSpecs: {},
+  selectedSpecs: {},
 };
 
 const parseInchValue = (value?: string | null): number => {
@@ -46,6 +53,19 @@ const parseInchValue = (value?: string | null): number => {
   return Number(clean);
 };
 
+export function buildSpecOptions(specs: Spec[]) {
+  const map: Record<string, Set<string>> = {};
+
+  for (const { key, value } of specs) {
+    if (!key || !value) continue;
+    (map[key] ??= new Set()).add(value);
+  }
+
+  return Object.fromEntries(
+    Object.entries(map).map(([k, set]) => [k, Array.from(set)])
+  ) as Record<string, string[]>;
+}
+
 const productSlice = createSlice({
   name: "Product Slice",
   initialState,
@@ -53,9 +73,40 @@ const productSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
       state.productsLoaded = true;
+
+      if (!state.selectedCategory) {
+        state.filtersSpecs = {};
+        state.selectedSpecs = {};
+      } else {
+        const categoryProducts = state.products.filter(
+          (p) => p.category === state.selectedCategory
+        );
+
+        const allSpecs = categoryProducts.flatMap((p) => p.specs ?? []);
+        state.filtersSpecs = buildSpecOptions(allSpecs);
+
+        state.selectedSpecs = Object.fromEntries(
+          Object.keys(state.filtersSpecs).map((k) => [k, []])
+        );
+      }
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
+      if (!state.selectedCategory) {
+        state.filtersSpecs = {};
+        state.selectedSpecs = {};
+      } else {
+        const categoryProducts = state.products.filter(
+          (p) => p.category === state.selectedCategory
+        );
+
+        const allSpecs = categoryProducts.flatMap((p) => p.specs ?? []);
+        state.filtersSpecs = buildSpecOptions(allSpecs);
+
+        state.selectedSpecs = Object.fromEntries(
+          Object.keys(state.filtersSpecs).map((k) => [k, []])
+        );
+      }
     },
     setTypeCatalog: (state, action) => {
       const validValues = [
@@ -102,6 +153,17 @@ const productSlice = createSlice({
       console.log(action.payload);
       state.mainVariant = action.payload;
     },
+    toggleSpecValue: (state, action) => {
+      const { key, value } = action.payload;
+
+      const arr = state.selectedSpecs[key];
+
+      if (arr.includes(value)) {
+        state.selectedSpecs[key] = arr.filter((v) => v !== value);
+      } else {
+        state.selectedSpecs[key].push(value);
+      }
+    },
   },
 });
 
@@ -112,6 +174,7 @@ export const {
   resetProductSlice,
   setCurrentProduct,
   setMainVariant,
+  toggleSpecValue,
 } = productSlice.actions;
 
 export default productSlice.reducer;
