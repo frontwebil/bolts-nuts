@@ -14,15 +14,20 @@ export function TextAccordeon({
   const [isOpen, setIsOpen] = useState(isOpenByDefault);
 
   useEffect(() => {
-    if (!contentRef.current) return;
+    setIsOpen(isOpenByDefault);
+  }, [isOpenByDefault, title]);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
 
     if (isOpen) {
-      contentRef.current.style.maxHeight =
-        contentRef.current.scrollHeight + "px";
+      el.style.maxHeight = el.scrollHeight + "px";
     } else {
-      contentRef.current.style.maxHeight = "0px";
+      el.style.maxHeight = "0px";
     }
-  }, [isOpen]);
+  }, [isOpen, text, title]);
+
   return (
     <div className="ProductPageDescription-accordeon">
       <div
