@@ -93,6 +93,7 @@
   color: #fafafa;
   font-size: 28px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .ProductPageWrapper-buttons {
@@ -163,10 +164,12 @@
     font-size: 26px;
     line-height: 29px;
   }
+
   .ProductPageWrapper-main-content-info-top p,
   .ProductPageWrapper-main-content-variants-options-title {
     font-size: 18px;
   }
+
   .ProductPageWrapper-buttons {
     position: fixed;
     bottom: 0;
@@ -174,10 +177,8 @@
     width: 100%;
     padding: 14px 16px;
     background: rgba(255, 255, 255, 1);
-
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.06);
-
     z-index: 5;
   }
 

@@ -81,10 +81,10 @@ export function ProductPageWrapper() {
           <ProductPageImages />
           <ProductPageInfo />
         </div>
-        {/* <div className="ProductPageWrapper-tech-description"> */}
-        {/* <ProductPageTech /> */}
-        {/* <ProductPageDescription /> */}
-        {/* </div> */}
+        <div className="ProductPageWrapper-tech-description">
+          <ProductPageTech />
+          <ProductPageDescription />
+        </div>
       </div>
       <SwiperCards cards={alsoMayLike} title="you may also like" />
     </div>
