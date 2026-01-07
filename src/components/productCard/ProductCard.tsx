@@ -10,10 +10,20 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
     data.options.find((el) => el.isMain) || data.options[0]
   );
 
+  const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
+  const priceWithDiscount = hasDiscount
+    ? Math.ceil(
+        mainVariant.price - mainVariant.price * (mainVariant.discount! / 100)
+      )
+    : mainVariant.price;
+
   return (
     <Link href={`/product/${data.slug}`} className="ProductCard">
+      {hasDiscount && (
+        <div className="ProductCard-discount">-{mainVariant.discount}%</div>
+      )}
       <div className="ProductCard-top">
-        <div className="ProductCard-img">
+        <div className={`ProductCard-img ${hasDiscount && "discount"}`}>
           <Image
             src={data.images[0]}
             width={256}
@@ -42,7 +52,14 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
         </div>
       </div>
       <div className="ProductCard-buttons">
-        <div className="ProductCard-button-price">${mainVariant.price}</div>
+        <div
+          className={`ProductCard-button-price ${hasDiscount && "discount"}`}
+        >
+          {hasDiscount && (
+            <p className="ProductCard-button-old-price">${mainVariant.price}</p>
+          )}
+          <p>${hasDiscount ? priceWithDiscount : mainVariant.price}</p>
+        </div>
         <div className="ProductCard-button-order">
           <PiShoppingCartSimpleBold />
           <p>Add</p>

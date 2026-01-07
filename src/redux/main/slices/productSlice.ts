@@ -9,6 +9,7 @@ type SelectedSpecs = Record<string, string[]>;
 type initialStateType = {
   products: ProductWithRelations[];
   selectedCategory: string;
+  sortBy: string;
   typeCatalog: string;
   currentProduct: ProductWithRelations | null;
   mainVariant: ProductOptions | null;
@@ -21,6 +22,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   products: [],
   selectedCategory: "",
+  sortBy: "Newest Arrivals",
   typeCatalog: "",
   currentProduct: null,
   mainVariant: null,
@@ -89,6 +91,9 @@ const productSlice = createSlice({
           Object.keys(state.filtersSpecs).map((k) => [k, []])
         );
       }
+    },
+    setOrderByOption: (state, action) => {
+      state.sortBy = action.payload;
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
@@ -181,6 +186,7 @@ export const {
   setMainVariant,
   toggleSpecValue,
   resetFilters,
+  setOrderByOption,
 } = productSlice.actions;
 
 export default productSlice.reducer;

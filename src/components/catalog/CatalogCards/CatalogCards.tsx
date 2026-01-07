@@ -6,15 +6,23 @@ import { useSelector } from "react-redux";
 
 import "../CatalogCards/style.css";
 import Loader from "@/components/loader/Loader";
-import { PiCaretDownBold } from "react-icons/pi";
 import { selectFilteredProducts } from "@/redux/main/selector/selectFilteredProducts";
+import { SortButton } from "./SortButton";
+import { ProductWithRelations } from "@/types/ProductType";
 
 export function CatalogCardsContainer() {
-  const { selectedCategory, typeCatalog, productsLoaded } = useSelector(
+  const { selectedCategory, typeCatalog, productsLoaded, sortBy } = useSelector(
     (store: RootState) => store.productSlice
   );
 
   const filteredProducts = useSelector(selectFilteredProducts);
+
+  const getProductPrice = (p: ProductWithRelations) => {
+    const main = p.options?.find((o) => o.isMain);
+    if (main) return main.price;
+
+    return Math.min(...p.options.map((o) => o.price));
+  };
 
   const cardsToShow = selectedCategory
     ? filteredProducts.filter((el) => el.category == selectedCategory)
@@ -59,22 +67,35 @@ export function CatalogCardsContainer() {
           </h2>
           <p>{cardsToShow.length} products</p>
         </div>
-        <div className="CatalogCards-top-end-content">
-          <div className="CatalogCards-sort-component">
-            <div className="CatalogCards-sort-component-title">
-              <p>Sort by:</p>
-              <div className="CatalogCards-sort-component-title-sort-option">
-                <p>Newest Arrivals</p>
-                <PiCaretDownBold />
-              </div>
-            </div>
-          </div>
-        </div>
+        <SortButton />
       </div>
       <div className="CatalogCardsContainer">
-        {cardsToShow.map((el) => (
-          <ProductCard data={el} key={el.id} />
-        ))}
+        {[...cardsToShow]
+          .sort((a: ProductWithRelations, b: ProductWithRelations) => {
+            if (sortBy === "Newest Arrivals") {
+              return (
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+              );
+            }
+
+            if (sortBy === "Price: Low to High") {
+              return getProductPrice(a) - getProductPrice(b);
+            }
+
+            if (sortBy === "Price: High to Low") {
+              return getProductPrice(b) - getProductPrice(a);
+            }
+
+            if (sortBy === "Best Selling") {
+              return Number(b.isBestSeller) - Number(a.isBestSeller);
+            }
+
+            return 0;
+          })
+          .map((el) => (
+            <ProductCard data={el} key={el.id} />
+          ))}
       </div>
     </div>
   );

@@ -37,11 +37,6 @@
   font-size: 18px;
 }
 
-/* .CatalogCards-top-end-content {
-}
-.CatalogCards-sort-component {
-} */
-
 .CatalogCards-sort-component-title {
   font-size: 18px;
   display: flex;
@@ -61,4 +56,37 @@
   align-items: center;
   gap: 12px;
   font-weight: 600;
+}
+
+.CatalogCards-top-end-content {
+  position: relative;
+}
+.CatalogCards-sort-component {
+  cursor: pointer;
+}
+
+.CatalogCards-top-end-content-sort-select {
+  padding: 20px 10px;
+  border-radius: 4px;
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  background: #fafafa;
+  border: 1px solid #c3c3c3;
+  width: 100%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.CatalogCards-top-end-content-sort-select-button {
+  font-size: 18px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-0460, #c3c3c399);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.CatalogCards-top-end-content-sort-select-button:hover {
+  color: #ff5a00;
 }

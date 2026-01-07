@@ -9,7 +9,21 @@
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  position: relative;
 }
+
+.ProductCard-discount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ff5a00;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 12px 15px;
+  border-radius: 10px 0 4px 0px;
+  color: #fafafa;
+}
+
 .ProductCard-top {
   display: flex;
   flex: 1;
@@ -26,6 +40,11 @@
   background: #5a5a5a1a;
   border-radius: 10px;
   padding: 10px;
+}
+
+.ProductCard-img.discount {
+  border: 1px solid #ff5a00;
+  background: #ff5a000d;
 }
 .ProductCard-img img {
   max-width: 100%;
@@ -67,18 +86,34 @@
   align-items: center;
   gap: 12px;
 }
+.ProductCard-button-price.discount {
+  border: 1px solid #ff5a00;
+  background: #ff5a000d;
+  color: #ff5a00;
+}
 .ProductCard-button-price {
   max-width: 100%;
   width: 100%;
   font-weight: 700;
   font-size: 20px;
   text-transform: uppercase;
-  padding: 14px;
   border: 1px solid #5a5a5a1a;
+  height: 100%;
+  align-items: center;
   border-radius: 4px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
+
+.ProductCard-button-old-price {
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: line-through;
+  line-height: 16px;
+  color: #222222;
+}
+
 .ProductCard-button-order {
   max-width: 100%;
   width: 100%;
@@ -154,6 +189,21 @@
   }
 }
 @media only screen and (max-width: 1100px) {
+  .ProductCard-button-price {
+    padding: 11px;
+  }
+  .ProductCard-discount {
+    font-size: 20px;
+    padding: 8px 12px;
+  }
+  .ProductCard-button-price.discount {
+    flex-direction: row-reverse;
+    gap: 10px;
+    padding: 11px;
+  }
+  .ProductCard-button-old-price {
+    font-size: 13px;
+  }
   .ProductCard-img {
     height: 210px;
   }
@@ -182,7 +232,6 @@
     font-size: 16px;
   }
   .ProductCard-button-price {
-    padding: 11px;
     font-size: 16px;
   }
   .ProductCard-button-order {
@@ -194,6 +243,10 @@
   }
 }
 @media only screen and (max-width: 600px) {
+  .ProductCard-discount {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
   .ProductCard-img {
     height: 160px;
   }
@@ -204,7 +257,6 @@
     font-size: 14px;
   }
   .ProductCard-button-price {
-    padding: 11px;
     font-size: 16px;
   }
   .ProductCard-button-order {

@@ -13,14 +13,12 @@ import { RootState } from "@/redux/main/store";
 export function CatalogWrapper() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "";
-  const category = searchParams.get("category") || "";
+  // const category = searchParams.get("category") || "";
   const dispatch = useDispatch();
   const { typeCatalog } = useSelector((store: RootState) => store.productSlice);
   useEffect(() => {
     dispatch(setTypeCatalog(type));
   }, [dispatch, type]);
-
-  console.log(category);
 
   return (
     <div className="CatalogWrapper">

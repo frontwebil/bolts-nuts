@@ -23,7 +23,7 @@ export function SelectedCategory() {
     } else {
       contentRef.current.style.maxHeight = "0px";
     }
-  }, [isOpen]);
+  }, [isOpen, selectedCategory]);
 
   useEffect(() => {
     if (selectedCategory == "") {
