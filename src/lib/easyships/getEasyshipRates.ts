@@ -4,7 +4,7 @@ export async function getEasyshipRates() {
   });
 
   const data = await res.json();
-
+  console.log(data);
   if (!res.ok) {
     throw new Error(data.error || "Easyship API error");
   }

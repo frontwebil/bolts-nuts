@@ -16,7 +16,7 @@ export async function POST() {
     headers: {
       accept: "application/json",
       "content-type": "application/json",
-      authorization: `Bearer ${process.env.EASYSHIP_KEY}`, // ❗БЕЗ NEXT_PUBLIC
+      authorization: `Bearer ${process.env.EASYSHIP_KEY}`,
     },
     body: JSON.stringify({
       origin_address: OriginAddress,

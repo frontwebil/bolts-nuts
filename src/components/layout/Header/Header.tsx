@@ -15,7 +15,6 @@ import { closeBurger } from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
 
 export function Header() {
-
   const HeaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(110);

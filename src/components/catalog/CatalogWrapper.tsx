@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setTypeCatalog } from "@/redux/main/slices/productSlice";
 import { RootState } from "@/redux/main/store";
+import { useWindowWidth } from "@/hooks/useWidth";
+import { CatalogFiltersMobile } from "./CatalogFilters/CatalogFiltersMobile";
 
 export function CatalogWrapper() {
   const searchParams = useSearchParams();
@@ -19,6 +21,7 @@ export function CatalogWrapper() {
   useEffect(() => {
     dispatch(setTypeCatalog(type));
   }, [dispatch, type]);
+  const width = useWindowWidth();
 
   return (
     <div className="CatalogWrapper">
@@ -29,7 +32,7 @@ export function CatalogWrapper() {
         ]}
       />
       <div className="CatalogWrapper-flex">
-        <CatalogFilters />
+        {width && width > 768 ? <CatalogFilters /> : <CatalogFiltersMobile />}
         <CatalogCardsContainer />
       </div>
     </div>

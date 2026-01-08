@@ -9,6 +9,8 @@ type initialStateType = {
   authFormOption: AuthOption;
   isOpenAuthModal: boolean;
   confirmEmail: string;
+  isOpenFilterMenu: boolean;
+  isOpenSortMenu: boolean;
 };
 
 const initialState: initialStateType = {
@@ -17,6 +19,8 @@ const initialState: initialStateType = {
   authFormOption: "login",
   isOpenAuthModal: false,
   confirmEmail: "",
+  isOpenFilterMenu: false,
+  isOpenSortMenu: false,
 };
 
 const uiSlice = createSlice({
@@ -46,6 +50,12 @@ const uiSlice = createSlice({
     setConfirmEmail(state, action) {
       state.confirmEmail = action.payload;
     },
+    openFilterMenu(state) {
+      state.isOpenFilterMenu = true;
+    },
+    closeFilterMenu(state) {
+      state.isOpenFilterMenu = false;
+    },
   },
 });
 
@@ -57,6 +67,8 @@ export const {
   openAuthModal,
   closeAuthModal,
   setConfirmEmail,
+  openFilterMenu,
+  closeFilterMenu,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

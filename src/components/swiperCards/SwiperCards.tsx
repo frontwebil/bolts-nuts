@@ -1,6 +1,6 @@
 "use client";
 
-import { PiArrowLineUpRightBold } from "react-icons/pi";
+// import { PiArrowLineUpRightBold } from "react-icons/pi";
 import "../swiperCards/style.css";
 import { ProductCard } from "../productCard/ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";

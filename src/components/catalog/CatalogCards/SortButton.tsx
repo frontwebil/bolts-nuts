@@ -1,13 +1,17 @@
 import { setOrderByOption } from "@/redux/main/slices/productSlice";
+import { openFilterMenu } from "@/redux/main/slices/uiSlice";
 import { RootState } from "@/redux/main/store";
-import { useState } from "react";
-import { PiCaretDownBold } from "react-icons/pi";
+import { useEffect, useRef, useState } from "react";
+import { PiCaretDownBold, PiFaders } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 
 export function SortButton() {
-  const [isOpen, setIsOpen] = useState(true);
-  const { sortBy } = useSelector((store: RootState) => store.productSlice);
+  const [isOpen, setIsOpen] = useState(false);
+  const { sortBy, selectedSpecs, selectedCategory } = useSelector(
+    (store: RootState) => store.productSlice
+  );
   const dispatch = useDispatch();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const sortOptions = [
     "Best Selling",
@@ -16,8 +20,42 @@ export function SortButton() {
     "Price: High to Low",
   ];
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const totalSelected = Object.values(selectedSpecs).reduce(
+    (sum, arr) => sum + arr.length,
+    0
+  );
+
   return (
-    <div className="CatalogCards-top-end-content">
+    <div className="CatalogCards-top-end-content" ref={ref}>
+      <div
+        className="CatalogCards-top-end-content-filter-mobile"
+        onClick={() => {
+          setIsOpen(false);
+          dispatch(openFilterMenu());
+        }}
+      >
+        <PiFaders />
+        <p>
+          Filter{" "}
+          <span className="font-semibold text-[#FF5A00]">
+            ({selectedCategory ? totalSelected + 1 : totalSelected})
+          </span>
+        </p>
+      </div>
       <div
         className="CatalogCards-sort-component"
         onClick={() => setIsOpen(!isOpen)}
@@ -35,7 +73,9 @@ export function SortButton() {
           {sortOptions.map((el, i) => {
             return (
               <div
-                className="CatalogCards-top-end-content-sort-select-button"
+                className={`CatalogCards-top-end-content-sort-select-button ${
+                  sortBy == el && "active"
+                }`}
                 key={i}
                 onClick={() => {
                   dispatch(setOrderByOption(el));

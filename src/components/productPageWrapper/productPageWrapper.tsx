@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductBreadcrums } from "../breadcrums/ProductBreadcrums";
 import { useParams, useRouter } from "next/navigation";
@@ -16,6 +17,45 @@ import "./style.css";
 import { ProductPageTech } from "./ProductPageDescription/productPageTech/ProductPageTech";
 import { ProductPageDescription } from "./ProductPageDescription/productPageDescription/ProductPageDescription";
 import { SwiperCards } from "../swiperCards/SwiperCards";
+
+function saveRecentProduct(product: { id: string; slug: string }) {
+  const LIMIT = 10;
+
+  const raw = Cookies.get("recentProducts");
+  let arr: { id: string; slug: string }[] = [];
+
+  if (raw) {
+    try {
+      arr = JSON.parse(raw);
+    } catch {
+      arr = [];
+    }
+  }
+
+  arr = arr.filter((p) => p.id !== product.id);
+
+  // ➕ добавляем в начало
+  arr.unshift({ id: product.id, slug: product.slug });
+
+  // ✂ ограничиваем длину
+  arr = arr.slice(0, LIMIT);
+
+  Cookies.set("recentProducts", JSON.stringify(arr), {
+    expires: 7,
+    sameSite: "lax",
+  });
+}
+
+function getRecentProducts(): { id: string; slug: string }[] {
+  const raw = Cookies.get("recentProducts");
+  if (!raw) return [];
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
 
 export function ProductPageWrapper() {
   const dispatch = useDispatch();
@@ -36,6 +76,8 @@ export function ProductPageWrapper() {
     }
 
     dispatch(setCurrentProduct(product));
+
+    saveRecentProduct({ id: product.id, slug: product.slug });
   }, [productsLoaded, products, slug, dispatch, router]);
 
   if (!currentProduct || !products) {
@@ -58,6 +100,14 @@ export function ProductPageWrapper() {
     return (
       el.category === currentProduct.category &&
       el.productGroup !== currentProduct.productGroup
+    );
+  });
+
+  const recentProductsId = getRecentProducts();
+
+  const recentViewed = products.filter((el) => {
+    return recentProductsId.some(
+      (recent) => recent.id == el.id && recent.id !== currentProduct.id
     );
   });
 
@@ -87,6 +137,9 @@ export function ProductPageWrapper() {
         </div>
       </div>
       <SwiperCards cards={alsoMayLike} title="you may also like" />
+      {recentViewed.length > 0 && (
+        <SwiperCards cards={recentViewed} title="Recently viewed" />
+      )}
     </div>
   );
 }

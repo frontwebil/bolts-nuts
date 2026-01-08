@@ -34,7 +34,7 @@
 
 .CatalogCards-top-start-content p {
   color: #6c6c6c;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .CatalogCards-sort-component-title {
@@ -87,6 +87,117 @@
   cursor: pointer;
 }
 
+.CatalogCards-top-end-content-sort-select-button.active {
+  color: #ff5a00;
+  font-weight: 500;
+}
 .CatalogCards-top-end-content-sort-select-button:hover {
   color: #ff5a00;
+}
+
+.CatalogCards-top-end-content-filter-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 1440px) {
+  .CatalogCardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .CatalogCards-top-start-content p {
+    font-size: 18px;
+  }
+  .CatalogCards-top-start-content {
+    gap: 15px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .CatalogCards-top-start-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .CatalogCards-top-end-content-sort-select {
+    width: 200px;
+    gap: 12px;
+    padding: 15px 10px;
+  }
+  .CatalogCards-top-end-content-sort-select-button {
+    padding-bottom: 12px;
+    font-size: 16px;
+  }
+  .CatalogCards-top-start-content h2 {
+    font-size: 27px;
+  }
+
+  .CatalogCards-sort-component-title {
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .CatalogCardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .CatalogCards-top-start-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .CatalogCards-sort-component-title {
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 12px;
+    gap: 10px;
+    width: 100%;
+    font-weight: 600;
+    background: var(--gray-0310, #5a5a5a1a);
+  }
+  .CatalogCards-sort-component {
+    width: 100%;
+  }
+  .CatalogCards-top-end-content {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+  }
+  .CatalogCards-top {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .CatalogCards-top-end-content-filter-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 12px;
+    gap: 10px;
+    font-size: 18px;
+    width: 100%;
+    font-weight: 600;
+    background: var(--gray-0310, #5a5a5a1a);
+  }
+  .CatalogCards-top-end-content-sort-select {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 615px) {
+  .CatalogCards-top-end-content-sort-select {
+    width: 70%;
+  }
+  .CatalogCards-top-start-content h2 {
+    font-size: 20px;
+  }
+  .CatalogCards-top-start-content p {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 460px) {
 }

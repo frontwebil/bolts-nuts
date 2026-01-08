@@ -12,6 +12,7 @@ type initialStateType = {
   sortBy: string;
   typeCatalog: string;
   currentProduct: ProductWithRelations | null;
+  recentViewProducts: string[];
   mainVariant: ProductOptions | null;
   productsFromGroups: ProductWithRelations[];
   productsLoaded: boolean;
@@ -27,6 +28,7 @@ const initialState: initialStateType = {
   currentProduct: null,
   mainVariant: null,
   productsFromGroups: [],
+  recentViewProducts: [],
   productsLoaded: false,
   filtersSpecs: {},
   selectedSpecs: {},
