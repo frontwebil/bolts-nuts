@@ -35,9 +35,13 @@ export function CatalogBurgerMenu() {
 
   const { products } = useSelector((store: RootState) => store.productSlice);
 
-  const cardsToShowCategoryes = products.filter(
-    (el) => el.category == activeCategory
-  );
+  const cardsToShowCategoryes = products.filter((el) => {
+    if (activeCategory === "Bestsellers") {
+      return el.isBestSeller === true; // або просто el.bestSeller
+    }
+
+    return el.category === activeCategory;
+  });
 
   useEffect(() => {
     if (isOpenCatalog) {

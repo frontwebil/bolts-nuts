@@ -70,7 +70,6 @@ export function ProductGeneralInfo() {
           Product Brand
         </label>
         <input
-          required
           type="text"
           value={brandName}
           onChange={(e) =>

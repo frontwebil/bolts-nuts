@@ -46,7 +46,7 @@ function saveRecentProduct(product: { id: string; slug: string }) {
   });
 }
 
-function getRecentProducts(): { id: string; slug: string }[] {
+export function getRecentProducts(): { id: string; slug: string }[] {
   const raw = Cookies.get("recentProducts");
   if (!raw) return [];
 

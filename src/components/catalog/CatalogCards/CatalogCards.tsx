@@ -17,11 +17,18 @@ export function CatalogCardsContainer() {
 
   const filteredProducts = useSelector(selectFilteredProducts);
 
-  const getProductPrice = (p: ProductWithRelations) => {
-    const main = p.options?.find((o) => o.isMain);
-    if (main) return main.price;
+  const getDiscountedPrice = (price: number, discount?: number | null) => {
+    if (!discount || discount <= 0) return price;
 
-    return Math.min(...p.options.map((o) => o.price));
+    // 2 знаки після коми, 1.125 -> 1.13
+    return Math.round(price * (1 - discount / 100) * 100) / 100;
+  };
+
+  const getProductPrice = (p: ProductWithRelations) => {
+    const main = p.options?.find((o) => o.isMain) || p.options?.[0];
+    if (!main) return 0;
+
+    return getDiscountedPrice(main.price, main.discount);
   };
 
   const cardsToShow = selectedCategory

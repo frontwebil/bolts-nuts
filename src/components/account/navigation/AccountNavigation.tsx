@@ -11,7 +11,6 @@ import Link from "next/link";
 
 export function AccountNavigation() {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <div className="AccountPage-content-navigation">
       <div className="AccountPage-content-navigation-top-info">

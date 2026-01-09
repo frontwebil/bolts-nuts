@@ -4,6 +4,8 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { ProductWithRelations } from "@/types/ProductType";
 import Link from "next/link";
 import { useState } from "react";
+import { BsBookmark, BsBookmarkCheck } from "react-icons/bs";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
   const [mainVariant, setMainVariant] = useState(
@@ -21,6 +23,10 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
       {hasDiscount && (
         <div className="ProductCard-discount">-{mainVariant.discount}%</div>
       )}
+      <div className="ProductCard-save">
+        <FaRegBookmark />
+        {/* <FaBookmark /> */}
+      </div>
       <div className="ProductCard-top">
         <div className={`ProductCard-img ${hasDiscount && "discount"}`}>
           <Image

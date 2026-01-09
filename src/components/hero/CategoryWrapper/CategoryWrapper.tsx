@@ -4,14 +4,18 @@ import Image from "next/image";
 import "../CategoryWrapper/style.css";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { resetFilters } from "@/redux/main/slices/productSlice";
 
 export function CategoryWrapper() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const data = [
     {
       title: "NEW ARRIVALS",
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
+        dispatch(resetFilters());
         router.replace("/catalog?type=new-arrivals");
       },
     },
@@ -19,6 +23,7 @@ export function CategoryWrapper() {
       title: "TOP-PRODUCTS",
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
+        dispatch(resetFilters());
         router.replace("/catalog?type=bestseller");
       },
     },
@@ -26,13 +31,15 @@ export function CategoryWrapper() {
       title: "ON SALE",
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
+        dispatch(resetFilters());
         router.replace("/catalog?type=on-sale");
       },
     },
     {
-      title: "RECOMMENDED",
+      title: "YOU MAY LIKE",
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
+        dispatch(resetFilters());
         router.replace("/catalog?type=recommended");
       },
     },
@@ -40,6 +47,7 @@ export function CategoryWrapper() {
       title: "CATALOGUE",
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
+        dispatch(resetFilters());
         router.replace("/catalog");
       },
     },

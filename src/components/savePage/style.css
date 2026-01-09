@@ -1,0 +1,47 @@
+.SavePageWrapper {
+  margin: 120px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 560px;
+}
+.SavePageWrapper h3 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff5a00;
+  text-transform: uppercase;
+}
+
+.SavePageWrapper h2 {
+  text-transform: uppercase;
+  font-size: 40px;
+  font-weight: 700;
+  color: #222222;
+  margin-bottom: 15px;
+}
+.SavePageWrapper p {
+  color: #5a5a5a;
+  font-size: 20px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+.SavePageWrapper-button {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: 600;
+  padding: 15px;
+  color: #fafafa;
+  background-color: #ff5a00;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.SavePageWrapper-button:hover {
+  background: #e04f00;
+  box-shadow: 0 6px 16px #ff5a0066;
+}
+
+.margin-top{
+  margin-top: 40px;
+}

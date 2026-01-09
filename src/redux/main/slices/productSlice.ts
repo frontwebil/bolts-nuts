@@ -162,7 +162,6 @@ const productSlice = createSlice({
     },
 
     setMainVariant: (state, action) => {
-      console.log(action.payload);
       state.mainVariant = action.payload;
     },
     toggleSpecValue: (state, action) => {
