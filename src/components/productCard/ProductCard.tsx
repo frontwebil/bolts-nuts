@@ -12,9 +12,8 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
 
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
   const priceWithDiscount = hasDiscount
-    ? Math.ceil(
-        mainVariant.price - mainVariant.price * (mainVariant.discount! / 100)
-      )
+    ? Math.round(mainVariant.price * (1 - mainVariant.discount! / 100) * 100) /
+      100
     : mainVariant.price;
 
   return (
@@ -58,7 +57,12 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
           {hasDiscount && (
             <p className="ProductCard-button-old-price">${mainVariant.price}</p>
           )}
-          <p>${hasDiscount ? priceWithDiscount : mainVariant.price}</p>
+          <p>
+            $
+            {hasDiscount
+              ? priceWithDiscount.toFixed(2)
+              : mainVariant.price.toFixed(2)}
+          </p>
         </div>
         <div className="ProductCard-button-order">
           <PiShoppingCartSimpleBold />

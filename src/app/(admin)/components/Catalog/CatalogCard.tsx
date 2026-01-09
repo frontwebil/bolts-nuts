@@ -16,9 +16,8 @@ export default function CatalogCard({
   const mainVariant = product.options.filter((el) => el.isMain)[0];
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
   const priceWithDiscount = hasDiscount
-    ? Math.ceil(
-        mainVariant.price - mainVariant.price * (mainVariant.discount! / 100)
-      )
+    ? Math.round(mainVariant.price * (1 - mainVariant.discount! / 100) * 100) /
+      100
     : mainVariant.price;
 
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -87,10 +86,10 @@ export default function CatalogCard({
         {hasDiscount ? (
           <>
             <div className="font-semibold text-neutral-900">
-              ${priceWithDiscount}
+              ${priceWithDiscount.toFixed(2)}
             </div>
             <div className="ml-2 text-xs text-neutral-500 line-through">
-              ${mainVariant.price}
+              ${mainVariant.price.toFixed(2)}
             </div>
           </>
         ) : (
