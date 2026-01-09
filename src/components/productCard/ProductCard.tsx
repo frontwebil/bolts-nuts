@@ -4,7 +4,6 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { ProductWithRelations } from "@/types/ProductType";
 import Link from "next/link";
 import { useState } from "react";
-import { BsBookmark, BsBookmarkCheck } from "react-icons/bs";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
