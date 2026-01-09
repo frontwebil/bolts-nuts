@@ -6,13 +6,15 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 export function ProductPageImages() {
-  const { currentProduct } = useSelector(
+  const { currentProduct, mainVariant } = useSelector(
     (store: RootState) => store.productSlice
   );
 
   const [currentImgId, setCurrentImgId] = useState(0);
 
-  if (!currentProduct) return;
+  if (!currentProduct || !mainVariant) return;
+
+  const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
 
   return (
     <div className="ProductPageWrapper-main-content-images">
@@ -31,7 +33,11 @@ export function ProductPageImages() {
           />
         ))}
       </div>
-      <div className="ProductPageWrapper-main-content-images-main-image">
+      <div
+        className={`ProductPageWrapper-main-content-images-main-image ${
+          hasDiscount && "discount"
+        }`}
+      >
         <Image
           src={currentProduct?.images[currentImgId]}
           width={1000}

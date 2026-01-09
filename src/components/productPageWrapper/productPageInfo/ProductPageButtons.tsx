@@ -31,12 +31,32 @@ export function ProductPageButtons() {
     return () => observer.disconnect();
   }, [width]);
 
+  if (!mainVariant) return null;
+
+  const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
+  const priceWithDiscount = hasDiscount
+    ? Math.round(mainVariant.price * (1 - mainVariant.discount! / 100) * 100) /
+      100
+    : mainVariant.price;
+
   return (
     <div
       className={`ProductPageWrapper-buttons ${hidden ? "buttons-hidden" : ""}`}
     >
-      <div className="ProductPageWrapper-buttons-price">
-        ${mainVariant?.price}
+      <div
+        className={`ProductPageWrapper-buttons-price ${
+          hasDiscount && "discount"
+        }`}
+      >
+        <p>
+          $
+          {hasDiscount
+            ? priceWithDiscount.toFixed(2)
+            : mainVariant.price.toFixed(2)}
+        </p>
+        {hasDiscount && (
+          <p className="ProductPageWrapper-old-price">${mainVariant.price}</p>
+        )}
       </div>
 
       <div className="ProductPageWrapper-buttons-addToCart">

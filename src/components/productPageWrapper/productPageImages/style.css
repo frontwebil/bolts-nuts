@@ -37,6 +37,11 @@
   align-items: center;
 }
 
+.ProductPageWrapper-main-content-images-main-image.discount {
+  background: #ff5a000d;
+  border: 1px solid #ff5a00;
+}
+
 @media only screen and (max-width: 1440px) {
 }
 

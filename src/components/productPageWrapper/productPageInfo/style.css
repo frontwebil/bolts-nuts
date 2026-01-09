@@ -75,11 +75,26 @@
   padding: 20px 20px;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
   background: #5a5a5a1a;
   border-radius: 4px;
   font-size: 28px;
   font-weight: 700;
+}
+
+.ProductPageWrapper-buttons-price.discount {
+  color: #ff5a00;
+  background: #ff5a000d;
+  border: 1px solid #ff5a00;
+}
+
+.ProductPageWrapper-old-price {
+  color: #222;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: line-through;
 }
 .ProductPageWrapper-buttons-addToCart {
   padding: 20px 20px;
@@ -150,6 +165,7 @@
   .ProductPageWrapper-buttons-price {
     font-size: 18px;
     width: 50%;
+    gap: 8px;
   }
   .ProductPageWrapper-buttons-addToCart {
     font-size: 16px;
@@ -157,6 +173,9 @@
   }
   .ProductPageWrapper-main-content-variants-options-cards {
     gap: 10px;
+  }
+  .ProductPageWrapper-old-price {
+    font-size: 16px;
   }
 }
 @media only screen and (max-width: 830px) {
@@ -186,6 +205,11 @@
     font-size: 18px;
     width: 100%;
   }
+
+  .ProductPageWrapper-old-price {
+    font-size: 16px;
+  }
+
   .ProductPageWrapper-buttons-addToCart,
   .ProductPageWrapper-buttons-price {
     padding: 18px;
@@ -209,6 +233,9 @@
   .ProductPageWrapper-buttons-price {
     width: 60%;
     font-size: 16px;
+  }
+  .ProductPageWrapper-old-price {
+    font-size: 14px;
   }
   .ProductPageWrapper-buttons {
     padding: 12px;
