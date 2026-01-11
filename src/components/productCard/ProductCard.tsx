@@ -14,6 +14,7 @@ import {
 import { RootState } from "@/redux/main/store";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { FullScreenLoader } from "../loader/FullScreenLoader";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
   const session = useSession();
@@ -63,73 +64,78 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
   };
 
   return (
-    <Link href={`/product/${data.slug}`} className="ProductCard">
-      {hasDiscount && (
-        <div className="ProductCard-discount">-{mainVariant.discount}%</div>
-      )}
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          addToFavorites();
-        }}
-        className={`ProductCard-save ${
-          favoriteProducts.includes(data.id) && "favorites"
-        }`}
-      >
-        {favoriteProducts.includes(data.id) ? (
-          <FaBookmark />
-        ) : (
-          <FaRegBookmark />
+    <>
+      {saveLoading && <FullScreenLoader />}
+      <Link href={`/product/${data.slug}`} className="ProductCard">
+        {hasDiscount && (
+          <div className="ProductCard-discount">-{mainVariant.discount}%</div>
         )}
-      </button>
-      <div className="ProductCard-top">
-        <div className={`ProductCard-img ${hasDiscount && "discount"}`}>
-          <Image
-            src={data.images[0]}
-            width={256}
-            height={256}
-            alt={data.title}
-          />
-        </div>
-        <div className="ProductCard-text">
-          <h3>{data.title}</h3>
-          <div className="ProductCard-counts">
-            {data.options.map((el) => (
-              <button
-                key={el.id}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMainVariant(el);
-                }}
-                className={`count-item ${
-                  mainVariant.id === el.id ? "active" : ""
-                }`}
-              >
-                {el.value}
-              </button>
-            ))}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            addToFavorites();
+          }}
+          className={`ProductCard-save ${
+            favoriteProducts.includes(data.id) && "favorites"
+          }`}
+        >
+          {favoriteProducts.includes(data.id) ? (
+            <FaBookmark />
+          ) : (
+            <FaRegBookmark />
+          )}
+        </button>
+        <div className="ProductCard-top">
+          <div className={`ProductCard-img ${hasDiscount && "discount"}`}>
+            <Image
+              src={data.images[0]}
+              width={256}
+              height={256}
+              alt={data.title}
+            />
+          </div>
+          <div className="ProductCard-text">
+            <h3>{data.title}</h3>
+            <div className="ProductCard-counts">
+              {data.options.map((el) => (
+                <button
+                  key={el.id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMainVariant(el);
+                  }}
+                  className={`count-item ${
+                    mainVariant.id === el.id ? "active" : ""
+                  }`}
+                >
+                  {el.value}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="ProductCard-buttons">
-        <div
-          className={`ProductCard-button-price ${hasDiscount && "discount"}`}
-        >
-          {hasDiscount && (
-            <p className="ProductCard-button-old-price">${mainVariant.price}</p>
-          )}
-          <p>
-            $
-            {hasDiscount
-              ? priceWithDiscount.toFixed(2)
-              : mainVariant.price.toFixed(2)}
-          </p>
+        <div className="ProductCard-buttons">
+          <div
+            className={`ProductCard-button-price ${hasDiscount && "discount"}`}
+          >
+            {hasDiscount && (
+              <p className="ProductCard-button-old-price">
+                ${mainVariant.price}
+              </p>
+            )}
+            <p>
+              $
+              {hasDiscount
+                ? priceWithDiscount.toFixed(2)
+                : mainVariant.price.toFixed(2)}
+            </p>
+          </div>
+          <div className="ProductCard-button-order">
+            <PiShoppingCartSimpleBold />
+            <p>Add</p>
+          </div>
         </div>
-        <div className="ProductCard-button-order">
-          <PiShoppingCartSimpleBold />
-          <p>Add</p>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </>
   );
 }
