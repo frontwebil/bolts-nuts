@@ -221,6 +221,13 @@
   }
 }
 @media only screen and (max-width: 1100px) {
+  .ProductCard-save {
+    width: 38px;
+    height: 38px;
+  }
+  .ProductCard-save svg {
+    height: 18px;
+  }
   .ProductCard-button-price {
     padding: 11px;
   }
@@ -275,6 +282,15 @@
   }
 }
 @media only screen and (max-width: 600px) {
+  .ProductCard-save {
+    width: 34px;
+    height: 34px;
+    top: 5px;
+    right: 5px;
+  }
+  .ProductCard-save svg {
+    height: 16px;
+  }
   .ProductCard-discount {
     font-size: 16px;
     padding: 8px 12px;

@@ -66,6 +66,14 @@ export function ProductPageWrapper() {
   );
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth", // можно убрать если нужен мгновенный скролл
+    });
+  }, [slug]);
+
+  useEffect(() => {
     if (!productsLoaded) return;
 
     const product = products.find((el) => el.slug === slug);
