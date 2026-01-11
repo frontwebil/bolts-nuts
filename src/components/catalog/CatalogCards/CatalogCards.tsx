@@ -17,6 +17,14 @@ export function CatalogCardsContainer() {
 
   const filteredProducts = useSelector(selectFilteredProducts);
 
+  const getMainOption = (p: ProductWithRelations) =>
+    p.options?.find((o) => o.isMain) || p.options?.[0];
+
+  const getDiscountPercent = (p: ProductWithRelations) => {
+    const main = getMainOption(p);
+    return main?.discount && main.discount > 0 ? main.discount : 0;
+  };
+
   const getDiscountedPrice = (price: number, discount?: number | null) => {
     if (!discount || discount <= 0) return price;
 
@@ -96,6 +104,12 @@ export function CatalogCardsContainer() {
 
             if (sortBy === "Best Selling") {
               return Number(b.isBestSeller) - Number(a.isBestSeller);
+            }
+
+            if (sortBy === "On Sale") {
+              const aOnSale = getDiscountPercent(a) > 0;
+              const bOnSale = getDiscountPercent(b) > 0;
+              return Number(bOnSale) - Number(aOnSale);
             }
 
             return 0;

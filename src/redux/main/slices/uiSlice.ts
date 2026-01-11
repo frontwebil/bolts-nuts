@@ -11,6 +11,7 @@ type initialStateType = {
   confirmEmail: string;
   isOpenFilterMenu: boolean;
   isOpenSortMenu: boolean;
+  favoriteProducts: string[];
 };
 
 const initialState: initialStateType = {
@@ -21,6 +22,7 @@ const initialState: initialStateType = {
   confirmEmail: "",
   isOpenFilterMenu: false,
   isOpenSortMenu: false,
+  favoriteProducts: [],
 };
 
 const uiSlice = createSlice({
@@ -56,6 +58,9 @@ const uiSlice = createSlice({
     closeFilterMenu(state) {
       state.isOpenFilterMenu = false;
     },
+    setFavoriteProducts(state, action) {
+      state.favoriteProducts = action.payload;
+    },
   },
 });
 
@@ -69,6 +74,7 @@ export const {
   setConfirmEmail,
   openFilterMenu,
   closeFilterMenu,
+  setFavoriteProducts,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

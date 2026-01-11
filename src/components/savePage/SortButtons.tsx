@@ -1,22 +1,22 @@
-import { setOrderByOption } from "@/redux/main/slices/productSlice";
+import { setOrderBySaveOption } from "@/redux/main/slices/productSlice";
 import { openFilterMenu } from "@/redux/main/slices/uiSlice";
 import { RootState } from "@/redux/main/store";
 import { useEffect, useRef, useState } from "react";
 import { PiCaretDownBold, PiFaders } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 
-export function SortButton() {
+export function SortButtonSaved() {
   const [isOpen, setIsOpen] = useState(false);
-  const { sortBy, selectedSpecs, selectedCategory } = useSelector(
+  const { sortBySaved, selectedSpecs, selectedCategory } = useSelector(
     (store: RootState) => store.productSlice
   );
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement | null>(null);
 
   const sortOptions = [
+    "Newest",
     "On Sale",
     "Best Selling",
-    "Newest Arrivals",
     "Price: Low to High",
     "Price: High to Low",
   ];
@@ -64,7 +64,7 @@ export function SortButton() {
         <div className="CatalogCards-sort-component-title">
           <p>Sort by:</p>
           <div className="CatalogCards-sort-component-title-sort-option">
-            <p>{sortBy}</p>
+            <p>{sortBySaved}</p>
             <PiCaretDownBold />
           </div>
         </div>
@@ -75,11 +75,11 @@ export function SortButton() {
             return (
               <div
                 className={`CatalogCards-top-end-content-sort-select-button ${
-                  sortBy == el && "active"
+                  sortBySaved == el && "active"
                 }`}
                 key={i}
                 onClick={() => {
-                  dispatch(setOrderByOption(el));
+                  dispatch(setOrderBySaveOption(el));
                   setIsOpen(false);
                 }}
               >

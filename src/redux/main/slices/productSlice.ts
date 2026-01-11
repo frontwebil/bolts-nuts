@@ -10,6 +10,7 @@ type initialStateType = {
   products: ProductWithRelations[];
   selectedCategory: string;
   sortBy: string;
+  sortBySaved: string;
   typeCatalog: string;
   currentProduct: ProductWithRelations | null;
   recentViewProducts: string[];
@@ -24,6 +25,7 @@ const initialState: initialStateType = {
   products: [],
   selectedCategory: "",
   sortBy: "Newest Arrivals",
+  sortBySaved: "Newest",
   typeCatalog: "",
   currentProduct: null,
   mainVariant: null,
@@ -97,6 +99,9 @@ const productSlice = createSlice({
     setOrderByOption: (state, action) => {
       state.sortBy = action.payload;
     },
+    setOrderBySaveOption: (state, action) => {
+      state.sortBySaved = action.payload;
+    },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
       if (!state.selectedCategory) {
@@ -160,7 +165,6 @@ const productSlice = createSlice({
             })
         : [];
     },
-
     setMainVariant: (state, action) => {
       state.mainVariant = action.payload;
     },
@@ -188,6 +192,7 @@ export const {
   toggleSpecValue,
   resetFilters,
   setOrderByOption,
+  setOrderBySaveOption,
 } = productSlice.actions;
 
 export default productSlice.reducer;

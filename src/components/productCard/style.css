@@ -165,6 +165,15 @@
   cursor: default;
 }
 
+.ProductCard-save.favorites {
+  background-color: #fcd1b9;
+  color: #ff5a00;
+}
+
+.ProductCard-save.favorites:hover {
+  background-color: #ffcfb6;
+}
+
 .ProductCard-save {
   position: absolute;
   top: 10px;
@@ -176,10 +185,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.ProductCard-save:hover {
+  background-color: #c5c5c5;
 }
 
 .ProductCard-save svg {
-    height: 20px;
+  height: 20px;
 }
 
 @media only screen and (max-width: 1440px) {
