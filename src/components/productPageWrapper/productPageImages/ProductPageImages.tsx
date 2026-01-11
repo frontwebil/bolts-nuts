@@ -4,11 +4,13 @@ import "../productPageImages/style.css";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { AddToFavorites } from "@/components/buttons/AddToFavorites";
 
 export function ProductPageImages() {
   const { currentProduct, mainVariant } = useSelector(
     (store: RootState) => store.productSlice
   );
+  const { favoriteProducts } = useSelector((store: RootState) => store.uiSlice);
 
   const [currentImgId, setCurrentImgId] = useState(0);
 
@@ -16,8 +18,11 @@ export function ProductPageImages() {
 
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
 
+  const isSaved = favoriteProducts.includes(currentProduct.id);
+
   return (
     <div className="ProductPageWrapper-main-content-images">
+      <AddToFavorites data={currentProduct} isSaved={isSaved} />
       <div className="ProductPageWrapper-main-content-images-sidebar">
         {currentProduct.images.map((el, i) => (
           <Image

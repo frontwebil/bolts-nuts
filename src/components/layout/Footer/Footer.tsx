@@ -9,12 +9,12 @@ export function Footer() {
   return (
     <footer id="hide-fixed-buttons-anchor">
       <div className="footer-logo-mobile">
-        <Image src={"/logo.svg"} width={300} height={60} alt="Bolts-Nuts" />
+        <Image src={"/logo.PNG"} width={300} height={60} alt="Bolts-Nuts" />
       </div>
       <div className="container">
         <div className="footer-left-column">
           <div className="footer-logo">
-            <Image src={"/logo.svg"} width={300} height={60} alt="Bolts-Nuts" />
+            <Image src={"/logo.PNG"} width={300} height={60} alt="Bolts-Nuts" />
           </div>
           <div className="footer-left-column-content">
             <h3>contact us</h3>

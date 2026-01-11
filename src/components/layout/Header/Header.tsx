@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
 import { closeBurger } from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
+import { CartFirstMenu } from "./Components/Cart/CartFirstMenu";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,8 @@ export function Header() {
             <div className="header-left">
               <Link href={"/"} className="header-logo">
                 <Image
-                  src={"/logo.svg"}
+                  src={"/logo.PNG"}
+                  unoptimized
                   width={300}
                   height={60}
                   alt="Bolts-Nuts"
@@ -62,6 +64,7 @@ export function Header() {
           </div>
         </div>
         <CatalogBurgerMenu />
+        <CartFirstMenu/>
       </header>
       <div style={{ height: headerHeight }} />
       {isOpenCatalog && (

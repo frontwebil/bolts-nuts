@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   gap: 15px;
+  position: relative;
 }
 .ProductPageWrapper-main-content-images-sidebar {
   max-width: 90px;
