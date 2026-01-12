@@ -4,15 +4,19 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { ProductWithRelations } from "@/types/ProductType";
 import Link from "next/link";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "@/redux/main/store";
 import { AddToFavorites } from "../buttons/AddToFavorites";
+import { addToCart } from "@/redux/main/slices/orderCartSlice";
+import { toast } from "react-toastify";
+import { setIsOpenPopUpCart } from "@/redux/main/slices/uiSlice";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
   const [mainVariant, setMainVariant] = useState(
     data.options.find((el) => el.isMain) || data.options[0]
   );
+  const dispatch = useDispatch();
   const { favoriteProducts } = useSelector((store: RootState) => store.uiSlice);
 
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
@@ -23,13 +27,27 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
 
   const isSaved = favoriteProducts.includes(data.id);
 
+  const HandleAddToCart = () => {
+    if (!data?.id || !mainVariant?.id) return;
+
+    dispatch(
+      addToCart({
+        productId: data.id,
+        variantId: mainVariant.id,
+      })
+    );
+
+    dispatch(setIsOpenPopUpCart(true));
+    toast.success("Product added to cart");
+  };
+
   return (
     <>
       <Link href={`/product/${data.slug}`} className="ProductCard">
         {hasDiscount && (
           <div className="ProductCard-discount">-{mainVariant.discount}%</div>
         )}
-        <AddToFavorites isSaved={isSaved} data={data}/>
+        <AddToFavorites isSaved={isSaved} data={data} />
         <div className="ProductCard-top">
           <div className={`ProductCard-img ${hasDiscount && "discount"}`}>
             <Image
@@ -75,7 +93,13 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
                 : mainVariant.price.toFixed(2)}
             </p>
           </div>
-          <div className="ProductCard-button-order">
+          <div
+            className="ProductCard-button-order"
+            onClick={(e) => {
+              e.preventDefault();
+              HandleAddToCart();
+            }}
+          >
             <PiShoppingCartSimpleBold />
             <p>Add</p>
           </div>

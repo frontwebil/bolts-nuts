@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Bolts & Nuts",
-  description: "Shop ",
+  title: "Clave",
+  description: "Hardware store",
 };
 
 const openSans = Open_Sans({

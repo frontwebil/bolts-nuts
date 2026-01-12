@@ -2,6 +2,8 @@ import {
   closeBurger,
   openAuthModal,
   setAuthOption,
+  setIsOpenFirstCartMenu,
+  setIsOpenPopUpCart,
 } from "@/redux/main/slices/uiSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -25,6 +27,8 @@ export function PersonalAccount() {
           dispatch(setAuthOption("login"));
           dispatch(openAuthModal());
           dispatch(closeBurger());
+          dispatch(setIsOpenFirstCartMenu(false));
+          dispatch(setIsOpenPopUpCart(false));
         }}
       >
         <PiUserCircle />
@@ -40,6 +44,8 @@ export function PersonalAccount() {
               dispatch(setAuthOption("login"));
               dispatch(openAuthModal());
               dispatch(closeBurger());
+              dispatch(setIsOpenPopUpCart(false));
+              dispatch(setIsOpenFirstCartMenu(false));
             }}
           >
             Login
@@ -51,6 +57,8 @@ export function PersonalAccount() {
               dispatch(setAuthOption("register"));
               dispatch(openAuthModal());
               dispatch(closeBurger());
+              dispatch(setIsOpenPopUpCart(false));
+              dispatch(setIsOpenFirstCartMenu(false));
             }}
           >
             Sign-up

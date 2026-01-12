@@ -2,7 +2,11 @@ import { CATEGORYES } from "@/generalConfigs/SITE_CONFIG";
 import { RootState } from "@/redux/main/store";
 import { useDispatch, useSelector } from "react-redux";
 import "../CatalogBurgerMenu/style.css";
-import { closeBurger, setAtiveCategory } from "@/redux/main/slices/uiSlice";
+import {
+  closeBurger,
+  setAtiveCategory,
+  setIsOpenFirstCartMenu,
+} from "@/redux/main/slices/uiSlice";
 import { CatalogBurgerMenuCard } from "./CatalogBurgerMenuCard";
 import { useWindowWidth } from "@/hooks/useWidth";
 import { useEffect } from "react";

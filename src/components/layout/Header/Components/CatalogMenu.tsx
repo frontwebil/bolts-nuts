@@ -1,5 +1,10 @@
 import { useWindowWidth } from "@/hooks/useWidth";
-import { closeAuthModal, toggleBurger } from "@/redux/main/slices/uiSlice";
+import {
+  closeAuthModal,
+  setIsOpenFirstCartMenu,
+  setIsOpenPopUpCart,
+  toggleBurger,
+} from "@/redux/main/slices/uiSlice";
 import { RootState } from "@/redux/main/store";
 import { PiCaretDownBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +19,8 @@ export function CatalogMenu() {
   const HandleToggleBurger = () => {
     dispatch(toggleBurger());
     dispatch(closeAuthModal());
+    dispatch(setIsOpenFirstCartMenu(false));
+    dispatch(setIsOpenPopUpCart(false));
   };
 
   return (

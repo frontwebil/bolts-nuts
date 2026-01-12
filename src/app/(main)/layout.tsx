@@ -1,4 +1,5 @@
 import { AuthFormLayout } from "@/components/authForms/AuthFormLayout";
+import { CartPopUpLayout } from "@/components/cartPopUp/CartPopUpLayout";
 import { Footer } from "@/components/layout/Footer/Footer";
 import { Header } from "@/components/layout/Header/Header";
 import { SetProductsToRedux } from "@/hooks/setProductsToRedux";
@@ -18,6 +19,7 @@ export default function MainLayout({
         <ReduxProviderWrapper>
           <SetProductsToRedux />
           <AuthFormLayout />
+          <CartPopUpLayout />
           <ToastContainer
             position="top-right"
             theme="light"

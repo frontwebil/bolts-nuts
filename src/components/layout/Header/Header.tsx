@@ -11,7 +11,10 @@ import { useEffect, useRef, useState } from "react";
 import { CatalogBurgerMenu } from "./Components/CatalogBurgerMenu/CatalogBurgerMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
-import { closeBurger } from "@/redux/main/slices/uiSlice";
+import {
+  closeBurger,
+  setIsOpenFirstCartMenu,
+} from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
 import { CartFirstMenu } from "./Components/Cart/CartFirstMenu";
 
@@ -22,6 +25,21 @@ export function Header() {
   const { isOpenCatalog, isOpenFirstCartMenu } = useSelector(
     (store: RootState) => store.uiSlice
   );
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (HeaderRef.current && !HeaderRef.current.contains(e.target as Node)) {
+        dispatch(setIsOpenFirstCartMenu(false));
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     const updateHeight = () => {
       if (HeaderRef.current) {

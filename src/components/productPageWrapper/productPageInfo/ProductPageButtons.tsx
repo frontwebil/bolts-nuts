@@ -2,14 +2,20 @@
 
 import { RootState } from "@/redux/main/store";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useWindowWidth } from "@/hooks/useWidth";
+import { addToCart } from "@/redux/main/slices/orderCartSlice";
+import { toast } from "react-toastify";
+import { setIsOpenFirstCartMenu } from "@/redux/main/slices/uiSlice";
 
 export function ProductPageButtons() {
-  const { mainVariant } = useSelector((store: RootState) => store.productSlice);
+  const { mainVariant, currentProduct } = useSelector(
+    (store: RootState) => store.productSlice
+  );
   const width = useWindowWidth();
   const [hidden, setHidden] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!width) return;
@@ -39,6 +45,20 @@ export function ProductPageButtons() {
       100
     : mainVariant.price;
 
+  const HandleAddToCart = () => {
+    if (!currentProduct?.id || !mainVariant?.id) return;
+
+    dispatch(
+      addToCart({
+        productId: currentProduct.id,
+        variantId: mainVariant.id,
+      })
+    );
+
+    dispatch(setIsOpenFirstCartMenu(true));
+    toast.success("Product added to cart");
+  };
+
   return (
     <div
       className={`ProductPageWrapper-buttons ${hidden ? "buttons-hidden" : ""}`}
@@ -59,7 +79,10 @@ export function ProductPageButtons() {
         )}
       </div>
 
-      <div className="ProductPageWrapper-buttons-addToCart">
+      <div
+        className="ProductPageWrapper-buttons-addToCart"
+        onClick={() => HandleAddToCart()}
+      >
         <PiShoppingCartSimpleBold />
         <p>Add to Cart</p>
       </div>
