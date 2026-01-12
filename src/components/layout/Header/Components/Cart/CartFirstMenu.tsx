@@ -76,7 +76,7 @@ export function CartFirstMenu() {
 
       const oldPrice = hasDiscount ? variant.price : null;
 
-      const price = hasDiscount
+      const price = hasDiscount && variant.discount
         ? Math.round(variant.price * (1 - variant.discount / 100) * 100) / 100
         : variant.price;
 
