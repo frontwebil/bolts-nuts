@@ -19,7 +19,9 @@ export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(110);
-  const { isOpenCatalog } = useSelector((store: RootState) => store.uiSlice);
+  const { isOpenCatalog, isOpenFirstCartMenu } = useSelector(
+    (store: RootState) => store.uiSlice
+  );
   useEffect(() => {
     const updateHeight = () => {
       if (HeaderRef.current) {
@@ -35,7 +37,7 @@ export function Header() {
 
   return (
     <>
-      <header ref={HeaderRef}>
+      <header ref={HeaderRef} className="relative">
         <div className="header-wrapper">
           <div className="container">
             <div className="header-left">
@@ -64,7 +66,11 @@ export function Header() {
           </div>
         </div>
         <CatalogBurgerMenu />
-        <CartFirstMenu/>
+        {isOpenFirstCartMenu && (
+          <div className="container relative">
+            <CartFirstMenu />
+          </div>
+        )}
       </header>
       <div style={{ height: headerHeight }} />
       {isOpenCatalog && (

@@ -1,4 +1,89 @@
-.CartFirstMenu{
+.CartFirstMenu {
   position: absolute;
-  right: 0;
+  right: 15px;
+  top: calc(100% + 24px);
+  border-radius: 0 0 12px 12px;
+
+  border: 1px solid #5a5a5a1a;
+  border-top: none;
+
+  background: #fafafa;
+  max-width: 450px;
+  width: 100%;
+}
+
+.menu {
+  padding: 32px;
+}
+.menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-top h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.menu-top-close {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.menu-top-close p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menu-top-close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.menu-content-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-top: 45px;
+}
+
+.menu-content-empty h3 {
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: uppercase;
+  color: #ff5a00;
+}
+
+.menu-content-empty p {
+  font-size: 18px;
+  color: #5a5a5a;
+  text-align: center;
+}
+
+.menu-content-empty-button {
+  font-weight: 600;
+  font-size: 20px;
+  color: #fafafa;
+  background-color: #ff5a00;
+  padding: 15px;
+  width: 100%;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.menu-content-empty-button:hover {
+  background: #e04f00;
+}
+
+@media only screen and (max-width: 1100px) {
+  .CartFirstMenu {
+    top: calc(100% + 18px);
+    right: 0;
+  }
 }

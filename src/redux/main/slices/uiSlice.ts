@@ -12,6 +12,7 @@ type initialStateType = {
   isOpenFilterMenu: boolean;
   isOpenSortMenu: boolean;
   favoriteProducts: string[];
+  isOpenFirstCartMenu: boolean;
 };
 
 const initialState: initialStateType = {
@@ -23,6 +24,7 @@ const initialState: initialStateType = {
   isOpenFilterMenu: false,
   isOpenSortMenu: false,
   favoriteProducts: [],
+  isOpenFirstCartMenu: false,
 };
 
 const uiSlice = createSlice({
@@ -61,6 +63,9 @@ const uiSlice = createSlice({
     setFavoriteProducts(state, action) {
       state.favoriteProducts = action.payload;
     },
+    setIsOpenFirstCartMenu(state, action) {
+      state.isOpenFirstCartMenu = action.payload;
+    },
   },
 });
 
@@ -75,6 +80,7 @@ export const {
   openFilterMenu,
   closeFilterMenu,
   setFavoriteProducts,
+  setIsOpenFirstCartMenu,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
