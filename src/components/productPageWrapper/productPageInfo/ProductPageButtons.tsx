@@ -56,7 +56,6 @@ export function ProductPageButtons() {
     );
 
     dispatch(setIsOpenFirstCartMenu(true));
-    toast.success("Product added to cart");
   };
 
   return (

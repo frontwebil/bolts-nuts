@@ -123,10 +123,17 @@
   font-weight: 600;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   line-height: 24px;
 }
+
+.CartFirstMenu-content-card-info p {
+  font-size: 16px;
+  color: #ff5a00;
+  font-weight: 600;
+}
+
 .CartFirstMenu-content-card-info-buttons {
   display: flex;
   gap: 20px;
@@ -167,7 +174,7 @@
 .CartFirstMenu-content-bottom {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   padding: 15px 24px 0;
   border-top: 1px solid var(--gray-0420, #c3c3c333);
 }
@@ -180,6 +187,17 @@
   font-size: 24px;
   font-weight: 600;
   color: #222222;
+}
+
+.CartFirstMenu-content-bottom-price-right{
+  display: flex;
+  flex-direction: column;
+}
+
+.tax-alarm-cart{
+  font-size: 20px;
+  color: #5a5a5a;
+  line-height: 20px;
 }
 
 .CartFirstMenu-content-bottom-buttons {
@@ -230,6 +248,10 @@
   .CartFirstMenu-content-card-info h2 {
     font-size: 18px;
     line-height: 22px;
+  }
+  .CartFirstMenu-content-card-info p {
+    font-size: 15px;
+    color: #ff5a00;
   }
   .CartFirstMenu-content-card-img {
     max-width: 80px;

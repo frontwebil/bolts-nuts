@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
 import { AddToFavorites } from "../buttons/AddToFavorites";
 import { addToCart } from "@/redux/main/slices/orderCartSlice";
-import { toast } from "react-toastify";
 import { setIsOpenPopUpCart } from "@/redux/main/slices/uiSlice";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
@@ -38,7 +37,6 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
     );
 
     dispatch(setIsOpenPopUpCart(true));
-    toast.success("Product added to cart");
   };
 
   return (

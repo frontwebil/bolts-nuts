@@ -76,9 +76,10 @@ export function CartFirstMenu() {
 
       const oldPrice = hasDiscount ? variant.price : null;
 
-      const price = hasDiscount && variant.discount
-        ? Math.round(variant.price * (1 - variant.discount / 100) * 100) / 100
-        : variant.price;
+      const price =
+        hasDiscount && variant.discount
+          ? Math.round(variant.price * (1 - variant.discount / 100) * 100) / 100
+          : variant.price;
 
       return {
         key: `${item.productId}_${item.variantId}`,
@@ -137,9 +138,9 @@ export function CartFirstMenu() {
                 </div>
                 <div className="CartFirstMenu-content-card-info">
                   <h2>
-                    {el?.product.title}{" "}
-                    {`(${el?.variant.value} ${el?.variant.unit})`}
+                    {el?.product.title} <br />
                   </h2>
+                  <p>{`(${el?.variant.value} ${el?.variant.unit})`}</p>
                 </div>
               </Link>
               <div className="CartFirstMenu-content-card-info-buttons">
@@ -188,7 +189,10 @@ export function CartFirstMenu() {
         <div className="CartFirstMenu-content-bottom">
           <div className="CartFirstMenu-content-bottom-price">
             <p>Total</p>
-            <p>${total.toFixed(2)}</p>
+            <div className="CartFirstMenu-content-bottom-price-right">
+              <p>${total.toFixed(2)}</p>
+              <div className="tax-alarm-cart">+Tax</div>
+            </div>
           </div>
           <div className="CartFirstMenu-content-bottom-buttons">
             <div
