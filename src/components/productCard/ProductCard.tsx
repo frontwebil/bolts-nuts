@@ -39,6 +39,12 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
     dispatch(setIsOpenPopUpCart(true));
   };
 
+  if (!data) return null;
+
+  const sortedOptions = [...data.options].sort(
+    (a, b) => Number(a.value) - Number(b.value)
+  );
+
   return (
     <>
       <Link href={`/product/${data.slug}`} className="ProductCard">
@@ -58,7 +64,7 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
           <div className="ProductCard-text">
             <h3>{data.title}</h3>
             <div className="ProductCard-counts">
-              {data.options.map((el) => (
+              {sortedOptions.map((el) => (
                 <button
                   key={el.id}
                   onClick={(e) => {

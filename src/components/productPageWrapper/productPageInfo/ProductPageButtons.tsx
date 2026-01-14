@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useWindowWidth } from "@/hooks/useWidth";
 import { addToCart } from "@/redux/main/slices/orderCartSlice";
-import { toast } from "react-toastify";
 import { setIsOpenFirstCartMenu } from "@/redux/main/slices/uiSlice";
 
 export function ProductPageButtons() {
@@ -54,6 +53,10 @@ export function ProductPageButtons() {
         variantId: mainVariant.id,
       })
     );
+
+    if (width && width <= 820) {
+      return;
+    }
 
     dispatch(setIsOpenFirstCartMenu(true));
   };

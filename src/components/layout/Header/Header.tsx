@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -17,7 +18,6 @@ import {
 } from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
 import { CartFirstMenu } from "./Components/Cart/CartFirstMenu";
-import { CartPopUpLayout } from "@/components/cartPopUp/CartPopUpLayout";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export function Header() {
 
   return (
     <>
-      <header ref={HeaderRef} className="relative">
+      <header ref={HeaderRef} className="relative" style={{ ["--header-h" as any]: `${headerHeight}px` }}>
         <div className="header-wrapper">
           <div className="container">
             <div className="header-left">
@@ -92,7 +92,6 @@ export function Header() {
             <CartFirstMenu />
           </div>
         )}
-        <CartPopUpLayout />
       </header>
       <div style={{ height: headerHeight }} />
       {isOpenCatalog && (

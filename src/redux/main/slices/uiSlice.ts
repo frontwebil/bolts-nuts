@@ -26,7 +26,7 @@ const initialState: initialStateType = {
   isOpenSortMenu: false,
   favoriteProducts: [],
   isOpenFirstCartMenu: false,
-  isOpenPopUpCart: false,
+  isOpenPopUpCart: true,
 };
 
 const uiSlice = createSlice({

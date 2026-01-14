@@ -12,10 +12,11 @@ export function ProductOptions() {
 
   if (!currentProduct) return;
 
-  const options = currentProduct.options;
-
   const mainOption = currentProduct.options.find((el) => el.isMain) || null;
 
+  const sortedOptions = [...currentProduct.options].sort(
+    (a, b) => Number(a.value) - Number(b.value)
+  );
   useEffect(() => {
     if (!mainOption) return;
     dispatch(setMainVariant(mainOption));
@@ -30,7 +31,7 @@ export function ProductOptions() {
         </span>
       </p>
       <div className="ProductPageWrapper-main-content-variants-options-cards">
-        {options.map((el, i) => {
+        {sortedOptions.map((el, i) => {
           return (
             <div
               className={`ProductPageWrapper-main-content-variants-options-card ${

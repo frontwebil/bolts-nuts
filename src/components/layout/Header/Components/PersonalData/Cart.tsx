@@ -24,12 +24,6 @@ export function Cart() {
     dispatch(closeBurger());
     dispatch(closeAuthModal());
 
-    if (width && width <= 820) {
-      dispatch(setIsOpenFirstCartMenu(false));
-      dispatch(setIsOpenPopUpCart(true));
-      return;
-    }
-
     if (isOpenFirstCartMenu) {
       dispatch(setIsOpenFirstCartMenu(false));
     } else {

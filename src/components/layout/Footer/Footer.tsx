@@ -62,7 +62,7 @@ export function Footer() {
           <div className="footer-right-column">
             <h3>ABOUT</h3>
             <div className="footer-right-column-links">
-              <Link href="/">Read about Bolts&Nuts</Link>
+              <Link href="/">Read about Clave</Link>
               <Link href="/">Careers</Link>
             </div>
           </div>
