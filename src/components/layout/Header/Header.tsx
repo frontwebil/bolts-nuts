@@ -58,7 +58,11 @@ export function Header() {
 
   return (
     <>
-      <header ref={HeaderRef} className="relative" style={{ ["--header-h" as any]: `${headerHeight}px` }}>
+      <header
+        ref={HeaderRef}
+        className="relative"
+        style={{ ["--header-h" as any]: `${headerHeight}px` }}
+      >
         <div className="header-wrapper">
           <div className="container">
             <div className="header-left">
@@ -94,14 +98,15 @@ export function Header() {
         )}
       </header>
       <div style={{ height: headerHeight }} />
-      {isOpenCatalog && (
-        <div
-          className="opacity-background"
-          onClick={() => {
-            dispatch(closeBurger());
-          }}
-        ></div>
-      )}
+      {isOpenCatalog ||
+        (isOpenFirstCartMenu && (
+          <div
+            className="opacity-background"
+            onClick={() => {
+              dispatch(closeBurger());
+            }}
+          ></div>
+        ))}
     </>
   );
 }
