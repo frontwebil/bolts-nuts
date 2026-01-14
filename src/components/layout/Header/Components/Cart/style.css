@@ -358,8 +358,7 @@
   }
 
   .CartFirstMenu-content-bottom {
-    margin-top: auto;
-    position: relative;
+    position: sticky;
     background: #fafafa;
     padding: 15px 24px;
     border-top: 1px solid var(--gray-0420, #c3c3c333);
