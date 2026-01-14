@@ -321,19 +321,23 @@
 }
 @media only screen and (max-width: 820px) {
   .menu-top {
-    padding: 12px 24px 0px;
+    padding: 12px 24px 0;
   }
   .CartFirstMenu {
-    position: fixed;
+    position: absolute;
     right: 0;
-    top: var(--header-h);
+    top: calc(100% + 15px);
     width: 100%;
     max-width: 50%;
     border-radius: 0;
-    height: calc(95dvh - var(--header-h));
-    border-radius: 0 0 0 6px;
+    height: calc(100dvh - var(--header-h));
     overflow: hidden;
-    padding-bottom: 5px;
+    padding-bottom: calc(5px + env(safe-area-inset-bottom));
+  }
+  @supports not (height: 100dvh) {
+    .CartFirstMenu {
+      height: calc(100vh - var(--header-h));
+    }
   }
   .CartFirstMenu-content-bottom-buttons {
     flex-direction: column-reverse;
@@ -352,6 +356,9 @@
   }
 
   .CartFirstMenu-content {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     flex: 1;
     min-height: 0;
     max-height: 100%;
@@ -360,9 +367,8 @@
   }
 
   .CartFirstMenu-content-bottom {
-    position: relative;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    position: sticky;
+    bottom: 0;
     background: #fafafa;
     padding: 15px 24px;
     border-top: 1px solid var(--gray-0420, #c3c3c333);
