@@ -7,7 +7,7 @@ import { PersonalAccount } from "./Components/PersonalData/PersonalAccount";
 import Saved from "./Components/PersonalData/Saved";
 import { Cart } from "./Components/PersonalData/Cart";
 import { CatalogMenu } from "./Components/CatalogMenu";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CatalogBurgerMenu } from "./Components/CatalogBurgerMenu/CatalogBurgerMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
@@ -41,17 +41,19 @@ export function Header() {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!HeaderRef.current) return;
+
     const updateHeight = () => {
-      if (HeaderRef.current) {
-        setHeaderHeight(HeaderRef.current.offsetHeight);
-      }
+      setHeaderHeight(HeaderRef.current!.offsetHeight);
     };
 
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
+    updateHeight(); // одразу при першому рендері
 
-    return () => window.removeEventListener("resize", updateHeight);
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(HeaderRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
