@@ -11,6 +11,7 @@
 
 .menu {
   padding: 24px 0;
+  z-index: 10;
 }
 .menu-top {
   padding: 0 24px 0;
