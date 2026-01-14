@@ -330,7 +330,8 @@
     width: 100%;
     max-width: 50%;
     border-radius: 0;
-    height: calc(100dvh - var(--header-h));
+    height: calc(95dvh - var(--header-h));
+    border-radius: 0 0 0 6px;
     overflow: hidden;
     padding-bottom: 5px;
   }
