@@ -17,11 +17,12 @@ import {
 } from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
 import { CartFirstMenu } from "./Components/Cart/CartFirstMenu";
+import { CartPopUpLayout } from "@/components/cartPopUp/CartPopUpLayout";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const [headerHeight, setHeaderHeight] = useState(110);
+  const [headerHeight, setHeaderHeight] = useState(125);
   const { isOpenCatalog, isOpenFirstCartMenu } = useSelector(
     (store: RootState) => store.uiSlice
   );
@@ -89,6 +90,7 @@ export function Header() {
             <CartFirstMenu />
           </div>
         )}
+        <CartPopUpLayout />
       </header>
       <div style={{ height: headerHeight }} />
       {isOpenCatalog && (
