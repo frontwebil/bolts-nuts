@@ -333,6 +333,7 @@
     height: calc(100dvh - var(--header-h) + 15px);
     overflow: hidden;
     padding-bottom: calc(5px + env(safe-area-inset-bottom));
+    z-index: 10;
   }
   @supports not (height: 100dvh) {
     .CartFirstMenu {
@@ -355,7 +356,7 @@
     padding: 0;
     overflow-y: scroll;
     background: #fafafa;
-    z-index: 5;
+    z-index: 10;
   }
 
   .CartFirstMenu-content {
