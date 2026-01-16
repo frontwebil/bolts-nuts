@@ -1,11 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import "../Footer/style.css";
 import { TfiEmail } from "react-icons/tfi";
 import { LINKS } from "@/generalConfigs/SITE_CONFIG";
 import { LuPhone } from "react-icons/lu";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  
+  const path = usePathname();
+
+  if (path == "/order") {
+    return null;
+  }
+
   return (
     <footer id="hide-fixed-buttons-anchor">
       <div className="footer-logo-mobile">

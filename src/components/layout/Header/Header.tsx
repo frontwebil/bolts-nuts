@@ -19,14 +19,16 @@ import {
 } from "@/redux/main/slices/uiSlice";
 import Link from "next/link";
 import { CartFirstMenu } from "./Components/Cart/CartFirstMenu";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const HeaderRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const [headerHeight, setHeaderHeight] = useState(125);
   const { isOpenCatalog, isOpenFirstCartMenu } = useSelector(
-    (store: RootState) => store.uiSlice
+    (store: RootState) => store.uiSlice,
   );
+  const path = usePathname();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -56,6 +58,10 @@ export function Header() {
 
     return () => observer.disconnect();
   }, []);
+
+  if (path == "/order") {
+    return null;
+  }
 
   return (
     <>

@@ -2,22 +2,14 @@
 import Link from "next/link";
 import { PiCaretLeftBold } from "react-icons/pi";
 import { CartPrice } from "./CartPrice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
-import Image from "next/image";
-import { FaMinus, FaPlus, FaRegTrashAlt } from "react-icons/fa";
-import {
-  decreaseQty,
-  increaseQty,
-  removeFromCart,
-} from "@/redux/main/slices/orderCartSlice";
-import { IoClose } from "react-icons/io5";
+import { CartItem } from "./CartItem/CartItem";
 
 export function Cart() {
   const { orderProducts } = useSelector(
-    (store: RootState) => store.orderCartSlice
+    (store: RootState) => store.orderCartSlice,
   );
-  const dispatch = useDispatch();
   const { products } = useSelector((store: RootState) => store.productSlice);
 
   const productsMap = new Map(products.map((p) => [p.id, p]));
@@ -59,7 +51,7 @@ export function Cart() {
 
   const total = cartItemsDetailed.reduce(
     (sum, item: any) => sum + item.total,
-    0
+    0,
   );
 
   if (orderProducts && orderProducts.length <= 0) {
@@ -112,94 +104,9 @@ export function Cart() {
             </div>
           </div>
           <div className="CartPopUp-wrapper-content-products-content">
-            {cartItemsDetailed.map((el, i) => {
-              const length = el.product.specs.find(
-                (el) => el.key == "Length"
-              )?.value;
-              return (
-                <div className="CartItem" key={i}>
-                  <div className="CartPopUp-wrapper-content-products-column-first">
-                    <div className="CartItem-product">
-                      <div className="CartItem-product-img">
-                        <Image
-                          src={el.product.images[0]}
-                          alt={el.product.title}
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                      <div className="CartItem-product-info">
-                        <h2>{el.product.title}</h2>
-                        <div className="CartItem-product-info-option">
-                          <p>
-                            {el.variant.value} {el.variant.unit}
-                          </p>
-                          <p>{length}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="Cart-item-two-column-wrap">
-                    <div className="CartPopUp-wrapper-content-products-column-second">
-                      <div className="manage-quantity">
-                        <button
-                          type="button"
-                          className="manage-quantity-btn"
-                          aria-label="Decrease quantity"
-                          onClick={() =>
-                            dispatch(
-                              decreaseQty({
-                                productId: el.product.id,
-                                variantId: el.variant.id,
-                              })
-                            )
-                          }
-                        >
-                          <FaMinus />
-                        </button>
-                        <div className="manage-quantity-value">
-                          {el?.quantity}
-                        </div>
-
-                        <button
-                          type="button"
-                          className="manage-quantity-btn"
-                          aria-label="Increase quantity"
-                          onClick={() =>
-                            dispatch(
-                              increaseQty({
-                                productId: el.product.id,
-                                variantId: el.variant.id,
-                              })
-                            )
-                          }
-                        >
-                          <FaPlus />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="CartPopUp-wrapper-content-products-column-third">
-                      <div className="CartItem-product-price">
-                        <h4>{(el.price * el.quantity).toFixed(2)} $</h4>
-                        <button
-                          onClick={() =>
-                            dispatch(
-                              removeFromCart({
-                                productId: el.product.id,
-                                variantId: el.variant.id,
-                              })
-                            )
-                          }
-                        >
-                          <FaRegTrashAlt />
-                          <p>Delete</p>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {cartItemsDetailed.map((el, i) => (
+              <CartItem el={el} key={i} />
+            ))}
           </div>
         </div>
         <CartPrice total={total} />

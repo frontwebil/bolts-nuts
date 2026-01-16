@@ -9,7 +9,7 @@ import Image from "next/image";
 import { decreaseQty, increaseQty } from "@/redux/main/slices/orderCartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import Link from "next/link";
-import {  useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export function CartFirstMenu() {
   const dispatch = useDispatch();
@@ -223,9 +223,15 @@ export function CartFirstMenu() {
             >
               Open Cart
             </Link>
-            <div className="CartFirstMenu-content-bottom-button-checkout">
+            <Link
+              href={"/order"}
+              onClick={() => {
+                dispatch(setIsOpenFirstCartMenu(false));
+              }}
+              className="CartFirstMenu-content-bottom-button-checkout"
+            >
               Checkout
-            </div>
+            </Link>
           </div>
         </div>
       </div>

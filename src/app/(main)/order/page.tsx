@@ -1,3 +1,5 @@
-export default function page() {
-  return <div>page</div>;
+import { OrderPageWrapper } from "@/components/orderPage/OrderPageWraper";
+
+export default function OrderPage() {
+  return <OrderPageWrapper />;
 }
