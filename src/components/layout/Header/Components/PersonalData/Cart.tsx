@@ -28,6 +28,7 @@ export function Cart() {
 
     if (width && width <= 820) {
       router.replace("/cart");
+      dispatch(setIsOpenFirstCartMenu(false));
     }
 
     if (isOpenFirstCartMenu) {

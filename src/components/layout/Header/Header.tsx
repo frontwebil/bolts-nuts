@@ -99,15 +99,14 @@ export function Header() {
         )}
       </header>
       <div style={{ height: headerHeight }} />
-      {isOpenCatalog ||
-        (isOpenFirstCartMenu && (
-          <div
-            className="opacity-background"
-            onClick={() => {
-              dispatch(closeBurger());
-            }}
-          ></div>
-        ))}
+      {isOpenCatalog && (
+        <div
+          className="opacity-background"
+          onClick={() => {
+            dispatch(closeBurger());
+          }}
+        ></div>
+      )}
     </>
   );
 }
