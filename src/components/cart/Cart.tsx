@@ -139,60 +139,62 @@ export function Cart() {
                       </div>
                     </div>
                   </div>
-                  <div className="CartPopUp-wrapper-content-products-column-second">
-                    <div className="manage-quantity">
-                      <button
-                        type="button"
-                        className="manage-quantity-btn"
-                        aria-label="Decrease quantity"
-                        onClick={() =>
-                          dispatch(
-                            decreaseQty({
-                              productId: el.product.id,
-                              variantId: el.variant.id,
-                            })
-                          )
-                        }
-                      >
-                        <FaMinus />
-                      </button>
-                      <div className="manage-quantity-value">
-                        {el?.quantity}
-                      </div>
+                  <div className="Cart-item-two-column-wrap">
+                    <div className="CartPopUp-wrapper-content-products-column-second">
+                      <div className="manage-quantity">
+                        <button
+                          type="button"
+                          className="manage-quantity-btn"
+                          aria-label="Decrease quantity"
+                          onClick={() =>
+                            dispatch(
+                              decreaseQty({
+                                productId: el.product.id,
+                                variantId: el.variant.id,
+                              })
+                            )
+                          }
+                        >
+                          <FaMinus />
+                        </button>
+                        <div className="manage-quantity-value">
+                          {el?.quantity}
+                        </div>
 
-                      <button
-                        type="button"
-                        className="manage-quantity-btn"
-                        aria-label="Increase quantity"
-                        onClick={() =>
-                          dispatch(
-                            increaseQty({
-                              productId: el.product.id,
-                              variantId: el.variant.id,
-                            })
-                          )
-                        }
-                      >
-                        <FaPlus />
-                      </button>
+                        <button
+                          type="button"
+                          className="manage-quantity-btn"
+                          aria-label="Increase quantity"
+                          onClick={() =>
+                            dispatch(
+                              increaseQty({
+                                productId: el.product.id,
+                                variantId: el.variant.id,
+                              })
+                            )
+                          }
+                        >
+                          <FaPlus />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="CartPopUp-wrapper-content-products-column-third">
-                    <div className="CartItem-product-price">
-                      <h4>{(el.price * el.quantity).toFixed(2)} $</h4>
-                      <button
-                        onClick={() =>
-                          dispatch(
-                            removeFromCart({
-                              productId: el.product.id,
-                              variantId: el.variant.id,
-                            })
-                          )
-                        }
-                      >
-                        <FaRegTrashAlt />
-                        <p>Delete</p>
-                      </button>
+                    <div className="CartPopUp-wrapper-content-products-column-third">
+                      <div className="CartItem-product-price">
+                        <h4>{(el.price * el.quantity).toFixed(2)} $</h4>
+                        <button
+                          onClick={() =>
+                            dispatch(
+                              removeFromCart({
+                                productId: el.product.id,
+                                variantId: el.variant.id,
+                              })
+                            )
+                          }
+                        >
+                          <FaRegTrashAlt />
+                          <p>Delete</p>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
