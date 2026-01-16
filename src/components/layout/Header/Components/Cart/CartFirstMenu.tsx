@@ -9,8 +9,7 @@ import Image from "next/image";
 import { decreaseQty, increaseQty } from "@/redux/main/slices/orderCartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useWindowWidth } from "@/hooks/useWidth";
+import {  useLayoutEffect, useRef, useState } from "react";
 
 export function CartFirstMenu() {
   const dispatch = useDispatch();
@@ -18,25 +17,9 @@ export function CartFirstMenu() {
     (store: RootState) => store.orderCartSlice,
   );
   const { products } = useSelector((store: RootState) => store.productSlice);
-  const { isOpenFirstCartMenu } = useSelector(
-    (store: RootState) => store.uiSlice,
-  );
   const bottomRef = useRef<HTMLDivElement>(null);
   const [bottomHeight, setBottomHeight] = useState(0);
   const router = useRouter();
-  const width = useWindowWidth();
-  useEffect(() => {
-    if (width && width <= 820) {
-      return;
-    }
-    if (isOpenFirstCartMenu) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-
-    return () => document.body.classList.remove("no-scroll");
-  }, [isOpenFirstCartMenu]);
 
   useLayoutEffect(() => {
     if (!bottomRef.current) return;
