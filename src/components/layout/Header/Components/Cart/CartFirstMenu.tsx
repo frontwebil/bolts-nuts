@@ -10,21 +10,25 @@ import { decreaseQty, increaseQty } from "@/redux/main/slices/orderCartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useWindowWidth } from "@/hooks/useWidth";
 
 export function CartFirstMenu() {
   const dispatch = useDispatch();
   const { orderProducts } = useSelector(
-    (store: RootState) => store.orderCartSlice
+    (store: RootState) => store.orderCartSlice,
   );
   const { products } = useSelector((store: RootState) => store.productSlice);
   const { isOpenFirstCartMenu } = useSelector(
-    (store: RootState) => store.uiSlice
+    (store: RootState) => store.uiSlice,
   );
   const bottomRef = useRef<HTMLDivElement>(null);
   const [bottomHeight, setBottomHeight] = useState(0);
   const router = useRouter();
-
+  const width = useWindowWidth();
   useEffect(() => {
+    if (width && width <= 820) {
+      return;
+    }
     if (isOpenFirstCartMenu) {
       document.body.classList.add("no-scroll");
     } else {
@@ -128,7 +132,7 @@ export function CartFirstMenu() {
 
   const total = cartItemsDetailed.reduce(
     (sum, item: any) => sum + item.total,
-    0
+    0,
   );
 
   return (
@@ -189,7 +193,7 @@ export function CartFirstMenu() {
                         decreaseQty({
                           productId: el.product.id,
                           variantId: el.variant.id,
-                        })
+                        }),
                       )
                     }
                   >
@@ -207,7 +211,7 @@ export function CartFirstMenu() {
                         increaseQty({
                           productId: el.product.id,
                           variantId: el.variant.id,
-                        })
+                        }),
                       )
                     }
                   >
