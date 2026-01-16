@@ -6,6 +6,7 @@ import {
   setIsOpenPopUpCart,
 } from "@/redux/main/slices/uiSlice";
 import { RootState } from "@/redux/main/store";
+import { useRouter } from "next/navigation";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +16,7 @@ export function Cart() {
   const { isOpenFirstCartMenu } = useSelector(
     (store: RootState) => store.uiSlice
   );
+  const router = useRouter();
 
   const { orderProducts } = useSelector(
     (store: RootState) => store.orderCartSlice
@@ -23,6 +25,10 @@ export function Cart() {
   const handleOpenCart = () => {
     dispatch(closeBurger());
     dispatch(closeAuthModal());
+
+    if (width && width <= 820) {
+      router.replace("/cart");
+    }
 
     if (isOpenFirstCartMenu) {
       dispatch(setIsOpenFirstCartMenu(false));
