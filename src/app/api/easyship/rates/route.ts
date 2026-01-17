@@ -8,7 +8,8 @@ const OriginAddress = {
   country_alpha2: "CA",
 };
 
-export async function POST() {
+export async function POST(req: Request) {
+  const { postalCode } = await req.json();
   const url = "https://public-api.easyship.com/2024-09/rates";
 
   const res = await fetch(url, {
@@ -25,7 +26,7 @@ export async function POST() {
         line_1: "1200 Bay Street",
         state: "Ontario",
         city: "Toronto",
-        postal_code: "M5R2A5",
+        postal_code: postalCode,
       },
       incoterms: "DDU",
       insurance: { is_insured: false },
@@ -43,7 +44,7 @@ export async function POST() {
               quantity: 1,
               declared_customs_value: 1,
               declared_currency: "CAD",
-              category: "Health",
+              category: "building",
               hs_code: "210610",
               dimensions: {
                 length: 25,

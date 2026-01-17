@@ -49,7 +49,7 @@ export function Cart() {
     })
     .filter((el) => el !== null);
 
-  const total = cartItemsDetailed.reduce(
+  const subTotal = cartItemsDetailed.reduce(
     (sum, item: any) => sum + item.total,
     0,
   );
@@ -109,7 +109,7 @@ export function Cart() {
             ))}
           </div>
         </div>
-        <CartPrice total={total} />
+        <CartPrice subTotal={subTotal} />
       </div>
     </div>
   );

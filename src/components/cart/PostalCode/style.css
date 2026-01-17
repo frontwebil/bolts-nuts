@@ -1,0 +1,73 @@
+.PostalCodeCalculator-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.PostalCodeCalculator-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222222;
+  text-transform: uppercase;
+}
+
+.PostalCodeCalculator-box-input-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.PostalCodeCalculator-input {
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--gray-0310, #5a5a5a1a);
+  font-size: 16px;
+  color: #222222;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  max-width: 100%;
+  width: 100%;
+}
+
+.PostalCodeCalculator-input::placeholder {
+  color: #5a5a5a99;
+}
+
+.PostalCodeCalculator-input:focus {
+  outline: none;
+  border-color: #ff5a00;
+}
+
+.PostalCodeCalculator-hint {
+  font-size: 14px;
+  color: #5a5a5a;
+  line-height: 1.4;
+}
+
+.PostalCodeCalculator-button {
+  padding: 11px;
+  border-radius: 4px;
+  background: #ff5a00;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.PostalCodeCalculator-button:hover {
+  background: #ff5a00;
+}
+
+.PostalCodeCalculator-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.choosed-state {
+  font-size: 14px;
+}

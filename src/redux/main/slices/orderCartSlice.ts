@@ -1,3 +1,4 @@
+import { CANADA_TAX_RATES } from "@/generalConfigs/CANADA_TAX_RATES";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type CartItem = {
@@ -8,12 +9,20 @@ export type CartItem = {
 
 type CartState = {
   orderProducts: CartItem[];
+  stateName: string;
+  stateCode: string;
+  gstHst: number;
+  shippingPrice: number;
 };
 
 const STORAGE_KEY = "cart";
 
 const initialState: CartState = {
   orderProducts: [], // всегда пусто на старте (без window checks тут)
+  stateName: "",
+  stateCode: "",
+  gstHst: 0,
+  shippingPrice: 0,
 };
 
 const saveToLS = (state: CartState) => {
@@ -43,7 +52,7 @@ export const orderCartSlice = createSlice({
         productId?: string;
         variantId?: string;
         quantity?: number;
-      }>
+      }>,
     ) {
       const { productId, variantId, quantity } = action.payload;
 
@@ -52,7 +61,7 @@ export const orderCartSlice = createSlice({
       const qtyToAdd = quantity && quantity > 0 ? quantity : 1;
 
       const existing = state.orderProducts.find(
-        (i) => i.productId === productId && i.variantId === variantId
+        (i) => i.productId === productId && i.variantId === variantId,
       );
 
       if (existing) existing.quantity += qtyToAdd;
@@ -64,12 +73,12 @@ export const orderCartSlice = createSlice({
 
     increaseQty(
       state,
-      action: PayloadAction<{ productId: string; variantId: string }>
+      action: PayloadAction<{ productId: string; variantId: string }>,
     ) {
       const item = state.orderProducts.find(
         (i) =>
           i.productId === action.payload.productId &&
-          i.variantId === action.payload.variantId
+          i.variantId === action.payload.variantId,
       );
       if (!item) return;
 
@@ -79,12 +88,12 @@ export const orderCartSlice = createSlice({
 
     decreaseQty(
       state,
-      action: PayloadAction<{ productId: string; variantId: string }>
+      action: PayloadAction<{ productId: string; variantId: string }>,
     ) {
       const item = state.orderProducts.find(
         (i) =>
           i.productId === action.payload.productId &&
-          i.variantId === action.payload.variantId
+          i.variantId === action.payload.variantId,
       );
       if (!item) return;
 
@@ -93,7 +102,7 @@ export const orderCartSlice = createSlice({
       if (item.quantity <= 0) {
         state.orderProducts = state.orderProducts.filter(
           (i) =>
-            !(i.productId === item.productId && i.variantId === item.variantId)
+            !(i.productId === item.productId && i.variantId === item.variantId),
         );
       }
 
@@ -102,14 +111,14 @@ export const orderCartSlice = createSlice({
 
     removeFromCart(
       state,
-      action: PayloadAction<{ productId: string; variantId: string }>
+      action: PayloadAction<{ productId: string; variantId: string }>,
     ) {
       state.orderProducts = state.orderProducts.filter(
         (i) =>
           !(
             i.productId === action.payload.productId &&
             i.variantId === action.payload.variantId
-          )
+          ),
       );
       saveToLS(state);
     },
@@ -117,6 +126,21 @@ export const orderCartSlice = createSlice({
     clearCart(state) {
       state.orderProducts = [];
       if (typeof window !== "undefined") localStorage.removeItem(STORAGE_KEY);
+    },
+
+    setLocation(state, action) {
+      const { stateCode, stateName, shippingPrice } = action.payload;
+      state.stateCode = stateCode;
+      state.stateName = stateName;
+      state.shippingPrice = shippingPrice;
+      if (!state.stateCode || !state.stateName) {
+        state.stateCode = "";
+        state.stateName = "";
+        state.shippingPrice = 0;
+        state.gstHst = 0;
+      } else {
+        state.gstHst = CANADA_TAX_RATES[state.stateCode];
+      }
     },
   },
 });
@@ -128,6 +152,7 @@ export const {
   decreaseQty,
   removeFromCart,
   clearCart,
+  setLocation,
 } = orderCartSlice.actions;
 
 export default orderCartSlice.reducer;

@@ -1,13 +1,15 @@
-export async function getEasyshipRates() {
-  const res = await fetch("/api/easyship/rates", {
-    method: "POST",
+import axios from "axios";
+
+export async function getEasyshipRates(postalCode: string) {
+  const res = await axios.post("/api/easyship/rates", {
+    postalCode,
   });
 
-  const data = await res.json();
-  console.log(data);
-  if (!res.ok) {
+  const data = await res.data;
+
+  if (!res) {
     throw new Error(data.error || "Easyship API error");
   }
-
-  return data;
+  console.log(data);
+  return data.rates[0];
 }
