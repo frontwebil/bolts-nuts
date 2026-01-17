@@ -48,7 +48,7 @@ export function PostalCodeCalculator() {
         setLocation({
           stateCode: place["state abbreviation"],
           stateName: place.state,
-          shippingPrice: shipping.total_charge,
+          shippingPrice: shipping[0].total_charge,
         }),
       );
     } catch {
