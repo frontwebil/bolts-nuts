@@ -15,4 +15,5 @@ export const CANADA_TAX_RATES: Record<string, number> = {
   NT: 0.05,
   YT: 0.05,
   NU: 0.05,
+  QC: 0.15,
 };
