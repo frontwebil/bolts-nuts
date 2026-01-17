@@ -36,6 +36,7 @@ export function AuthFormLayout() {
                 }}
               >
                 <IoMdClose />
+                1
               </div>
             </div>
           </div>
