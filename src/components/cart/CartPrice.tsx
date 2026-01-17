@@ -29,16 +29,16 @@ export function CartPrice({ subTotal }: { subTotal: number }) {
             </p>
             <p>{tax.toFixed(2)}$</p>
           </div>
-          <div className="CartPopUp-wrapper-content-price-block-row">
+          {/* <div className="CartPopUp-wrapper-content-price-block-row">
             <p>Shipping</p>
             <p>{shippingPrice.toFixed(2)}$</p>
-          </div>
+          </div> */}
         </div>
         <div className="CartPopUp-wrapper-content-price-block-total">
           <div className="CartPopUp-wrapper-content-price-block-total-row">
             <p>Estimated total</p>
             <p style={{ color: "#FF5A00" }}>
-              {(tax + subTotal + shippingPrice).toFixed(2)}$
+              {(tax + subTotal).toFixed(2)}$
             </p>
           </div>
           <Link
