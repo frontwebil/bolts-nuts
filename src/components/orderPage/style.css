@@ -33,26 +33,3 @@
   max-width: 100%;
   width: 100%;
 }
-
-.order-payment-total {
-  position: relative;
-  height: max-content;
-  max-width: 100%;
-  width: 100%;
-  background-color: #c3c3c333;
-  border-radius: 20px 0 0 20px;
-  padding: 48px 32px;
-}
-
-.order-payment-total-bg-right {
-  height: 100%;
-  width: 100%;
-  background-color: #c3c3c333;
-  position: absolute;
-  right: -100%;
-  top: 0;
-}
-
-.order-payment-total-container {
-  background-color: red;
-}

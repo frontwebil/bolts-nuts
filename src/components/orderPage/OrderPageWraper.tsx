@@ -1,14 +1,34 @@
+"use client";
+
 import "./style.css";
 import Image from "next/image";
 import { Breadcrums } from "../breadcrums/Breadcrums";
 import { OrderLayout } from "./OrderLayout/OrderLayout";
+import { OrderTotal } from "./OrderTotal/OrderTotal";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setUserData, userDataType } from "@/redux/main/slices/orderCartSlice";
+import { useEffect } from "react";
 
-export function OrderPageWrapper() {
+export function OrderPageWrapper({
+  userData,
+}: {
+  userData: userDataType | null;
+}) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!userData) {
+      return;
+    }
+    dispatch(setUserData(userData));
+  }, [dispatch, userData]);
+
   return (
     <div className="container">
-      <div className="logo-order-page">
+      <Link href={"/"} className="logo-order-page">
         <Image src={"/logo.PNG"} alt="logo-order" width={270} height={70} />
-      </div>
+      </Link>
       <Breadcrums
         links={[
           { title: "Home", href: "/catalog" },
@@ -21,10 +41,7 @@ export function OrderPageWrapper() {
       />
       <div className="OrderPage-container">
         <OrderLayout />
-        <div className="order-payment-total">
-          <div className="order-payment-total-container"></div>
-          <div className="order-payment-total-bg-right"></div>
-        </div>
+        <OrderTotal />
       </div>
     </div>
   );

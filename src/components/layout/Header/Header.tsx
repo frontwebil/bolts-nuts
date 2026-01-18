@@ -46,6 +46,7 @@ export function Header() {
 
   useLayoutEffect(() => {
     if (!HeaderRef.current) return;
+    if (path == "/order") return;
 
     const updateHeight = () => {
       setHeaderHeight(HeaderRef.current!.offsetHeight);

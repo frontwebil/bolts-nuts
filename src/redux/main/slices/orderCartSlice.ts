@@ -7,12 +7,20 @@ export type CartItem = {
   quantity: number;
 };
 
+export type userDataType = {
+  name: string | null;
+  surname: string | null;
+  phoneNumber: string | null;
+  email: string;
+};
+
 type CartState = {
   orderProducts: CartItem[];
   stateName: string;
   stateCode: string;
   gstHst: number;
   shippingPrice: number;
+  userData: userDataType | null;
 };
 
 const STORAGE_KEY = "cart";
@@ -23,6 +31,12 @@ const initialState: CartState = {
   stateCode: "",
   gstHst: 0,
   shippingPrice: 0,
+  userData: {
+    name: "",
+    surname: "",
+    phoneNumber: "",
+    email: "",
+  },
 };
 
 const saveToLS = (state: CartState) => {
@@ -142,6 +156,10 @@ export const orderCartSlice = createSlice({
         state.gstHst = CANADA_TAX_RATES[state.stateCode];
       }
     },
+
+    setUserData(state, action) {
+      state.userData = action.payload;
+    },
   },
 });
 
@@ -153,6 +171,7 @@ export const {
   removeFromCart,
   clearCart,
   setLocation,
+  setUserData,
 } = orderCartSlice.actions;
 
 export default orderCartSlice.reducer;
