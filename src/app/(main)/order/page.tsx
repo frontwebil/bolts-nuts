@@ -12,6 +12,7 @@ export default async function OrderPage() {
 
   let user: userWithAddressId | null = null;
   let addresses = null;
+  let mainAdress = null;
 
   if (session?.user?.email) {
     const dbUser = await prisma.user.findUnique({
@@ -45,10 +46,14 @@ export default async function OrderPage() {
           province: true,
           addressLine: true,
           company: true,
+          id: true,
           apartment: true,
           userId: true,
         },
       });
+
+      mainAdress = addresses.find((el) => el.id == dbUser.mainAddressId);
+
       addresses = addresses.map((a) => ({
         ...a,
         company: a.company ?? "",
@@ -66,9 +71,29 @@ export default async function OrderPage() {
     };
   }
 
+  const normalizedMainAddress = mainAdress
+    ? {
+        ...mainAdress,
+        address: mainAdress.addressLine ?? "",
+        company: mainAdress.company ?? "",
+        apartment: mainAdress.apartment ?? "",
+      }
+    : null;
+
   return (
     <div className="overflow-x-hidden">
-      <OrderPageWrapper userData={user} addresses={addresses} />
+      <OrderPageWrapper
+        userData={user}
+        addresses={
+          addresses?.map((a) => ({
+            ...a,
+            address: a.addressLine ?? "",
+            company: a.company ?? "",
+            apartment: a.apartment ?? "",
+          })) ?? null
+        }
+        mainAddress={normalizedMainAddress} // збігається з пропсами
+      />
     </div>
   );
 }

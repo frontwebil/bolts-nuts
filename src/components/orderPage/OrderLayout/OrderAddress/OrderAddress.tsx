@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import "./style.css";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
 import {
@@ -10,6 +12,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { PiCaretLeftBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
+import { OrderAddressCards } from "./OrderAddressCards";
+import Link from "next/link";
 
 export function OrderAddress() {
   const { userData, shippingAddress } = useSelector(
@@ -105,7 +109,6 @@ export function OrderAddress() {
       try {
         const fsa = clean.slice(0, 3);
         const res = await axios.get(`https://api.zippopotam.us/CA/${fsa}`);
-
         const place = res.data?.places?.[0];
         if (!place) {
           setPostalError("Postal code not found");
@@ -114,15 +117,17 @@ export function OrderAddress() {
 
         setPostalError("");
 
-        // оновлюємо Redux
-        dispatch(
-          setShippingAdress({
-            ...shippingAddress,
-            postalCode: code,
-            city: place["place name"] ?? "",
-            province: place.state ?? "",
-          }),
-        );
+        const newShipping = {
+          ...shippingAddress,
+          postalCode: code,
+          city: place["place name"] ?? "",
+          province: place.state ?? "",
+        };
+
+        // ✅ Диспатчимо лише якщо змінились дані
+        if (JSON.stringify(shippingAddress) !== JSON.stringify(newShipping)) {
+          dispatch(setShippingAdress(newShipping));
+        }
 
         const shipping = await getEasyshipRates(code);
 
@@ -142,7 +147,7 @@ export function OrderAddress() {
 
     fetchPostalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shippingAddress?.postalCode]);
+  }, [shippingAddress?.postalCode, shippingAddress]);
 
   return (
     <div className="OrderAddress">
@@ -211,7 +216,9 @@ export function OrderAddress() {
         <h2>Shipping address</h2>
         <div className="Order-layout-top-line"></div>
       </div>
-      <div className="OrderLayout-margin-zatychka"></div>
+
+      <OrderAddressCards />
+
       <form>
         <div className="input-wrapper">
           <div className="form-field">
@@ -293,10 +300,10 @@ export function OrderAddress() {
         </div>
       </form>
       <div className="OrderLayout-buttons">
-        <div className="OrderLayout-button-back-to-cart">
+        <Link href={"/cart"} className="OrderLayout-button-back-to-cart">
           <PiCaretLeftBold />
           <p>Back to Cart</p>
-        </div>
+        </Link>
         <div className="OrderLayout-button-next">Continue to shipping</div>
       </div>
     </div>

@@ -1,0 +1,41 @@
+.OrderAddress-adresses-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+.Adressess-card {
+  border: 1px solid #c3c3c399;
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Adressess-card.active {
+  border: 1px solid #ff5a00;
+}
+
+.Adressess-card:hover {
+  border: 1px solid #ff5a00;
+}
+
+.Adressess-card-top {
+  display: flex;
+  justify-content: space-between;
+}
+.Adressess-card-top-text {
+  width: 100%;
+  max-width: 100%;
+  font-family: Open Sans;
+  font-size: 18px;
+  font-weight: 400;
+}
+.Adressess-card-top-adressline {
+  width: 100%;
+  max-width: 100%;
+  font-family: Open Sans;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: end;
+}

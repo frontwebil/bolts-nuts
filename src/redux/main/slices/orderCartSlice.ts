@@ -31,6 +31,7 @@ type CartState = {
   shippingPrice: number;
   userData: userDataType;
   shippingAddress: AddressState;
+  avaliableAddresses: AddressState[];
 };
 
 const STORAGE_KEY = "cart";
@@ -55,6 +56,7 @@ const initialState: CartState = {
     company: "",
     apartment: "",
   },
+  avaliableAddresses: [],
 };
 
 const saveToLS = (state: CartState) => {
@@ -181,6 +183,10 @@ export const orderCartSlice = createSlice({
     setShippingAdress(state, action: PayloadAction<AddressState>) {
       state.shippingAddress = action.payload;
     },
+    setAvaliableAddresses(state, action) {
+      console.log(action.payload);
+      state.avaliableAddresses = action.payload;
+    },
   },
 });
 
@@ -194,6 +200,7 @@ export const {
   setLocation,
   setUserData,
   setShippingAdress,
+  setAvaliableAddresses,
 } = orderCartSlice.actions;
 
 export default orderCartSlice.reducer;

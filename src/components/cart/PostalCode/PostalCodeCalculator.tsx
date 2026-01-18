@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
-import { setLocation } from "@/redux/main/slices/orderCartSlice";
+import { setLocation, setShippingAdress } from "@/redux/main/slices/orderCartSlice";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 
@@ -37,7 +37,7 @@ export function PostalCodeCalculator({}) {
       const res = await axios.get(`https://api.zippopotam.us/CA/${fsa}`);
 
       const place = res.data?.places?.[0];
-
+      console.log(place);
       if (!place) {
         toast("Postal code not found");
         return;
@@ -48,6 +48,16 @@ export function PostalCodeCalculator({}) {
           stateCode: place["state abbreviation"],
           stateName: place.state,
           shippingPrice: shipping[0].total_charge,
+        }),
+      );
+      dispatch(
+        setShippingAdress({
+          postalCode: value,
+          city: place["place name"] ?? "",
+          province: place["state"] ?? "",
+          address: "",
+          company: "",
+          apartment: "",
         }),
       );
       setPostalCode("");

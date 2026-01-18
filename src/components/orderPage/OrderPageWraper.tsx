@@ -1,3 +1,4 @@
+// OrderPageWrapper.tsx
 "use client";
 
 import "./style.css";
@@ -6,19 +7,21 @@ import { Breadcrums } from "../breadcrums/Breadcrums";
 import { OrderLayout } from "./OrderLayout/OrderLayout";
 import { OrderTotal } from "./OrderTotal/OrderTotal";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  setAvaliableAddresses,
   setShippingAdress,
   setUserData,
   userDataType,
 } from "@/redux/main/slices/orderCartSlice";
 import { useEffect } from "react";
+import { RootState } from "@/redux/main/store";
 
 type AddressState = {
   postalCode: string;
   city: string;
   province: string;
-  addressLine: string;
+  address: string; // вже нормалізовано
   company?: string;
   apartment?: string;
   userId?: string;
@@ -27,11 +30,17 @@ type AddressState = {
 export function OrderPageWrapper({
   userData,
   addresses,
+  mainAddress, // правильне ім'я
 }: {
   userData: userDataType;
   addresses: AddressState[] | null;
+  mainAddress: AddressState | null;
 }) {
   const dispatch = useDispatch();
+  const { shippingAddress } = useSelector(
+    (store: RootState) => store.orderCartSlice,
+  );
+
   useEffect(() => {
     dispatch(
       setUserData(
@@ -46,18 +55,23 @@ export function OrderPageWrapper({
   }, [dispatch, userData]);
 
   useEffect(() => {
-    const mainAdress = addresses?.find((el) => el.userId);
-    dispatch(
-      setShippingAdress({
-        postalCode: mainAdress?.postalCode ?? "",
-        city: mainAdress?.city ?? "",
-        province: mainAdress?.province ?? "",
-        address: mainAdress?.addressLine ?? "",
-        company: mainAdress?.company ?? "",
-        apartment: mainAdress?.apartment ?? "",
-      }),
-    );
-  }, [addresses]);
+    if (!addresses?.length) return;
+
+    dispatch(setAvaliableAddresses(addresses));
+
+    if (shippingAddress.postalCode.length < 0) {
+      dispatch(
+        setShippingAdress({
+          postalCode: mainAddress?.postalCode ?? "",
+          city: mainAddress?.city ?? "",
+          province: mainAddress?.province ?? "",
+          address: mainAddress?.address ?? "",
+          company: mainAddress?.company ?? "",
+          apartment: mainAddress?.apartment ?? "",
+        }),
+      );
+    }
+  }, [addresses, mainAddress, dispatch]);
 
   return (
     <div className="container">
@@ -67,10 +81,7 @@ export function OrderPageWrapper({
       <Breadcrums
         links={[
           { title: "Home", href: "/catalog" },
-          {
-            title: "Cart",
-            href: "/cart",
-          },
+          { title: "Cart", href: "/cart" },
           { title: "Order" },
         ]}
       />
