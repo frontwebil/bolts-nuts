@@ -60,6 +60,9 @@
   font-size: 20px;
   max-width: 100%;
   width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .order-payment-total-product-price {
   max-width: 80px;

@@ -1,14 +1,15 @@
 import { OrderPageWrapper } from "@/components/orderPage/OrderPageWraper";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
+import { userDataType } from "@/redux/main/slices/orderCartSlice";
 
 export default async function OrderPage() {
   const session = await getServerSession();
 
-  let user = null;
+  let user: userDataType | null = null;
 
   if (session?.user?.email) {
-    user = await prisma.user.findUnique({
+    const dbUser = await prisma.user.findUnique({
       where: {
         email: session.user.email,
       },
@@ -19,6 +20,24 @@ export default async function OrderPage() {
         email: true,
       },
     });
+
+    if (dbUser) {
+      user = {
+        name: dbUser.name ?? "",
+        surname: dbUser.surname ?? "",
+        phoneNumber: dbUser.phoneNumber ?? "",
+        email: dbUser.email,
+      };
+    }
+  }
+
+  if (!user) {
+    user = {
+      name: "",
+      surname: "",
+      phoneNumber: "",
+      email: "",
+    };
   }
 
   return (

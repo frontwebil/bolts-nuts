@@ -8,7 +8,7 @@ import { setLocation } from "@/redux/main/slices/orderCartSlice";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 
-export function PostalCodeCalculator() {
+export function PostalCodeCalculator({}) {
   const [postalCode, setPostalCode] = useState("");
   const { stateName } = useSelector((store: RootState) => store.orderCartSlice);
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,6 @@ export function PostalCodeCalculator() {
         return;
       }
       const shipping = await getEasyshipRates(postalCode);
-      console.log(place);
       dispatch(
         setLocation({
           stateCode: place["state abbreviation"],
@@ -51,6 +50,7 @@ export function PostalCodeCalculator() {
           shippingPrice: shipping[0].total_charge,
         }),
       );
+      setPostalCode("");
     } catch {
       toast("Service unavailable. Try again later.");
     } finally {

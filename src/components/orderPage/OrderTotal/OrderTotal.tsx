@@ -53,7 +53,7 @@ export function OrderTotal() {
         </div>
         <div className="order-payment-total-sums">
           <div className="order-payment-total-sums-row">
-            <p>Price</p>
+            <p>Subtotal</p>
             <p className="font-semibold">${subTotal.toFixed(2)}</p>
           </div>
           <div className="order-payment-total-sums-row">
@@ -67,7 +67,9 @@ export function OrderTotal() {
         </div>
         <div className="order-payment-total-price">
           <p>TOTAL</p>
-          <p style={{ color: "#FF5A00" }}>${subTotal + tax + shippingPrice}</p>
+          <p style={{ color: "#FF5A00" }}>
+            ${(subTotal + tax + shippingPrice).toFixed(2)}
+          </p>
         </div>
       </div>
       <div className="order-payment-total-bg-right"></div>

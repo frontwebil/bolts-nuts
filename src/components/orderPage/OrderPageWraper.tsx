@@ -10,18 +10,20 @@ import { useDispatch } from "react-redux";
 import { setUserData, userDataType } from "@/redux/main/slices/orderCartSlice";
 import { useEffect } from "react";
 
-export function OrderPageWrapper({
-  userData,
-}: {
-  userData: userDataType | null;
-}) {
+export function OrderPageWrapper({ userData }: { userData: userDataType }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userData) {
-      return;
-    }
-    dispatch(setUserData(userData));
+    dispatch(
+      setUserData(
+        userData ?? {
+          email: "",
+          name: "",
+          surname: "",
+          phoneNumber: "",
+        },
+      ),
+    );
   }, [dispatch, userData]);
 
   return (

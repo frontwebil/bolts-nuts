@@ -1,0 +1,45 @@
+.OrderLayout {
+  margin-bottom: 100px;
+}
+
+.OrderLayout-buttons {
+  display: flex;
+  margin-top: 50px;
+  gap: 20px;
+}
+.OrderLayout-button-back-to-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--gray-0310, #5a5a5a1a);
+  padding: 15px;
+  max-width: 270px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.OrderLayout-button-back-to-cart svg {
+  font-size: 20px;
+}
+
+.OrderLayout-button-back-to-cart p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.OrderLayout-button-next {
+  padding: 15px;
+  background: #ff5a00;
+  max-width: 100%;
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fafafa;
+  cursor: pointer;
+}

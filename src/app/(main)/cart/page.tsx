@@ -1,9 +1,30 @@
 import { CartLayout } from "@/components/cart/CartLayout";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
-export default function page() {
+export default async function page() {
+  const session = await getServerSession();
+  let postalCode = "";
+
+  if (session?.user?.email) {
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { mainAddressId: true },
+    });
+
+    if (user?.mainAddressId) {
+      const userAddress = await prisma.address.findUnique({
+        where: { id: user.mainAddressId },
+        select: { postalCode: true },
+      });
+
+      postalCode = userAddress?.postalCode ?? "";
+    }
+  }
+
   return (
     <div>
-      <CartLayout />
+      <CartLayout postalCode={postalCode} />
     </div>
   );
 }

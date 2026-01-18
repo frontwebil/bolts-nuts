@@ -8,10 +8,19 @@ export type CartItem = {
 };
 
 export type userDataType = {
-  name: string | null;
-  surname: string | null;
-  phoneNumber: string | null;
+  name: string;
+  surname: string;
+  phoneNumber: string;
   email: string;
+};
+
+export type AddressState = {
+  postalCode: string;
+  city: string;
+  province: string;
+  address: string;
+  company?: string;
+  apartment?: string;
 };
 
 type CartState = {
@@ -20,7 +29,8 @@ type CartState = {
   stateCode: string;
   gstHst: number;
   shippingPrice: number;
-  userData: userDataType | null;
+  userData: userDataType;
+  shippingAddress: AddressState;
 };
 
 const STORAGE_KEY = "cart";
@@ -36,6 +46,14 @@ const initialState: CartState = {
     surname: "",
     phoneNumber: "",
     email: "",
+  },
+  shippingAddress: {
+    postalCode: "",
+    city: "",
+    province: "",
+    address: "",
+    company: "",
+    apartment: "",
   },
 };
 
@@ -157,8 +175,11 @@ export const orderCartSlice = createSlice({
       }
     },
 
-    setUserData(state, action) {
+    setUserData(state, action: PayloadAction<userDataType>) {
       state.userData = action.payload;
+    },
+    setShippingAdress(state, action: PayloadAction<AddressState>) {
+      state.shippingAddress = action.payload;
     },
   },
 });
@@ -172,6 +193,7 @@ export const {
   clearCart,
   setLocation,
   setUserData,
+  setShippingAdress,
 } = orderCartSlice.actions;
 
 export default orderCartSlice.reducer;
