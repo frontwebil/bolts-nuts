@@ -7,12 +7,31 @@ import { OrderLayout } from "./OrderLayout/OrderLayout";
 import { OrderTotal } from "./OrderTotal/OrderTotal";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { setUserData, userDataType } from "@/redux/main/slices/orderCartSlice";
+import {
+  setShippingAdress,
+  setUserData,
+  userDataType,
+} from "@/redux/main/slices/orderCartSlice";
 import { useEffect } from "react";
 
-export function OrderPageWrapper({ userData }: { userData: userDataType }) {
-  const dispatch = useDispatch();
+type AddressState = {
+  postalCode: string;
+  city: string;
+  province: string;
+  addressLine: string;
+  company?: string;
+  apartment?: string;
+  userId?: string;
+};
 
+export function OrderPageWrapper({
+  userData,
+  addresses,
+}: {
+  userData: userDataType;
+  addresses: AddressState[] | null;
+}) {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       setUserData(
@@ -25,6 +44,20 @@ export function OrderPageWrapper({ userData }: { userData: userDataType }) {
       ),
     );
   }, [dispatch, userData]);
+
+  useEffect(() => {
+    const mainAdress = addresses?.find((el) => el.userId);
+    dispatch(
+      setShippingAdress({
+        postalCode: mainAdress?.postalCode ?? "",
+        city: mainAdress?.city ?? "",
+        province: mainAdress?.province ?? "",
+        address: mainAdress?.addressLine ?? "",
+        company: mainAdress?.company ?? "",
+        apartment: mainAdress?.apartment ?? "",
+      }),
+    );
+  }, [addresses]);
 
   return (
     <div className="container">
