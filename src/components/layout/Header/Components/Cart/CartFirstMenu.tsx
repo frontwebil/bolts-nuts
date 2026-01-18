@@ -10,6 +10,7 @@ import { decreaseQty, increaseQty } from "@/redux/main/slices/orderCartSlice";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
+import { buildCartItemsDetailed } from "@/hooks/buildCartItems";
 
 export function CartFirstMenu() {
   const dispatch = useDispatch();
@@ -76,42 +77,7 @@ export function CartFirstMenu() {
     );
   }
 
-  const productsMap = new Map(products.map((p) => [p.id, p]));
-
-  const cartItemsDetailed = orderProducts
-    .map((item) => {
-      const product = productsMap.get(item.productId);
-      if (!product) return null;
-
-      const variantsArr = product.options ?? [];
-      const variant = variantsArr.find((v: any) => v.id === item.variantId);
-      if (!variant) return null;
-
-      const hasDiscount = variant.discount && variant.discount > 0;
-
-      const oldPrice = hasDiscount ? variant.price : null;
-
-      const price =
-        hasDiscount && variant.discount
-          ? Math.round(variant.price * (1 - variant.discount / 100) * 100) / 100
-          : variant.price;
-
-      return {
-        key: `${item.productId}_${item.variantId}`,
-
-        product,
-        variant,
-
-        quantity: item.quantity,
-
-        hasDiscount,
-        oldPrice,
-        price,
-
-        total: price * item.quantity,
-      };
-    })
-    .filter((el) => el !== null);
+  const cartItemsDetailed = buildCartItemsDetailed(products, orderProducts);
 
   const total = cartItemsDetailed.reduce(
     (sum, item: any) => sum + item.total,
