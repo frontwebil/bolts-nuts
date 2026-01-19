@@ -8,7 +8,6 @@ import { OrderShipping } from "./OrderShipping/OrderShipping";
 export function OrderLayout() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-  console.log(type);
   return (
     <div className="OrderLayout">
       {type == "shipping" ? <OrderShipping /> : <OrderAddress />}

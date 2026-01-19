@@ -17,7 +17,13 @@ import {
 } from "@/redux/main/slices/orderCartSlice";
 import { FullScreenLoader } from "../loader/FullScreenLoader";
 
-export function CartLayout({ postalCode }: { postalCode: string }) {
+export function CartLayout({
+  postalCode,
+  addressLine,
+}: {
+  postalCode: string;
+  addressLine: string;
+}) {
   const { orderProducts } = useSelector(
     (store: RootState) => store.orderCartSlice,
   );
@@ -39,9 +45,10 @@ export function CartLayout({ postalCode }: { postalCode: string }) {
         return;
       }
       const shipping = await getEasyshipRates(postalCode);
-      console.log(place);
+
       dispatch(
         setLocation({
+          shippingId: shipping[0].courier_service.id,
           stateCode: place["state abbreviation"],
           stateName: place.state,
           shippingPrice: shipping[0].total_charge,
@@ -53,7 +60,7 @@ export function CartLayout({ postalCode }: { postalCode: string }) {
           postalCode: postalCode,
           city: place["place name"] ?? "",
           province: place["state"] ?? "",
-          address: "",
+          address: addressLine,
           company: "",
           apartment: "",
         }),

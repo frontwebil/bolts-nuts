@@ -1,6 +1,14 @@
 import { CANADA_TAX_RATES } from "@/generalConfigs/CANADA_TAX_RATES";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type AvailableDeliveryId =
+  | "2f93b15f-4111-4ba8-a96c-7b5d2aaa2e08"
+  | "a11cebea-6091-4bd3-a195-522d6552b4dc"
+  | "d80d08d5-6a7f-49ca-bd3e-410512b28e77"
+  | "abfa932c-b418-428b-b0fc-c4f77b2797d9"
+  | "0b9d82cb-8f75-4487-9b58-9d42e54a6b50"
+  | "";
+
 export type CartItem = {
   productId: string;
   variantId: string;
@@ -32,6 +40,7 @@ type CartState = {
   userData: userDataType;
   shippingAddress: AddressState;
   avaliableAddresses: AddressState[];
+  shippingId: AvailableDeliveryId;
 };
 
 const STORAGE_KEY = "cart";
@@ -42,6 +51,7 @@ const initialState: CartState = {
   stateCode: "",
   gstHst: 0,
   shippingPrice: 0,
+  shippingId: "",
   userData: {
     name: "",
     surname: "",
@@ -163,7 +173,9 @@ export const orderCartSlice = createSlice({
     },
 
     setLocation(state, action) {
-      const { stateCode, stateName, shippingPrice } = action.payload;
+      const { stateCode, stateName, shippingPrice, shippingId } =
+        action.payload;
+      state.shippingId = shippingId;
       state.stateCode = stateCode;
       state.stateName = stateName;
       state.shippingPrice = shippingPrice;

@@ -61,6 +61,7 @@ export function OrderAddress() {
         stateCode: "",
         stateName: "",
         shippingPrice: 0,
+        shippingId: "",
       }),
     );
 
@@ -102,6 +103,7 @@ export function OrderAddress() {
           stateCode: place["state abbreviation"],
           stateName: place.state,
           shippingPrice: shipping[0].total_charge,
+          shippingId: shipping[0].courier_service.id,
         }),
       );
     } catch {
@@ -154,6 +156,7 @@ export function OrderAddress() {
             stateCode: place["state abbreviation"],
             stateName: place.state,
             shippingPrice: shipping[0].total_charge,
+            shippingId: shipping[0].courier_service.id,
           }),
         );
       } catch {
@@ -306,14 +309,38 @@ export function OrderAddress() {
             <label>
               <p>Company</p> <span>Optional</span>
             </label>
-            <input type="text" placeholder="MapleTech Inc." />
+            <input
+              type="text"
+              placeholder="MapleTech Inc."
+              value={shippingAddress.company}
+              onChange={(e) =>
+                dispatch(
+                  setShippingAdress({
+                    ...shippingAddress,
+                    company: e.target.value,
+                  }),
+                )
+              }
+            />
           </div>
 
           <div className="form-field">
             <label>
               <p>Apartment, suite, etc.</p> <span>Optional</span>
             </label>
-            <input type="text" placeholder="Apt. 5B" />
+            <input
+              type="text"
+              placeholder="Apt. 5B"
+              value={shippingAddress.apartment}
+              onChange={(e) =>
+                dispatch(
+                  setShippingAdress({
+                    ...shippingAddress,
+                    apartment: e.target.value,
+                  }),
+                )
+              }
+            />
           </div>
         </div>
       </form>

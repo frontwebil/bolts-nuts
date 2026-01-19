@@ -30,3 +30,57 @@
   max-width: 30%;
   width: 100%;
 }
+
+.OrderLayout-shipping-companies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+.OrderLayout-shipping-companie-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 15px;
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.OrderLayout-shipping-companie-card div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.OrderLayout-shipping-companie-card h2 {
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.OrderLayout-shipping-companie-card p {
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.OrderLayout-shipping-companie-custom-checkbox {
+  border: 1px solid var(--gray-0360, #5a5a5a99);
+  outline: none;
+  border-radius: 2px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.OrderLayout-shipping-companie-custom-checkbox svg {
+  color: #fafafa;
+}
+
+.OrderLayout-shipping-companie-custom-checkbox.active {
+  background-color: #ff5a00;
+  border: 1px solid transparent;
+}
