@@ -26,11 +26,15 @@ export function PostalCodeCalculator({}) {
 
     if (value.length < 6) {
       toast("Enter full postal code (6 characters)");
+      setLoading(false);
+
       return;
     }
 
     if (!/^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(value)) {
       toast("Invalid Canadian postal code format");
+      setLoading(false);
+
       return;
     }
 
