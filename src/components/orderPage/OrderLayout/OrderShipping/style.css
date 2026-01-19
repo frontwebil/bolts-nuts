@@ -1,0 +1,32 @@
+.OrderShipping {
+  margin-bottom: 100px;
+}
+
+.Account-section-general-info {
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  border-radius: 12px;
+  padding: 0 24px;
+  margin-top: 48px;
+}
+.Account-section-general-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid #c3c3c333;
+}
+
+.Account-section-general-info-row h3 {
+  font-weight: 600;
+  font-size: 20px;
+  max-width: 100%;
+  width: 100%;
+  text-align: end;
+}
+
+.Account-section-general-info-row p {
+  font-weight: 400;
+  font-size: 18px;
+  color: #5a5a5a;
+  max-width: 30%;
+  width: 100%;
+}

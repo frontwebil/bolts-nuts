@@ -184,7 +184,6 @@ export const orderCartSlice = createSlice({
       state.shippingAddress = action.payload;
     },
     setAvaliableAddresses(state, action) {
-      console.log(action.payload);
       state.avaliableAddresses = action.payload;
     },
   },

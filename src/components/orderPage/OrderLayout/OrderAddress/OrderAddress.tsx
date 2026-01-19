@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./style.css";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
@@ -14,6 +13,8 @@ import { PiCaretLeftBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { OrderAddressCards } from "./OrderAddressCards";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export function OrderAddress() {
   const { userData, shippingAddress } = useSelector(
@@ -22,6 +23,23 @@ export function OrderAddress() {
   const [loading, setLoading] = useState(false);
   const [postalError, setPostalError] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const validateForm = () => {
+    if (!userData?.email) return "Email is required";
+    if (!userData?.name) return "First name is required";
+    if (!userData?.surname) return "Last name is required";
+    if (!userData?.phoneNumber) return "Phone number is required";
+
+    if (!shippingAddress?.postalCode) return "Postal code is required";
+    if (!shippingAddress?.city) return "City is not filled";
+    if (!shippingAddress?.province) return "Province is not filled";
+    if (!shippingAddress?.address) return "Address is required";
+
+    if (postalError) return postalError;
+
+    return null;
+  };
 
   const handleChangePostalCode = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -147,7 +165,7 @@ export function OrderAddress() {
 
     fetchPostalData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shippingAddress?.postalCode, shippingAddress]);
+  }, [shippingAddress?.postalCode]);
 
   return (
     <div className="OrderAddress">
@@ -304,7 +322,21 @@ export function OrderAddress() {
           <PiCaretLeftBold />
           <p>Back to Cart</p>
         </Link>
-        <div className="OrderLayout-button-next">Continue to shipping</div>
+        <div
+          className="OrderLayout-button-next"
+          onClick={() => {
+            const error = validateForm();
+
+            if (error) {
+              toast.error(error);
+              return;
+            }
+
+            router.push("/order?type=shipping");
+          }}
+        >
+          Continue To shipping
+        </div>
       </div>
     </div>
   );

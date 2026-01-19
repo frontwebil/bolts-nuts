@@ -4,7 +4,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/main/store";
-import { setLocation, setShippingAdress } from "@/redux/main/slices/orderCartSlice";
+import {
+  setLocation,
+  setShippingAdress,
+} from "@/redux/main/slices/orderCartSlice";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 

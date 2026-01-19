@@ -42,16 +42,14 @@ export function OrderPageWrapper({
   );
 
   useEffect(() => {
-    dispatch(
-      setUserData(
-        userData ?? {
-          email: "",
-          name: "",
-          surname: "",
-          phoneNumber: "",
-        },
-      ),
-    );
+    if (
+      userData.email !== "" ||
+      userData.name !== "" ||
+      userData.phoneNumber !== "" ||
+      userData.surname !== ""
+    ) {
+      dispatch(setUserData(userData));
+    }
   }, [dispatch, userData]);
 
   useEffect(() => {
@@ -59,7 +57,7 @@ export function OrderPageWrapper({
 
     dispatch(setAvaliableAddresses(addresses));
 
-    if (shippingAddress.postalCode.length < 0) {
+    if (shippingAddress.postalCode.length <= 0) {
       dispatch(
         setShippingAdress({
           postalCode: mainAddress?.postalCode ?? "",

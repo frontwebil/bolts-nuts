@@ -11,7 +11,10 @@ import { useEffect, useMemo, useState } from "react";
 import { buildCartItemsDetailed } from "@/hooks/buildCartItems";
 import axios from "axios";
 import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
-import { setLocation } from "@/redux/main/slices/orderCartSlice";
+import {
+  setLocation,
+  setShippingAdress,
+} from "@/redux/main/slices/orderCartSlice";
 import { FullScreenLoader } from "../loader/FullScreenLoader";
 
 export function CartLayout({ postalCode }: { postalCode: string }) {
@@ -42,6 +45,17 @@ export function CartLayout({ postalCode }: { postalCode: string }) {
           stateCode: place["state abbreviation"],
           stateName: place.state,
           shippingPrice: shipping[0].total_charge,
+        }),
+      );
+
+      dispatch(
+        setShippingAdress({
+          postalCode: postalCode,
+          city: place["place name"] ?? "",
+          province: place["state"] ?? "",
+          address: "",
+          company: "",
+          apartment: "",
         }),
       );
     } catch {
