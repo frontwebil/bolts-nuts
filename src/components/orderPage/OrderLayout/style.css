@@ -43,3 +43,29 @@
   color: #fafafa;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1120px) {
+  .OrderLayout-button-back-to-cart svg,
+  .OrderLayout-button-back-to-cart p,
+  .OrderLayout-button-next {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .OrderLayout {
+    margin-bottom: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .OrderLayout-buttons {
+    flex-direction: column;
+  }
+  .OrderLayout-button-back-to-cart{
+    max-width: 100%;
+  }
+  .Order-layout-top h2{
+    font-size: 20px;
+  }
+}

@@ -1,3 +1,8 @@
+.OrderAddress {
+  flex-direction: column;
+  display: flex;
+}
+
 .OrderAddress-adresses-cards {
   display: flex;
   flex-direction: column;
@@ -38,4 +43,36 @@
   font-size: 20px;
   font-weight: 600;
   text-align: end;
+}
+
+@media only screen and (max-width: 1340px) {
+  .OrderAddress form .input-wrapper-group {
+    flex-direction: column;
+  }
+
+  .Adressess-card-top-text {
+    max-width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .Adressess-card-top-adressline {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .Adressess-card-top-text {
+    max-width: 100%;
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .Adressess-card-top-adressline {
+    font-size: 16px;
+  }
+  .Adressess-card{
+    padding: 18px;
+  }
 }

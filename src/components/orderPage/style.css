@@ -37,3 +37,17 @@
 .OrderLayout-margin-zatychka {
   margin-top: 48px;
 }
+
+@media only screen and (max-width: 1000px) {
+  .OrderPage-container {
+    flex-direction: column-reverse;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .logo-order-page{
+    max-width: 200px;
+    margin: 20px auto;
+  }
+}

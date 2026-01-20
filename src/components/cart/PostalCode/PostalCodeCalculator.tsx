@@ -69,7 +69,8 @@ export function PostalCodeCalculator({}) {
         }),
       );
       setPostalCode("");
-    } catch {
+    } catch (err){
+      console.log(err)
       toast("Service unavailable. Try again later.");
     } finally {
       setLoading(false);
