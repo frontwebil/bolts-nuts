@@ -5,7 +5,10 @@ import "../CategoryWrapper/style.css";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { resetFilters } from "@/redux/main/slices/productSlice";
+import {
+  resetFilters,
+  setOrderByOption,
+} from "@/redux/main/slices/productSlice";
 
 export function CategoryWrapper() {
   const router = useRouter();
@@ -16,6 +19,7 @@ export function CategoryWrapper() {
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
         dispatch(resetFilters());
+        dispatch(setOrderByOption("Newest Arrivals"));
         router.replace("/catalog?type=new-arrivals");
       },
     },
@@ -24,6 +28,7 @@ export function CategoryWrapper() {
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
         dispatch(resetFilters());
+        dispatch(setOrderByOption("Best Selling"));
         router.replace("/catalog?type=bestseller");
       },
     },
@@ -32,6 +37,7 @@ export function CategoryWrapper() {
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
         dispatch(resetFilters());
+        dispatch(setOrderByOption("On Sale"));
         router.replace("/catalog?type=on-sale");
       },
     },
@@ -40,6 +46,7 @@ export function CategoryWrapper() {
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
         dispatch(resetFilters());
+        dispatch(setOrderByOption("Best Selling"));
         router.replace("/catalog?type=recommended");
       },
     },
@@ -48,6 +55,7 @@ export function CategoryWrapper() {
       image: "/images/categories/bolts-categories.png",
       onclick: () => {
         dispatch(resetFilters());
+        dispatch(setOrderByOption("Newest Arrivals"));
         router.replace("/catalog");
       },
     },

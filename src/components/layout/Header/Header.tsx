@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import "../Header/Header.css";
-import { Search } from "./Components/Search";
+import { Search } from "./Components/Search/Search";
 import { PersonalAccount } from "./Components/PersonalData/PersonalAccount";
 import Saved from "./Components/PersonalData/Saved";
 import { Cart } from "./Components/PersonalData/Cart";

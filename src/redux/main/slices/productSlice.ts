@@ -19,6 +19,7 @@ type initialStateType = {
   productsLoaded: boolean;
   filtersSpecs: SpecOptions;
   selectedSpecs: SelectedSpecs;
+  searchTerm: string;
 };
 
 const initialState: initialStateType = {
@@ -34,6 +35,7 @@ const initialState: initialStateType = {
   productsLoaded: false,
   filtersSpecs: {},
   selectedSpecs: {},
+  searchTerm: "Scr",
 };
 
 const parseInchValue = (value?: string | null): number => {
@@ -68,7 +70,7 @@ export function buildSpecOptions(specs: Spec[]) {
   }
 
   return Object.fromEntries(
-    Object.entries(map).map(([k, set]) => [k, Array.from(set)])
+    Object.entries(map).map(([k, set]) => [k, Array.from(set)]),
   ) as Record<string, string[]>;
 }
 
@@ -85,14 +87,14 @@ const productSlice = createSlice({
         state.selectedSpecs = {};
       } else {
         const categoryProducts = state.products.filter(
-          (p) => p.category === state.selectedCategory
+          (p) => p.category === state.selectedCategory,
         );
 
         const allSpecs = categoryProducts.flatMap((p) => p.specs ?? []);
         state.filtersSpecs = buildSpecOptions(allSpecs);
 
         state.selectedSpecs = Object.fromEntries(
-          Object.keys(state.filtersSpecs).map((k) => [k, []])
+          Object.keys(state.filtersSpecs).map((k) => [k, []]),
         );
       }
     },
@@ -109,14 +111,14 @@ const productSlice = createSlice({
         state.selectedSpecs = {};
       } else {
         const categoryProducts = state.products.filter(
-          (p) => p.category === state.selectedCategory
+          (p) => p.category === state.selectedCategory,
         );
 
         const allSpecs = categoryProducts.flatMap((p) => p.specs ?? []);
         state.filtersSpecs = buildSpecOptions(allSpecs);
 
         state.selectedSpecs = Object.fromEntries(
-          Object.keys(state.filtersSpecs).map((k) => [k, []])
+          Object.keys(state.filtersSpecs).map((k) => [k, []]),
         );
       }
     },
@@ -156,10 +158,10 @@ const productSlice = createSlice({
             .slice()
             .sort((a, b) => {
               const aLen = parseInchValue(
-                a.specs.find((s) => s.key === "Length")?.value
+                a.specs.find((s) => s.key === "Length")?.value,
               );
               const bLen = parseInchValue(
-                b.specs.find((s) => s.key === "Length")?.value
+                b.specs.find((s) => s.key === "Length")?.value,
               );
               return aLen - bLen;
             })
@@ -179,6 +181,9 @@ const productSlice = createSlice({
         state.selectedSpecs[key].push(value);
       }
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
 });
 
@@ -193,6 +198,7 @@ export const {
   resetFilters,
   setOrderByOption,
   setOrderBySaveOption,
+  setSearchTerm,
 } = productSlice.actions;
 
 export default productSlice.reducer;
