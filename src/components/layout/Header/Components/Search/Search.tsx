@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  resetFilters,
   setSearchTerm,
   setSelectedCategory,
 } from "@/redux/main/slices/productSlice";
@@ -133,6 +134,7 @@ export function Search() {
         onMouseDown={() => {
           if (searchTerm.length >= 3) {
             dispatch(setSearchTerm(""));
+            dispatch(resetFilters());
             router.replace(
               `/catalog?searchParams=${encodeURIComponent(searchTerm)}`,
             );
@@ -181,6 +183,7 @@ export function Search() {
                 className="header-search-resaults-see-all-results"
                 onMouseDown={() => {
                   dispatch(setSearchTerm(""));
+                  dispatch(resetFilters());
                   router.replace(
                     `/catalog?searchParams=${encodeURIComponent(searchTerm)}`,
                   );
