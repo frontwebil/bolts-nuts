@@ -123,7 +123,7 @@ export async function POST(req: Request) {
         font-size: 12px;
         color: #64748b;
       ">
-        © ${new Date().getFullYear()} Bolts & Nuts. All rights reserved.
+        © ${new Date().getFullYear()} Clave. All rights reserved.
       </p>
     </div>
 

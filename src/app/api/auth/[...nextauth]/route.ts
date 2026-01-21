@@ -99,7 +99,7 @@ export const authOptions: AuthOptions = {
                   font-size: 15px;
                   color: #1f2937;
                 ">
-                  Welcome to Bolts & Nuts!
+                  Welcome to Clave!
                 </p>
           
                 <p style="
@@ -144,7 +144,7 @@ export const authOptions: AuthOptions = {
                   font-size: 12px;
                   color: #64748b;
                 ">
-                  © ${new Date().getFullYear()} Bolts & Nuts. All rights reserved.
+                  © ${new Date().getFullYear()} Clave. All rights reserved.
                 </p>
               </div>
           
@@ -154,7 +154,7 @@ export const authOptions: AuthOptions = {
 
           await sendMail({
             to: user.email,
-            subject: "Confirm your Bolts & Nuts account",
+            subject: "Confirm your Clave account",
             html,
           });
 

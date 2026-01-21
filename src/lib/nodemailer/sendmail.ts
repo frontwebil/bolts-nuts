@@ -10,7 +10,7 @@ export async function sendMail({
   html: string;
 }) {
   await transporter.sendMail({
-    from: `"Bolts & Nuts" <${process.env.GMAIL_USER}>`,
+    from: `"Clave" <${process.env.GMAIL_USER}>`,
     to,
     subject,
     html,

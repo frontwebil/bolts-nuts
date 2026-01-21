@@ -128,7 +128,7 @@ export async function POST(req: Request) {
         font-size: 15px;
         color: #1f2937;
       ">
-        Welcome to Bolts & Nuts!
+        Welcome to Clave!
       </p>
 
       <p style="
@@ -173,7 +173,7 @@ export async function POST(req: Request) {
         font-size: 12px;
         color: #64748b;
       ">
-        © ${new Date().getFullYear()} Bolts & Nuts. All rights reserved.
+        © ${new Date().getFullYear()} Clave. All rights reserved.
       </p>
     </div>
 
@@ -183,7 +183,7 @@ export async function POST(req: Request) {
 
     await sendMail({
       to: email,
-      subject: "Confirm your Bolts & Nuts account",
+      subject: "Confirm your Clave account",
       html,
     });
 
