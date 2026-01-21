@@ -37,7 +37,7 @@ const initialState: initialStateType = {
   productsLoaded: false,
   filtersSpecs: {},
   selectedSpecs: {},
-  searchTerm: "Scr",
+  searchTerm: "",
   filterSearchTerm: "",
 };
 
