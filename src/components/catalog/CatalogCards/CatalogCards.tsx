@@ -11,11 +11,22 @@ import { SortButton } from "./SortButton";
 import { ProductWithRelations } from "@/types/ProductType";
 
 export function CatalogCardsContainer() {
-  const { selectedCategory, typeCatalog, productsLoaded, sortBy } = useSelector(
-    (store: RootState) => store.productSlice
-  );
+  const {
+    selectedCategory,
+    typeCatalog,
+    productsLoaded,
+    sortBy,
+    filterSearchTerm,
+  } = useSelector((store: RootState) => store.productSlice);
 
   const filteredProducts = useSelector(selectFilteredProducts);
+
+  const titleText =
+    filterSearchTerm.length > 0
+      ? `Search results for "${filterSearchTerm}"`
+      : typeCatalog === ""
+        ? selectedCategory || "Catalog"
+        : typeCatalog.replaceAll("-", " ").toUpperCase();
 
   const getMainOption = (p: ProductWithRelations) =>
     p.options?.find((o) => o.isMain) || p.options?.[0];
@@ -53,11 +64,14 @@ export function CatalogCardsContainer() {
         <div className="CatalogCards-top">
           <div className="CatalogCards-top-start-content">
             <h2>
-              {typeCatalog == ""
-                ? selectedCategory
-                  ? selectedCategory
-                  : "Catalog"
-                : typeCatalog.replaceAll("-", " ").toUpperCase()}
+              {filterSearchTerm.length > 0 ? (
+                <span>
+                  Search results for{" "}
+                  <span style={{ color: "#FF5A00" }}>{filterSearchTerm}</span>
+                </span>
+              ) : (
+                titleText
+              )}
             </h2>
             <p>{cardsToShow.length} products</p>
           </div>
@@ -74,11 +88,13 @@ export function CatalogCardsContainer() {
       <div className="CatalogCards-top">
         <div className="CatalogCards-top-start-content">
           <h2>
-            {typeCatalog == ""
-              ? selectedCategory
-                ? selectedCategory
-                : "Catalog"
-              : typeCatalog.replaceAll("-", " ").toUpperCase()}
+            {filterSearchTerm.length > 0 ? (
+              <span>
+                Search results for <span style={{ color: "#FF5A00" }}>{filterSearchTerm}</span>
+              </span>
+            ) : (
+              titleText
+            )}
           </h2>
           <p>{cardsToShow.length} products</p>
         </div>

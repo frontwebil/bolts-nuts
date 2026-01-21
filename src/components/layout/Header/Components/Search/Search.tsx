@@ -65,16 +65,44 @@ export function Search() {
     const map = new Map<string, number>();
 
     products.forEach((p) => {
-      const cat = p.category; // або p.categories[0]
-
+      const cat = p.category;
       if (!cat) return;
 
       const matchesCategory = cat.toLowerCase().includes(term);
-      const matchesProduct =
-        p.title.toLowerCase().includes(term) ||
-        p.description.toLowerCase().includes(term);
 
-      // Рахуємо тільки релевантні
+      const matchesTitle = p.title.toLowerCase().includes(term);
+      const matchesDescription = p.description.toLowerCase().includes(term);
+
+      const matchesOptions =
+        p.options?.some((opt) => {
+          const labelMatch = opt.label.toLowerCase().includes(term);
+
+          const valueMatch = opt.value
+            ? opt.value.toLowerCase().includes(term)
+            : false;
+
+          const unitMatch = opt.unit
+            ? opt.unit.toLowerCase().includes(term)
+            : false;
+
+          return labelMatch || valueMatch || unitMatch;
+        }) ?? false;
+
+      const matchesSpecs =
+        p.specs?.some((spec) => {
+          const keyMatch = spec.key.toLowerCase().includes(term);
+
+          const valueMatch = spec.value.toLowerCase().includes(term);
+
+          const groupMatch = spec.group.toLowerCase().includes(term);
+
+          return keyMatch || valueMatch || groupMatch;
+        }) ?? false;
+
+      const matchesProduct =
+        matchesTitle || matchesDescription || matchesOptions || matchesSpecs;
+
+      // Рахуємо продукт у категорії, якщо хоч щось співпало
       if (matchesCategory || matchesProduct) {
         map.set(cat, (map.get(cat) || 0) + 1);
       }
@@ -101,7 +129,16 @@ export function Search() {
         }}
       />
 
-      <IoIosSearch />
+      <IoIosSearch
+        onMouseDown={() => {
+          if (searchTerm.length >= 3) {
+            dispatch(setSearchTerm(""));
+            router.replace(
+              `/catalog?searchParams=${encodeURIComponent(searchTerm)}`,
+            );
+          }
+        }}
+      />
 
       {isFocused && (
         <div className="header-search-resaults">

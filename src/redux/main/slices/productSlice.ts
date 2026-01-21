@@ -1,5 +1,6 @@
 import { ProductWithRelations } from "@/types/ProductType";
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 type ProductOptions = ProductWithRelations["options"][number];
 type Spec = { key: string; value: string };
@@ -20,6 +21,7 @@ type initialStateType = {
   filtersSpecs: SpecOptions;
   selectedSpecs: SelectedSpecs;
   searchTerm: string;
+  filterSearchTerm: string;
 };
 
 const initialState: initialStateType = {
@@ -36,6 +38,7 @@ const initialState: initialStateType = {
   filtersSpecs: {},
   selectedSpecs: {},
   searchTerm: "Scr",
+  filterSearchTerm: "",
 };
 
 const parseInchValue = (value?: string | null): number => {
@@ -184,6 +187,9 @@ const productSlice = createSlice({
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
     },
+    setFilterSearchTerm: (state, action) => {
+      state.filterSearchTerm = action.payload;
+    },
   },
 });
 
@@ -199,6 +205,7 @@ export const {
   setOrderByOption,
   setOrderBySaveOption,
   setSearchTerm,
+  setFilterSearchTerm,
 } = productSlice.actions;
 
 export default productSlice.reducer;

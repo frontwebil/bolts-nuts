@@ -1,4 +1,5 @@
 import { CATEGORYES } from "@/generalConfigs/SITE_CONFIG";
+import { selectFilteredProducts } from "@/redux/main/selector/selectFilteredProducts";
 import { setSelectedCategory } from "@/redux/main/slices/productSlice";
 import { RootState } from "@/redux/main/store";
 import { useState, useRef, useEffect } from "react";
@@ -6,9 +7,11 @@ import { PiCaretDownBold } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 
 export function SelectedCategory() {
-  const { selectedCategory, products } = useSelector(
-    (store: RootState) => store.productSlice
+  const { selectedCategory } = useSelector(
+    (store: RootState) => store.productSlice,
   );
+
+  const products = useSelector(selectFilteredProducts);
 
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -32,14 +35,27 @@ export function SelectedCategory() {
   }, [selectedCategory]);
 
   useEffect(() => {
-    const id = requestAnimationFrame(() => setIsOpen(true));
-    return () => cancelAnimationFrame(id);
-  }, []);
+    if (!contentRef.current) return;
 
-  const categoryMap = products.reduce((acc, product) => {
-    acc[product.category] = (acc[product.category] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+    requestAnimationFrame(() => {
+      if (!contentRef.current) return;
+
+      if (isOpen) {
+        contentRef.current.style.maxHeight =
+          contentRef.current.scrollHeight + "px";
+      } else {
+        contentRef.current.style.maxHeight = "0px";
+      }
+    });
+  }, [isOpen, selectedCategory, products.length]);
+
+  const categoryMap = products.reduce(
+    (acc, product) => {
+      acc[product.category] = (acc[product.category] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   if (selectedCategory && selectedCategory.trim() !== "") {
     return null;
@@ -59,20 +75,26 @@ export function SelectedCategory() {
         ref={contentRef}
         className={`filter-content-group-buttons ${isOpen ? "open" : ""}`}
       >
-        {CATEGORYES.map((el, i) => (
-          <div className="filter-content-button-wrapper" key={i}>
-            <button
-              onClick={() => {
-                dispatch(setSelectedCategory(el.category));
-                setIsOpen(false);
-              }}
-              className={el.category === selectedCategory ? "active" : ""}
-            >
-              {el.category}
-            </button>
-            <p>({categoryMap[el.category] ? categoryMap[el.category] : 0})</p>
-          </div>
-        ))}
+        {CATEGORYES.map((el, i) => {
+          const count = categoryMap[el.category] ? categoryMap[el.category] : 0;
+          if (count == 0) {
+            return;
+          }
+          return (
+            <div className="filter-content-button-wrapper" key={i}>
+              <button
+                onClick={() => {
+                  dispatch(setSelectedCategory(el.category));
+                  setIsOpen(false);
+                }}
+                className={el.category === selectedCategory ? "active" : ""}
+              >
+                {el.category}
+              </button>
+              <p>({categoryMap[el.category] ? categoryMap[el.category] : 0})</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
