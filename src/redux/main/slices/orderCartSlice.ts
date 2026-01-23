@@ -37,6 +37,7 @@ type CartState = {
   stateCode: string;
   gstHst: number;
   shippingPrice: number;
+  shippingName?:string;
   userData: userDataType;
   shippingAddress: AddressState;
   avaliableAddresses: AddressState[];
@@ -51,6 +52,8 @@ const initialState: CartState = {
   stateCode: "",
   gstHst: 0,
   shippingPrice: 0,
+    shippingName:"",
+
   shippingId: "",
   userData: {
     name: "",
@@ -173,12 +176,13 @@ export const orderCartSlice = createSlice({
     },
 
     setLocation(state, action) {
-      const { stateCode, stateName, shippingPrice, shippingId } =
+      const { stateCode, stateName, shippingPrice, shippingId , shippingName } =
         action.payload;
       state.shippingId = shippingId;
       state.stateCode = stateCode;
       state.stateName = stateName;
       state.shippingPrice = shippingPrice;
+      state.shippingName = shippingName;
       if (!state.stateCode || !state.stateName) {
         state.stateCode = "";
         state.stateName = "";

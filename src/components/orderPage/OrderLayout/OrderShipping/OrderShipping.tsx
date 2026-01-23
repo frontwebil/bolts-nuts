@@ -103,11 +103,12 @@ export function OrderShipping() {
       <div className="OrderLayout-shipping-companies">
         {rates.map((el, i) => (
           <div
-            className="OrderLayout-shipping-companie-card"
+            className={`OrderLayout-shipping-companie-card ${shippingId == el.courier_service.id && "active"}`}
             key={i}
             onClick={() =>
               dispatch(
                 setLocation({
+          shippingName: el.courier_service.name,
                   shippingId: el.courier_service.id,
                   stateCode: stateCode,
                   stateName: stateName,
@@ -116,14 +117,19 @@ export function OrderShipping() {
               )
             }
           >
-            <h2>{el.courier_service.name}</h2>
-            <div className="">
-              <p>${el.total_charge}</p>
-              <div
-                className={`OrderLayout-shipping-companie-custom-checkbox ${shippingId == el.courier_service.id && "active"}`}
-              >
-                <FaCheck />
+            <div className="OrderLayout-shipping-companie-card-top ">
+              <h2>{el.courier_service.name}</h2>
+              <div className="">
+                <p>${el.total_charge}</p>
+                <div
+                  className={`OrderLayout-shipping-companie-custom-checkbox ${shippingId == el.courier_service.id && "active"}`}
+                >
+                  <FaCheck />
+                </div>
               </div>
+            </div>
+            <div className="OrderLayout-shipping-companie-card-description">
+              {el.full_description}
             </div>
           </div>
         ))}

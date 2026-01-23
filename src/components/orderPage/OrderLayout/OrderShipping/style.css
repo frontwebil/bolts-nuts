@@ -33,18 +33,36 @@
 
 .OrderLayout-shipping-companies {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 16px;
   margin-top: 32px;
 }
+.OrderLayout-shipping-companie-card.active{
+  border: 1px solid var(--gray-0460, #FF5A00);
+
+}
 .OrderLayout-shipping-companie-card {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: start;
-  gap: 15px;
+  gap: 10px;
   width: 100%;
   max-width: 100%;
   cursor: pointer;
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.OrderLayout-shipping-companie-card-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.OrderLayout-shipping-companie-card-description{
+  color: #5A5A5A;
+  font-size: 18px;
 }
 
 .OrderLayout-shipping-companie-card div {

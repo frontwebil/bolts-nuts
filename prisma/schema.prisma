@@ -111,3 +111,6 @@ model Option {
   inStock   Boolean             @default(true)
 }
 
+model OrderInfo {
+  
+}

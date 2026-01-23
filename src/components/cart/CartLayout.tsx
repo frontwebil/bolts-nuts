@@ -48,6 +48,7 @@ export function CartLayout({
 
       dispatch(
         setLocation({
+          shippingName: shipping[0].courier_service.name,
           shippingId: shipping[0].courier_service.id,
           stateCode: place["state abbreviation"],
           stateName: place.state,

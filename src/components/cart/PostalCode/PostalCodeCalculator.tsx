@@ -52,6 +52,7 @@ export function PostalCodeCalculator({}) {
       const shipping = await getEasyshipRates(postalCode);
       dispatch(
         setLocation({
+          shippingName: shipping[0].courier_service.name,
           shippingId: shipping[0].courier_service.id,
           stateCode: place["state abbreviation"],
           stateName: place.state,
