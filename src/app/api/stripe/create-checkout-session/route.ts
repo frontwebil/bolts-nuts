@@ -30,9 +30,7 @@ export async function POST(req: Request) {
         name: item.product?.title
           ? `${item.product.title}, (${item.variant.value} ${item.variant.unit ?? ""})`
           : "Product",
-        images: item.product?.images?.[0]
-          ? [item.product.images[0]]
-          : [],
+        images: item.product?.images?.[0] ? [item.product.images[0]] : [],
       },
     },
     quantity: item.quantity,
@@ -114,7 +112,7 @@ export async function POST(req: Request) {
       name: userData.name,
       surname: userData.surname,
 
-      address: { ...shippingAddress, shippingName },
+      address: { ...shippingAddress, shippingName: shippingName },
 
       stripeSessionId: session.id, // ✅ КРИТИЧНО: сразу тут
     },
