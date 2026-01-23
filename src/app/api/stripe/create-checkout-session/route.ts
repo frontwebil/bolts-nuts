@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -7,41 +8,54 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export async function POST(req: Request) {
-  const { items, shippingPrice, gstHst } = await req.json();
+  const {
+    items,
+    shippingPrice,
+    gstHst,
+    shippingName,
+    shippingAddress,
+    userData,
+    subTotal,
+  } = await req.json();
 
-  // Преобразуем все товары в line_items
+  const safeShipping = Number(shippingPrice || 0);
+  const safeTax = Number(gstHst || 0);
+
+  // Stripe line_items
   const line_items = items.map((item: any) => ({
     price_data: {
       currency: "usd",
-      unit_amount: Math.round(item.price * 100), // в центах
+      unit_amount: Math.round(item.price * 100),
       product_data: {
-        name: `${item.product.title} , (${item.variant.value} ${item.variant.unit ?? ""})`,
-        images: [item.product.images[0]], // фото
+        name: item.product?.title
+          ? `${item.product.title}, (${item.variant.value} ${item.variant.unit ?? ""})`
+          : "Product",
+        images: item.product?.images?.[0]
+          ? [item.product.images[0]]
+          : [],
       },
     },
     quantity: item.quantity,
   }));
 
-  // Добавляем shipping как отдельный line_item
-  if (shippingPrice) {
+  if (safeShipping > 0) {
     line_items.push({
       price_data: {
         currency: "usd",
-        unit_amount: Math.round(shippingPrice * 100),
+        unit_amount: Math.round(safeShipping * 100),
         product_data: {
-          name: "Shipping",
+          name: shippingName || "Shipping",
         },
       },
       quantity: 1,
     });
   }
 
-  // Можно добавить gstHst как отдельный line_item
-  if (gstHst) {
+  if (safeTax > 0) {
     line_items.push({
       price_data: {
         currency: "usd",
-        unit_amount: Math.round(gstHst * 100),
+        unit_amount: Math.round(safeTax * 100),
         product_data: {
           name: "Tax / GST",
         },
@@ -50,12 +64,67 @@ export async function POST(req: Request) {
     });
   }
 
+  // 1. СНАЧАЛА создаём Stripe Session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
     line_items,
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
+  });
+
+  // Snapshot items
+  const itemsSnapshot = items.map((item: any) => ({
+    productId: item.variant.productId,
+    title: item.product.title,
+    slug: item.product.slug,
+    imagesUrl: item.product.images,
+
+    quantity: item.quantity,
+    price: item.price,
+
+    variant: {
+      label: item.variant.label,
+      value: item.variant.value,
+      unit: item.variant.unit,
+      inStock: item.variant.inStock,
+      isMain: item.variant.isMain,
+    },
+
+    specs: item.product.specs.map((s: any) => ({
+      key: s.key,
+      value: s.value,
+      group: s.group,
+    })),
+  }));
+
+  // 2. ПОТОМ создаём Order сразу с stripeSessionId
+  const order = await prisma.order.create({
+    data: {
+      status: "pending",
+      items: itemsSnapshot,
+
+      subtotal: subTotal,
+      shippingPrice: safeShipping,
+      taxPrice: safeTax,
+      total: subTotal + safeShipping + safeTax,
+
+      email: userData.email,
+      phoneNumber: userData.phoneNumber,
+      name: userData.name,
+      surname: userData.surname,
+
+      address: { ...shippingAddress, shippingName },
+
+      stripeSessionId: session.id, // ✅ КРИТИЧНО: сразу тут
+    },
+  });
+
+  // 3. Теперь обновим metadata в Stripe, чтобы webhook знал orderId
+  await stripe.checkout.sessions.update(session.id, {
+    metadata: {
+      orderId: order.id,
+    },
   });
 
   return NextResponse.json({ url: session.url });

@@ -3,7 +3,7 @@ import { RootState } from "@/redux/main/store";
 import { useSelector } from "react-redux";
 
 export function OrderShippingCheckoutButton() {
-  const { orderProducts, shippingPrice, gstHst } = useSelector(
+  const { orderProducts, shippingPrice, gstHst  , shippingAddress , userData } = useSelector(
     (store: RootState) => store.orderCartSlice,
   );
   const { products } = useSelector((store: RootState) => store.productSlice);
@@ -16,6 +16,7 @@ export function OrderShippingCheckoutButton() {
     0,
   );
 
+
   const handleCheckout = async () => {
     const tax = subTotal * gstHst;
 
@@ -26,6 +27,9 @@ export function OrderShippingCheckoutButton() {
         items: cartItemsDetailed,
         shippingPrice: shippingPrice,
         gstHst: tax,
+        shippingAddress: shippingAddress,
+        userData:userData,
+        subTotal: subTotal
       }),
     });
 

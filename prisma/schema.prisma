@@ -111,3 +111,32 @@ model Option {
   inStock   Boolean             @default(true)
 }
 
+model Order {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  status           String   // pending | paid | cancelled
+
+  items            Json     // ← масив товарів, як у тебе
+
+  subtotal         Float
+  shippingPrice    Float
+  taxPrice         Float
+  total            Float
+
+  // Stripe
+  stripeSessionId  String?  @unique
+  paymentIntentId String?
+
+  // Customer
+  email            String?
+  phoneNumber       String?
+  name             String?
+  surname         String?
+  address          Json?
+
+  createdAt        DateTime @default(now())
+  paidAt           DateTime?
+
+  @@map("orders")
+}
+
+
