@@ -30,5 +30,7 @@ export async function getEasyshipRates(postalCode: string) {
     availableDeliveryId.includes(el.courier_service.id),
   );
 
+  console.log(filteredRates);
+
   return filteredRates;
 }
