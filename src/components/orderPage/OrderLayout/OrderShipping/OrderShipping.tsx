@@ -10,6 +10,7 @@ import { getEasyshipRates } from "@/lib/easyships/getEasyshipRates";
 import { FullScreenLoader } from "@/components/loader/FullScreenLoader";
 import { FaCheck } from "react-icons/fa";
 import { setLocation } from "@/redux/main/slices/orderCartSlice";
+import { OrderShippingCheckoutButton } from "./OrderShippingCheckoutButton";
 
 export function OrderShipping() {
   const {
@@ -24,7 +25,6 @@ export function OrderShipping() {
   const router = useRouter();
   const [rates, setRates] = useState<any[]>([]);
   const [loadingRates, setLoadingRates] = useState(false);
-  console.log(rates);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -133,9 +133,7 @@ export function OrderShipping() {
           <PiCaretLeftBold />
           <p>Back to Information</p>
         </Link>
-        <Link href={"/order"} className="OrderLayout-button-next">
-          Pay Now
-        </Link>
+        <OrderShippingCheckoutButton />
       </div>
     </div>
   );
