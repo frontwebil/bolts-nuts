@@ -12,6 +12,8 @@ export async function getEasyshipRates(postalCode: string) {
     "d80d08d5-6a7f-49ca-bd3e-410512b28e77",
     "abfa932c-b418-428b-b0fc-c4f77b2797d9",
     "0b9d82cb-8f75-4487-9b58-9d42e54a6b50",
+    "b3cad4ee-9b30-4120-8f47-1c56bff02290",
+    "510d9128-a506-4050-8cbe-14757490be24",
   ];
 
   const data = res.data;
