@@ -10,15 +10,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   const sig = req.headers.get("stripe-signature");
 
-  // if (!sig) {
-  //   return NextResponse.json(
-  //     { error: "Missing stripe-signature header" },
-  //     { status: 400 }
-  //   );
-  // }
+  if (!sig) {
+    return NextResponse.json(
+      { error: "Missing stripe-signature header" },
+      { status: 400 },
+    );
+  }
 
   const body = await req.text();
-  return NextResponse.json({ body: body, sig: sig }, { status: 401 });
 
   let event: Stripe.Event;
 
