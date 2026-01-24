@@ -115,7 +115,7 @@ export async function POST(req: Request) {
       {
         price_data: {
           currency: "usd",
-          unit_amount: 1, // ✅ 1 цент
+          unit_amount: 50, // ✅ 1 цент
           product_data: {
             name: "Test Payment 0.01 USD",
           },
