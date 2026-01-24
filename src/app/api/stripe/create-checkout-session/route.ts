@@ -63,13 +63,6 @@ export async function POST(req: Request) {
   }
 
   // 1. СНАЧАЛА создаём Stripe Session
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    mode: "payment",
-    line_items,
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
-  });
 
   // Snapshot items
   const itemsSnapshot = items.map((item: any) => ({
@@ -96,7 +89,6 @@ export async function POST(req: Request) {
     })),
   }));
 
-  // 2. ПОТОМ создаём Order сразу с stripeSessionId
   const order = await prisma.order.create({
     data: {
       status: "pending",
@@ -113,15 +105,17 @@ export async function POST(req: Request) {
       surname: userData.surname,
 
       address: { ...shippingAddress, shippingName: shippingName },
-
-      stripeSessionId: session.id, // ✅ КРИТИЧНО: сразу тут
     },
   });
 
-  // 3. Теперь обновим metadata в Stripe, чтобы webhook знал orderId
-  await stripe.checkout.sessions.update(session.id, {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "payment",
+    line_items,
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
     metadata: {
-      orderId: order.id,
+      orderId: order.id, // ✅ теперь metadata сразу содержит orderId
     },
   });
 
