@@ -119,6 +119,10 @@ export async function POST(req: Request) {
     },
   });
 
+  await prisma.order.update({
+    where: { id: order.id },
+    data: { stripeSessionId: session.id },
+  });
+
   return NextResponse.json({ url: session.url });
 }
-

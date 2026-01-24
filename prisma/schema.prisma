@@ -123,7 +123,7 @@ model Order {
   total            Float
 
   // Stripe
-  stripeSessionId  String?  @unique
+  stripeSessionId  String? 
   paymentIntentId String?
 
   // Customer
