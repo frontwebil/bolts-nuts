@@ -7,18 +7,18 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-12-15.clover",
 });
 
-// 🔑 Обов'язково const POST = async
-export const POST = async (req: Request) => {
-  const sig = req.headers.get("stripe-signature");
+export async function POST(req: Request) {
+  // const sig = req.headers.get("stripe-signature");
 
-  if (!sig) {
-    return NextResponse.json(
-      { error: "Missing stripe-signature header" },
-      { status: 400 }
-    );
-  }
+  // if (!sig) {
+  //   return NextResponse.json(
+  //     { error: "Missing stripe-signature header" },
+  //     { status: 400 }
+  //   );
+  // }
 
   const body = await req.text();
+  return NextResponse.json({ body: body }, { status: 401 });
 
   let event: Stripe.Event;
 
@@ -26,17 +26,18 @@ export const POST = async (req: Request) => {
     event = stripe.webhooks.constructEvent(
       body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET!,
     );
   } catch (err: any) {
     console.error("❌ Webhook signature verification failed:", err.message);
     return NextResponse.json(
       { error: "Webhook signature verification failed" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   switch (event.type) {
+    // ✅ Успешная оплата
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       const orderId = session.metadata?.orderId;
@@ -56,6 +57,7 @@ export const POST = async (req: Request) => {
       break;
     }
 
+    // ❌ Пользователь закрыл окно / сессия истекла
     case "checkout.session.expired": {
       const session = event.data.object as Stripe.Checkout.Session;
       const orderId = session.metadata?.orderId;
@@ -73,21 +75,28 @@ export const POST = async (req: Request) => {
       break;
     }
 
+    // ❌ Платёж не прошёл (карта отклонена и т.д.)
     case "payment_intent.payment_failed": {
       const intent = event.data.object as Stripe.PaymentIntent;
 
+      // Ищем order по paymentIntentId
       await prisma.order.updateMany({
-        where: { paymentIntentId: intent.id },
-        data: { status: "failed" },
+        where: {
+          paymentIntentId: intent.id,
+        },
+        data: {
+          status: "failed",
+        },
       });
 
       console.log("❌ Payment failed:", intent.id);
       break;
     }
 
-    default:
+    default: {
       console.log(`Unhandled event type: ${event.type}`);
+    }
   }
 
   return NextResponse.json({ received: true });
-};
+}
