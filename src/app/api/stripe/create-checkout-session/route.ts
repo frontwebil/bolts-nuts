@@ -111,18 +111,7 @@ export async function POST(req: Request) {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          unit_amount: 50, // ✅ 1 цент
-          product_data: {
-            name: "Test Payment 0.01 USD",
-          },
-        },
-        quantity: 1,
-      },
-    ],
+    line_items,
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
     metadata: {
