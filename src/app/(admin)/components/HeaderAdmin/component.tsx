@@ -10,12 +10,20 @@ export function HeaderAdmin() {
         </h1>
       </Link>
 
-      <Link
-        href={"/admin-page-21sQsafaboltsnuts/addProduct"}
-        className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800 active:scale-95"
-      >
-        Add product
-      </Link>
+      <div className="flex gap-2">
+        <Link
+          href={"/admin-page-21sQsafaboltsnuts/addProduct"}
+          className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800 active:scale-95"
+        >
+          Add product
+        </Link>
+        <Link
+          href={"/admin-page-21sQsafaboltsnuts/orders"}
+          className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-800 active:scale-95"
+        >
+          Orders
+        </Link>
+      </div>
     </header>
   );
 }

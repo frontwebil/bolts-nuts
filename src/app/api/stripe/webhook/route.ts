@@ -7,7 +7,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-12-15.clover",
 });
 
-export async function POST(req: Request) {
+// 🔑 Обов'язково const POST = async
+export const POST = async (req: Request) => {
   const sig = req.headers.get("stripe-signature");
 
   if (!sig) {
@@ -36,7 +37,6 @@ export async function POST(req: Request) {
   }
 
   switch (event.type) {
-    // ✅ Успешная оплата
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       const orderId = session.metadata?.orderId;
@@ -56,7 +56,6 @@ export async function POST(req: Request) {
       break;
     }
 
-    // ❌ Пользователь закрыл окно / сессия истекла
     case "checkout.session.expired": {
       const session = event.data.object as Stripe.Checkout.Session;
       const orderId = session.metadata?.orderId;
@@ -74,28 +73,21 @@ export async function POST(req: Request) {
       break;
     }
 
-    // ❌ Платёж не прошёл (карта отклонена и т.д.)
     case "payment_intent.payment_failed": {
       const intent = event.data.object as Stripe.PaymentIntent;
 
-      // Ищем order по paymentIntentId
       await prisma.order.updateMany({
-        where: {
-          paymentIntentId: intent.id,
-        },
-        data: {
-          status: "failed",
-        },
+        where: { paymentIntentId: intent.id },
+        data: { status: "failed" },
       });
 
       console.log("❌ Payment failed:", intent.id);
       break;
     }
 
-    default: {
+    default:
       console.log(`Unhandled event type: ${event.type}`);
-    }
   }
 
   return NextResponse.json({ received: true });
-}
+};
