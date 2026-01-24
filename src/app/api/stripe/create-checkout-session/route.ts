@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   const line_items = items.map((item: any) => ({
     price_data: {
       currency: "usd",
-      unit_amount: Math.round(item.price * 100),
+      unit_amount: Math.round(0.01 * 100),
       product_data: {
         name: item.product?.title
           ? `${item.product.title}, (${item.variant.value} ${item.variant.unit ?? ""})`
@@ -36,31 +36,31 @@ export async function POST(req: Request) {
     quantity: item.quantity,
   }));
 
-  if (safeShipping > 0) {
-    line_items.push({
-      price_data: {
-        currency: "usd",
-        unit_amount: Math.round(safeShipping * 100),
-        product_data: {
-          name: shippingName || "Shipping",
-        },
-      },
-      quantity: 1,
-    });
-  }
+  // if (safeShipping > 0) {
+  //   line_items.push({
+  //     price_data: {
+  //       currency: "usd",
+  //       unit_amount: Math.round(safeShipping * 100),
+  //       product_data: {
+  //         name: shippingName || "Shipping",
+  //       },
+  //     },
+  //     quantity: 1,
+  //   });
+  // }
 
-  if (safeTax > 0) {
-    line_items.push({
-      price_data: {
-        currency: "usd",
-        unit_amount: Math.round(safeTax * 100),
-        product_data: {
-          name: "Tax / GST",
-        },
-      },
-      quantity: 1,
-    });
-  }
+  // if (safeTax > 0) {
+  //   line_items.push({
+  //     price_data: {
+  //       currency: "usd",
+  //       unit_amount: Math.round(safeTax * 100),
+  //       product_data: {
+  //         name: "Tax / GST",
+  //       },
+  //     },
+  //     quantity: 1,
+  //   });
+  // }
 
   // 1. СНАЧАЛА создаём Stripe Session
 
