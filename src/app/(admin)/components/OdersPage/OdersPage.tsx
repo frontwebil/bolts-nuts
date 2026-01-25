@@ -1,6 +1,8 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Order } from "@prisma/client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 type OrderAddress = {
   city: string;
@@ -12,10 +14,32 @@ type OrderAddress = {
 };
 
 export function OdersPage({ orders }: { orders: Order[] }) {
+  const [dateFrom, setDateFrom] = useState<string>(""); // начало диапазона
+  const [dateTo, setDateTo] = useState<string>(""); // конец диапазона
+  const [statusFilter, setStatusFilter] = useState<string>(""); // фильтр по типу
+
+  const filteredOrders = useMemo(() => {
+    return orders.filter((order) => {
+      const orderTime = new Date(order.createdAt).getTime();
+      const fromTime = dateFrom ? new Date(dateFrom).getTime() : null;
+      // додаємо 23:59:59.999 до кінця дня
+      const toTime = dateTo
+        ? new Date(dateTo + "T23:59:59.999").getTime()
+        : null;
+
+      if (fromTime && orderTime < fromTime) return false;
+      if (toTime && orderTime > toTime) return false;
+
+      if (statusFilter && order.status !== statusFilter) return false;
+
+      return true;
+    });
+  }, [orders, dateFrom, dateTo, statusFilter]);
+
   const grouped = useMemo(() => {
     const map: Record<string, Order[]> = {};
 
-    orders.forEach((order) => {
+    filteredOrders.forEach((order) => {
       const date = new Date(order.createdAt);
       const key = date.toLocaleDateString("uk-UA", {
         year: "numeric",
@@ -33,10 +57,45 @@ export function OdersPage({ orders }: { orders: Order[] }) {
         new Date(a[1][0].createdAt).getTime()
       );
     });
-  }, [orders]);
+  }, [filteredOrders]);
 
   return (
     <div className="p-6 mx-auto space-y-8">
+      <div className="flex gap-4 items-center">
+        <div>
+          <label className="block text-sm font-semibold">From:</label>
+          <input
+            type="date"
+            value={dateFrom}
+            onChange={(e) => setDateFrom(e.target.value)}
+            className="border rounded px-2 py-1"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold">To:</label>
+          <input
+            type="date"
+            value={dateTo}
+            onChange={(e) => setDateTo(e.target.value)}
+            className="border rounded px-2 py-1"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold">Status:</label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="border rounded px-2 py-1"
+          >
+            <option value="">All</option>
+            <option value="paid">Paid</option>
+            <option value="cancelled">Expired</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+      </div>
       {grouped.map(([date, dayOrders]) => (
         <div key={date} className="space-y-4">
           <div className="py-2">

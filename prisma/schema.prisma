@@ -136,6 +136,8 @@ model Order {
   createdAt        DateTime @default(now())
   paidAt           DateTime?
 
+  
+
   @@map("orders")
 }
 

@@ -199,7 +199,7 @@ color: #64748b;
       await prisma.order.update({
         where: { id: orderId },
         data: {
-          status: "expired",
+          status: "cancelled",
         },
       });
 
