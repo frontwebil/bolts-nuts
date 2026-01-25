@@ -127,10 +127,10 @@ model Order {
   paymentIntentId String?
 
   // Customer
-  email            String?
-  phoneNumber       String?
-  name             String?
-  surname         String?
+  email            String
+  phoneNumber       String
+  name             String
+  surname         String
   address          Json?
 
   createdAt        DateTime @default(now())
