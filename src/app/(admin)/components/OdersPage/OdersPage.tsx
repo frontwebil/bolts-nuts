@@ -170,7 +170,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
               <div className="border-t pt-3 space-y-2">
                 <h2 className="text-l font-semibold pb-1">Order Items:</h2>
 
-                {order.items &&
+                {Array.isArray(order.items) &&
                   order.items.map((item: any, idx: any) => (
                     <div key={idx} className="flex justify-between text-sm">
                       <div>
