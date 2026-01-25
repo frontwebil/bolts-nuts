@@ -66,100 +66,109 @@ export async function POST(req: Request) {
       const fullName = `${order.name} ${order.surname}`;
 
       const html = `
+<div style="
+font-family: Inter, Arial, sans-serif;
+background: #f8fafc;
+padding: 40px;
+">
+<div style="
+max-width: 520px;
+margin: auto;
+background: #ffffff;
+border-radius: 16px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+overflow: hidden;
+">
+
+
+<!-- Header -->
+<div style="
+background: linear-gradient(90deg, #ff5a00, #ff7a18);
+padding: 28px;
+text-align: center;
+">
+<h1 style="
+margin: 0;
+color: #ffffff;
+font-size: 22px;
+font-weight: 700;
+letter-spacing: 0.3px;
+">
+Payment successful
+</h1>
+</div>
+
+
+<!-- Body -->
+<div style="padding: 32px;">
 <p style="
-margin: 0 0 12px;
+margin: 0 0 16px;
 font-size: 15px;
-color: #111827;
+color: #1f2937;
 ">
 Hello ${fullName},
 </p>
 
 
 <p style="
-margin: 0 0 18px;
+margin: 0 0 20px;
 font-size: 14px;
-color: #374151;
-line-height: 1.6;
-">
-We’re happy to inform you that your payment has been successfully processed.
-</p>
-
-
-<div style="
-background: #f9fafb;
-border: 1px solid #e5e7eb;
-border-radius: 10px;
-padding: 16px 18px;
-margin-bottom: 24px;
-">
-<p style="
-margin: 0 0 6px;
-font-size: 13px;
 color: #6b7280;
-">
-Order status
-</p>
-<p style="
-margin: 0;
-font-size: 14px;
-font-weight: 600;
-color: #16a34a;
-">
-Paid
-</p>
-</div>
-
-
-<p style="
-margin: 0 0 22px;
-font-size: 14px;
-color: #374151;
 line-height: 1.6;
 ">
-You can view the details of your order in your personal account using the email address
+We are pleased to inform you that your payment was completed successfully.
+</p>
+
+
+<p style="
+margin: 0 0 28px;
+font-size: 14px;
+color: #6b7280;
+line-height: 1.6;
+">
+You can now find your order in your personal cabinet using the email address
 you provided when placing the order.
 </p>
 
 
-<div style="text-align: center; margin-bottom: 24px;">
+<div style="text-align: center;">
 <a href="${cabinetLink}" style="
 display: inline-block;
-background: #16a34a;
+background: #ff5a00;
 color: #ffffff;
-padding: 13px 30px;
+padding: 14px 32px;
 border-radius: 8px;
 text-decoration: none;
-font-size: 14px;
+font-size: 15px;
 font-weight: 600;
 ">
-View my orders
+Go to my account
 </a>
 </div>
 
 
 <p style="
-margin: 0;
+margin-top: 28px;
 font-size: 13px;
-color: #6b7280;
+color: #9ca3af;
 line-height: 1.6;
 ">
-If you have any questions about your order, simply reply to this email and our support team
-will be happy to assist you.
+If you have any questions regarding your order, simply reply to this email —
+our support team will be happy to assist you.
 </p>
 </div>
 
 
 <!-- Footer -->
 <div style="
-background: #f9fafb;
+background: #f1f5f9;
 padding: 18px;
 text-align: center;
-border-top: 1px solid #e5e7eb;
 ">
 <p style="
 margin: 0;
 font-size: 12px;
-color: #9ca3af;
+color: #64748b;
 ">
 © ${new Date().getFullYear()} Clave. All rights reserved.
 </p>
