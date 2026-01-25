@@ -38,16 +38,17 @@ export function AccountNavigation() {
         </Link>
       </div>
       <div className="AccountPage-content-navigation-order-history">
-        <div
+        <Link
+          href={"/account/orders"}
           className={`AccountPage-content-row ${
-            pathname === "/order-history" && "active"
+            pathname === "/account/orders" && "active"
           }`}
         >
           <div className="AccountPage-content-img">
             <RxCounterClockwiseClock />
           </div>
           <p>Order History</p>
-        </div>
+        </Link>
       </div>
       <div className="AccountPage-content-navigation-logout">
         <div

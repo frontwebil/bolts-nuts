@@ -113,7 +113,7 @@ export async function POST(req: Request) {
     mode: "payment",
     line_items,
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/order`,
     metadata: {
       orderId: order.id, // ✅ теперь metadata сразу содержит orderId
     },
