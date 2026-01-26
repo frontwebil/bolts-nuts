@@ -30,7 +30,7 @@
   margin-bottom: 6px;
 }
 
-.order-address {
+.order-summary {
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -91,7 +91,7 @@
   justify-content: space-between;
   width: 100%;
   border-top: 1px solid #eee;
-  padding-top: 12px;
+  padding-top: 20px;
   align-items: center;
 }
 .order-navigation-status-wrapper {
@@ -105,4 +105,15 @@
   font-size: 20px;
   padding: 12px 20px;
   border-radius: 4px;
+}
+
+.cancel-order-button {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  color: #e10000;
+  border: 1px solid #e10000;
+  background: #e100000d;
+  cursor: pointer;
 }
