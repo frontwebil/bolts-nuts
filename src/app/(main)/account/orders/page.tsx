@@ -14,14 +14,13 @@ export default async function page() {
     redirect("/");
   }
 
-    const orders = await prisma.order.findMany({
-      where:{
-        email: session.user.email
-      },
-      orderBy: { createdAt: "desc" }
-    });
-
-    
+  const orders = await prisma.order.findMany({
+    where: {
+      email: session.user.email,
+      status: "paid",
+    },
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <section className="AccountPage">
@@ -35,7 +34,7 @@ export default async function page() {
         />
         <div className="AccountPage-content">
           <AccountNavigation />
-          <AccountOrderWrapper orders={orders}/>
+          <AccountOrderWrapper orders={orders} />
         </div>
       </div>
     </section>
