@@ -127,9 +127,9 @@ export function OrderCard({ order }: OrderCardProps) {
               Cancel Order
             </div>
           )}
-          {
-            
-          }
+          {order.orderStatus == "Order Shipped" && (
+            <div className="track-order-button">Track Order</div>
+          )}
         </div>
       </div>
     </div>

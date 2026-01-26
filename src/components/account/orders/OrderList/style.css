@@ -117,3 +117,14 @@
   background: #e100000d;
   cursor: pointer;
 }
+
+.track-order-button {
+  border: 1px solid var(--gray-0460, #c3c3c399);
+  background: var(--gray-0420, #c3c3c333);
+  color: #222222;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
