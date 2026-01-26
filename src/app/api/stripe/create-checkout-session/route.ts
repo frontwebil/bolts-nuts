@@ -93,6 +93,7 @@ export async function POST(req: Request) {
     data: {
       status: "pending",
       items: itemsSnapshot,
+      orderStatus:"Awaiting Payment",
 
       subtotal: subTotal,
       shippingPrice: safeShipping,

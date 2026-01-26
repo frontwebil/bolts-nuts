@@ -114,6 +114,7 @@ model Option {
 model Order {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   status           String   // pending | paid | cancelled
+  orderStatus      String
 
   items            Json     // ← масив товарів, як у тебе
 

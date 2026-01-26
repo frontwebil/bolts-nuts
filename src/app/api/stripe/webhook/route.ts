@@ -48,6 +48,7 @@ export async function POST(req: Request) {
         where: { id: orderId },
         data: {
           status: "paid",
+          orderStatus:"New Order",
           paymentIntentId: session.payment_intent as string,
           paidAt: new Date(),
         },
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
           email: true,
           name: true,
           surname: true,
+          id: true,
         },
       });
 
@@ -64,6 +66,7 @@ export async function POST(req: Request) {
       const cabinetLink = `${baseUrl}/account/orders`;
 
       const fullName = `${order.name} ${order.surname}`;
+      const supportPhone = "+1 (800) 123-45-67";
 
       const html = `
 <div style="
@@ -107,6 +110,14 @@ font-size: 15px;
 color: #1f2937;
 ">
 Hello ${fullName},
+</p>
+
+<p style="
+margin: 0 0 12px;
+font-size: 14px;
+color: #374151;
+">
+<strong>Order ID:</strong> ${orderId}
 </p>
 
 
@@ -156,7 +167,15 @@ line-height: 1.6;
 If you have any questions regarding your order, simply reply to this email —
 our support team will be happy to assist you.
 </p>
+<p style="
+margin: 0 0 24px;
+font-size: 14px;
+color: #374151;
+">
+<strong>Support phone:</strong> ${supportPhone}
+</p>
 </div>
+
 
 
 <!-- Footer -->
@@ -199,7 +218,8 @@ color: #64748b;
       await prisma.order.update({
         where: { id: orderId },
         data: {
-          status: "cancelled",
+          status: "expired",
+          orderStatus:"Not Completed" 
         },
       });
 
@@ -218,6 +238,7 @@ color: #64748b;
         },
         data: {
           status: "failed",
+          orderStatus:"Not Completed",
         },
       });
 

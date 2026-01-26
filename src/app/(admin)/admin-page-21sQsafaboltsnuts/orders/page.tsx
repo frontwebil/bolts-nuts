@@ -15,7 +15,5 @@ export default async function OrderPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  console.log(orders);
-
   return <OdersPage orders={orders}/>;
 }
