@@ -99,9 +99,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
 
         {/* Payment status filter */}
         <div className="space-y-1">
-          <label className="block text-sm font-semibold">
-            Payment status:
-          </label>
+          <label className="block text-sm font-semibold">Payment status:</label>
           <div className="flex gap-2 flex-wrap items-center">
             {["paid", "pending", "failed", "expired"].map((status) => {
               const isActive = paymentStatusFilter.includes(status);
@@ -114,7 +112,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                     setPaymentStatusFilter((prev) =>
                       prev.includes(status)
                         ? prev.filter((s) => s !== status)
-                        : [...prev, status]
+                        : [...prev, status],
                     );
                   }}
                   className={`px-3 py-1 rounded text-sm border transition ${
@@ -140,9 +138,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
 
         {/* Order status filter */}
         <div className="space-y-1">
-          <label className="block text-sm font-semibold">
-            Order status:
-          </label>
+          <label className="block text-sm font-semibold">Order status:</label>
           <div className="flex gap-2 flex-wrap items-center">
             {[
               "Awaiting Payment",
@@ -163,7 +159,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                     setOrderStatusFilter((prev) =>
                       prev.includes(status)
                         ? prev.filter((s) => s !== status)
-                        : [...prev, status]
+                        : [...prev, status],
                     );
                   }}
                   className={`px-3 py-1 rounded text-sm border transition ${
@@ -206,18 +202,14 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                 {/* HEADER */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setOpenOrderId(isOpen ? null : order.id)
-                  }
+                  onClick={() => setOpenOrderId(isOpen ? null : order.id)}
                   className="w-full flex justify-between items-center text-sm text-gray-600 p-4 hover:bg-gray-50 cursor-pointer"
                 >
                   <div className="flex gap-4 items-center">
-                    <span className="font-medium">
-                      OrderId: #{order.id}
-                    </span>
+                    <span className="font-medium">OrderId: #{order.id}</span>
 
                     {order.paymentIntentId && (
-                      <span className="text-xs text-gray-500">
+                      <span className="font-medium">
                         Stripe: {order.paymentIntentId}
                       </span>
                     )}
@@ -234,8 +226,8 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                         order.status === "paid"
                           ? "bg-green-100 text-green-700"
                           : order.status === "pending"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-red-100 text-red-700"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-red-100 text-red-700"
                       }`}
                     >
                       {order.status}
@@ -247,9 +239,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                     </span>
 
                     <span className="text-xs">
-                      {new Date(order.createdAt).toLocaleTimeString(
-                        "en-US"
-                      )}
+                      {new Date(order.createdAt).toLocaleTimeString("en-US")}
                     </span>
 
                     <span
@@ -284,8 +274,10 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                           <span className="font-semibold">Phone:</span>{" "}
                           {order.phoneNumber}
                         </div>
+                      <span className="font-medium">
+                        Stripe: {order.paymentIntentId}
+                      </span>
                       </div>
-
                       {/* Address */}
                       <div className="space-y-1">
                         <div>
@@ -297,16 +289,12 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                           {(order.address as OrderAddress)?.address ?? ""}
                         </div>
                         <div>
-                          <span className="font-semibold">
-                            Postal Code:
-                          </span>{" "}
-                          {(order.address as OrderAddress)?.postalCode ??
-                            ""}
+                          <span className="font-semibold">Postal Code:</span>{" "}
+                          {(order.address as OrderAddress)?.postalCode ?? ""}
                         </div>
                         <div>
                           <span className="font-semibold">Province:</span>{" "}
-                          {(order.address as OrderAddress)?.province ??
-                            ""}
+                          {(order.address as OrderAddress)?.province ?? ""}
                         </div>
                         <div>
                           <span className="font-semibold">Company:</span>{" "}
@@ -316,8 +304,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                           <span className="font-semibold">
                             Shipping Service:
                           </span>{" "}
-                          {(order.address as OrderAddress)
-                            ?.shippingName ?? ""}
+                          {(order.address as OrderAddress)?.shippingName ?? ""}
                         </div>
                       </div>
                     </div>
@@ -335,18 +322,14 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                             className="flex justify-between text-sm"
                           >
                             <div>
-                              <div className="font-medium">
-                                {item.title}
-                              </div>
+                              <div className="font-medium">{item.title}</div>
                               <div className="text-gray-500">
-                                {item.variant.label}:{" "}
-                                {item.variant.value}{" "}
+                                {item.variant.label}: {item.variant.value}{" "}
                                 {item.variant.unit}
                               </div>
                             </div>
                             <div>
-                              {item.quantity} × $
-                              {item.price.toFixed(2)}
+                              {item.quantity} × ${item.price.toFixed(2)}
                             </div>
                           </div>
                         ))}
@@ -355,17 +338,9 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                     {/* Totals */}
                     <div className="border-t pt-3 flex justify-between text-sm">
                       <div className="space-y-1">
-                        <div>
-                          Subtotal: $
-                          {order.subtotal.toFixed(2)}
-                        </div>
-                        <div>
-                          Tax: ${order.taxPrice.toFixed(2)}
-                        </div>
-                        <div>
-                          Shipping: $
-                          {order.shippingPrice.toFixed(2)}
-                        </div>
+                        <div>Subtotal: ${order.subtotal.toFixed(2)}</div>
+                        <div>Tax: ${order.taxPrice.toFixed(2)}</div>
+                        <div>Shipping: ${order.shippingPrice.toFixed(2)}</div>
                       </div>
                       <div className="text-right">
                         <div className="font-bold text-lg">

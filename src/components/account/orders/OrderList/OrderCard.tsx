@@ -1,6 +1,7 @@
 "use client";
 
 import { Order } from "@prisma/client";
+import axios from "axios";
 
 type OrderAddress = {
   city: string;
@@ -43,10 +44,16 @@ export function OrderCard({ order }: OrderCardProps) {
     order.orderStatus === "New Order" ? "Accepted" : order.orderStatus;
   const colors = statusColors[displayStatus];
 
+  const handleCancelOrder = async () => {
+    await axios.patch("/api/user/cancel-order", { orderId: order.id });
+  };
+
   return (
     <div className="order-card">
       <div className="order-header">
-        <div className="order-name">{order.name} {order.surname}</div>
+        <div className="order-name">
+          {order.name} {order.surname}
+        </div>
         <div className="order-date">
           {new Date(order.createdAt).toLocaleString(undefined, {
             year: "numeric",
@@ -80,9 +87,7 @@ export function OrderCard({ order }: OrderCardProps) {
           <strong>Shipping:</strong> {address?.shippingName ?? "-"} ($
           {order.shippingPrice})
         </div>
-        <div className="order-total">
-          Total: ${order.total.toFixed(2)}
-        </div>
+        <div className="order-total">Total: ${order.total.toFixed(2)}</div>
       </div>
 
       <div className="order-summary">
@@ -112,7 +117,19 @@ export function OrderCard({ order }: OrderCardProps) {
           </div>
         </div>
         <div className="order-navigation-func-wrapper">
-          <div className="cancel-order-button">Cancel Order</div>
+          {order.orderStatus == "New Order" && (
+            <div
+              className="cancel-order-button"
+              onClick={() => {
+                handleCancelOrder();
+              }}
+            >
+              Cancel Order
+            </div>
+          )}
+          {
+            
+          }
         </div>
       </div>
     </div>

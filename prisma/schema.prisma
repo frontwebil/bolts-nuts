@@ -137,7 +137,8 @@ model Order {
   createdAt        DateTime @default(now())
   paidAt           DateTime?
 
-  
+  deliveryLink    String?
+  deliveryTrackNumber String?
 
   @@map("orders")
 }
