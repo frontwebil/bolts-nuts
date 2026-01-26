@@ -23,6 +23,7 @@ type OrderItem = {
 };
 
 export function UserOrdersList({ orders }: { orders: Order[] }) {
+  console.log(orders);
   return (
     <div className="orders-container">
       {orders.map((order) => {
@@ -30,6 +31,24 @@ export function UserOrdersList({ orders }: { orders: Order[] }) {
         const items = Array.isArray(order.items)
           ? (order.items as OrderItem[])
           : [];
+        const statusColors: Record<
+          string,
+          { bg: string; border: string; text: string }
+        > = {
+          Accepted: { bg: "#FF5A000D", border: "#FF5A00", text: "#FF5A00" }, // зелений
+          Cancelled: { bg: "#fee2e2", border: "#ef4444", text: "#7f1d1d" }, // червоний
+          "Order Shipped": {
+            bg: "#e0f2fe",
+            border: "#3b82f6",
+            text: "#1e3a8a",
+          }, // синій
+          "Refund requested": {
+            bg: "#fef9c3",
+            border: "#facc15",
+            text: "#78350f",
+          }, // жовтий
+          Refund: { bg: "#f3e8ff", border: "#a78bfa", text: "#5b21b6" }, // фіолетовий
+        };
 
         return (
           <div key={order.id} className="order-card">
@@ -50,24 +69,6 @@ export function UserOrdersList({ orders }: { orders: Order[] }) {
               </div>
             </div>
 
-            {/* Address */}
-            <div className="order-address">
-              <strong>Address:</strong> {address?.address}, {address?.city},{" "}
-              {address?.province}, {address?.postalCode}
-            </div>
-
-            {/* Status row */}
-            <div className="order-status-row">
-              <div className="order-shipping">
-                <strong>Shipping:</strong> {address?.shippingName ?? "-"} (${order.shippingPrice})
-              </div>
-
-              {/* <div className="order-total">
-                Total: ${order.total.toFixed(2)}
-              </div> */}
-            </div>
-
-            {/* Items */}
             <div className="order-items">
               <div className="order-items-title">Items:</div>
 
@@ -87,7 +88,63 @@ export function UserOrdersList({ orders }: { orders: Order[] }) {
                 </div>
               ))}
             </div>
-            <div className="order-navigation"></div>
+            {/* Status row */}
+            <div className="order-status-row">
+              <div className="order-shipping">
+                <strong>Shipping:</strong> {address?.shippingName ?? "-"} ($
+                {order.shippingPrice})
+              </div>
+
+              <div className="order-total">
+                Total: ${order.total.toFixed(2)} <span></span>
+              </div>
+            </div>
+
+            <div className="order-address">
+              <strong>GST/HST:</strong> ${order.taxPrice.toFixed(2)}
+            </div>
+
+            {/* Address */}
+            <div className="order-address">
+              <strong>Address:</strong> {address?.address}, {address?.city},{" "}
+              {address?.province}, {address?.postalCode}
+            </div>
+
+            <div className="order-navigation">
+              <div className="order-navigation-status-wrapper">
+                <div
+                  className="order-navigation-status"
+                  style={{
+                    backgroundColor:
+                      statusColors[
+                        order.orderStatus === "New Order"
+                          ? "Accepted"
+                          : order.orderStatus
+                      ]?.bg,
+                    border: `1px solid ${
+                      statusColors[
+                        order.orderStatus === "New Order"
+                          ? "Accepted"
+                          : order.orderStatus
+                      ]?.border
+                    }`,
+                    color:
+                      statusColors[
+                        order.orderStatus === "New Order"
+                          ? "Accepted"
+                          : order.orderStatus
+                      ]?.text,
+                  }}
+                >
+                  {order.orderStatus === "New Order"
+                    ? "Accepted"
+                    : order.orderStatus}
+                </div>
+                <div className="order-navigation-func-wrapper">
+                  <div className="cancel-order-button">Cancel Order</div>
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}
