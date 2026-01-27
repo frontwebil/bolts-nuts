@@ -65,7 +65,7 @@ export function CatalogBurgerMenu() {
     <>
       <div className={`catalog-burger-menu ${isOpenCatalog ? "active" : ""}`}>
         <div className="container-catalog">
-          {screenWidth && screenWidth <= 500 && (
+          {/* {screenWidth && screenWidth <= 500 && (
             <div className="mobile-funcional-buttons">
               <div className="mobile-funcional-button-row">
                 <div className="mobile-funcional-button-row-content">
@@ -88,7 +88,7 @@ export function CatalogBurgerMenu() {
                 <p className="mobile-funcional-button-row-count">0 items</p>
               </div>
             </div>
-          )}
+          )} */}
           <div className="catalog-burger-menu-content">
             <h3>All Categories</h3>
             <div className="catalog-burger-menu-content-categoryes">
