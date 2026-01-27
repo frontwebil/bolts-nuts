@@ -140,6 +140,8 @@ model Order {
   deliveryLink    String?
   deliveryTrackNumber String?
 
+  notes String?
+
   @@map("orders")
 }
 

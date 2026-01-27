@@ -128,3 +128,100 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* Mobile adaptation */
+@media (max-width: 768px) {
+  .order-card {
+    padding: 12px;
+  }
+
+  .order-name {
+    font-size: 16px;
+  }
+
+  .order-date {
+    font-size: 14px;
+  }
+
+  .order-shipping,
+  .order-summary {
+    font-size: 14px;
+  }
+
+  .order-status-row {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .order-total {
+    margin-left: 0;
+    font-size: 16px;
+  }
+
+  .order-items-title {
+    font-size: 16px;
+  }
+
+  .order-item-row {
+    gap: 4px;
+    font-size: 14px;
+  }
+
+  .order-item-info {
+    max-width: 100%;
+  }
+
+  .order-item-variant {
+    font-size: 13px;
+  }
+
+  .order-item-price {
+    align-self: flex-end;
+    font-size: 14px;
+  }
+
+  .order-navigation {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .order-navigation-status-wrapper {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .order-navigation-status,
+  .cancel-order-button,
+  .track-order-button {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .order-name {
+    font-size: 15px;
+  }
+
+  .order-total {
+    font-size: 15px;
+  }
+
+  .order-item-row {
+    font-size: 13px;
+  }
+
+  .order-navigation-status,
+  .cancel-order-button,
+  .track-order-button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}

@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Order } from "@prisma/client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 type OrderAddress = {
   city: string;
@@ -43,9 +47,36 @@ export function OrderCard({ order }: OrderCardProps) {
   const displayStatus =
     order.orderStatus === "New Order" ? "Accepted" : order.orderStatus;
   const colors = statusColors[displayStatus];
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const [confirming, setConfirming] = useState(false);
+
+  const handleAskCancel = () => {
+    setConfirming(true);
+  };
 
   const handleCancelOrder = async () => {
-    await axios.patch("/api/user/cancel-order", { orderId: order.id });
+    if (loading) return;
+
+    try {
+      setLoading(true);
+
+      await axios.patch("/api/user/cancel-order", {
+        orderId: order.id,
+      });
+
+      toast.success("Refund request sent successfully");
+
+      router.refresh();
+    } catch (error: any) {
+      console.error(error);
+
+      const message = error?.response?.data?.error || "Something went wrong";
+
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -118,14 +149,34 @@ export function OrderCard({ order }: OrderCardProps) {
         </div>
         <div className="order-navigation-func-wrapper">
           {order.orderStatus == "New Order" && (
-            <div
-              className="cancel-order-button"
-              onClick={() => {
-                handleCancelOrder();
-              }}
-            >
-              Cancel Order
-            </div>
+            <>
+              {!confirming ? (
+                <div className="cancel-order-button" onClick={handleAskCancel}>
+                  Cancel Order
+                </div>
+              ) : (
+                <div className="flex gap-2 items-center">
+                  <div
+                    className="cancel-order-button"
+                    onClick={handleCancelOrder}
+                    style={{
+                      opacity: loading ? 0.5 : 1,
+                      pointerEvents: loading ? "none" : "auto",
+                    }}
+                  >
+                    {loading ? "Processing..." : "Confirm"}
+                  </div>
+
+                  <button
+                    className="cancel-order-button"
+                    onClick={() => setConfirming(false)}
+                    disabled={loading}
+                  >
+                    Back
+                  </button>
+                </div>
+              )}
+            </>
           )}
           {order.orderStatus == "Order Shipped" && (
             <div className="track-order-button">Track Order</div>

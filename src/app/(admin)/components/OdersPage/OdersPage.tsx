@@ -73,6 +73,19 @@ export function OdersPage({ orders }: { orders: Order[] }) {
     });
   }, [filteredOrders]);
 
+  const statusColors: Record<
+    string,
+    { bg: string; border: string; text: string }
+  > = {
+    "Awaiting Payment": { bg: "#fef3c7", border: "#f59e0b", text: "#92400e" },
+    "New Order": { bg: "#e0f2fe", border: "#3b82f6", text: "#1e3a8a" },
+    "Not Completed": { bg: "#fee2e2", border: "#ef4444", text: "#7f1d1d" },
+    Cancelled: { bg: "#fee2e2", border: "#ef4444", text: "#7f1d1d" },
+    "Order Shipped": { bg: "#e0f2fe", border: "#3b82f6", text: "#1e3a8a" },
+    "Refund requested": { bg: "#fef9c3", border: "#facc15", text: "#78350f" },
+    Refund: { bg: "#f3e8ff", border: "#a78bfa", text: "#5b21b6" },
+  };
+
   return (
     <div className="p-6 mx-auto space-y-8">
       {/* Filters */}
@@ -234,12 +247,33 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                     </span>
 
                     {/* Order status */}
-                    <span className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-700">
-                      {order.orderStatus}
-                    </span>
+                    {(() => {
+                      const style = statusColors[order.orderStatus] ?? {
+                        bg: "#f3f4f6",
+                        border: "#d1d5db",
+                        text: "#374151",
+                      };
+
+                      return (
+                        <span
+                          className="px-2 py-1 rounded text-xs border"
+                          style={{
+                            backgroundColor: style.bg,
+                            borderColor: style.border,
+                            color: style.text,
+                          }}
+                        >
+                          {order.orderStatus}
+                        </span>
+                      );
+                    })()}
 
                     <span className="text-xs">
-                      {new Date(order.createdAt).toLocaleTimeString("en-US")}
+                      {new Date(order.createdAt).toLocaleTimeString(undefined, {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })}
                     </span>
 
                     <span
@@ -274,9 +308,9 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                           <span className="font-semibold">Phone:</span>{" "}
                           {order.phoneNumber}
                         </div>
-                      <span className="font-medium">
-                        Stripe: {order.paymentIntentId}
-                      </span>
+                        <span className="font-medium">
+                          Stripe: {order.paymentIntentId}
+                        </span>
                       </div>
                       {/* Address */}
                       <div className="space-y-1">
