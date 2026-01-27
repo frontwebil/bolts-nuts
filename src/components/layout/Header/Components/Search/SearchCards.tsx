@@ -19,7 +19,7 @@ export function SearchCards({ filteredProducts }: { filteredProducts: any }) {
   const dispatch = useDispatch();
   return (
     <div className="header-search-resaults-content-cards">
-      {filteredProducts.slice(0, 3).map((el: any) => {
+      {filteredProducts.slice(0, 12).map((el: any) => {
         const mainPin = getMainPin(el.options);
         const finalPrice = getFinalPrice(mainPin.price, mainPin.discount);
         return (

@@ -30,6 +30,10 @@
   border-bottom: 1px solid var(--gray-0460, #c3c3c399);
 }
 .header-search-resaults-content-cards {
+  padding-right: 5px;
+  scrollbar-width: thin;
+  max-height: 200px;
+  overflow-y: auto;
   border-bottom: 1px solid var(--gray-0460, #c3c3c399);
   padding-bottom: 24px;
   display: flex;
