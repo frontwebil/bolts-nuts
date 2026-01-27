@@ -1,7 +1,7 @@
 .PaymentSuccess-container {
   height: 80vh;
   position: relative;
-  background: var(--black-40, #22222266);
+  background: var(--black-40, #d6d6d666);
   padding: 20px;
   display: flex;
   align-items: center;
