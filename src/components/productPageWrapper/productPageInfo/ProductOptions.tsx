@@ -5,17 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 export function ProductOptions() {
   const { currentProduct, mainVariant } = useSelector(
-    (store: RootState) => store.productSlice
+    (store: RootState) => store.productSlice,
   );
 
   const dispatch = useDispatch();
 
   if (!currentProduct) return;
 
-  const mainOption = currentProduct.options.find((el) => el.isMain) || null;
+  const mainOption =
+    currentProduct.options.find((el) => el.isMain && el.inStock) ||
+    currentProduct.options.find((el) => el.inStock) ||
+    currentProduct.options[0];
 
   const sortedOptions = [...currentProduct.options].sort(
-    (a, b) => Number(a.value) - Number(b.value)
+    (a, b) => Number(a.value) - Number(b.value),
   );
   useEffect(() => {
     if (!mainOption) return;
@@ -32,13 +35,16 @@ export function ProductOptions() {
       </p>
       <div className="ProductPageWrapper-main-content-variants-options-cards">
         {sortedOptions.map((el, i) => {
+          const isOutOfStock = !el.inStock; // недоступний варіант
           return (
             <div
-              className={`ProductPageWrapper-main-content-variants-options-card ${
-                el.id == mainVariant?.id && "active"
-              }`}
               key={i}
-              onClick={() => dispatch(setMainVariant(el))}
+              onClick={() => {
+                if (!isOutOfStock) dispatch(setMainVariant(el)); // клікабельний тільки доступний
+              }}
+              className={`ProductPageWrapper-main-content-variants-options-card ${
+                el.id === mainVariant?.id ? "active" : ""
+              } ${isOutOfStock ? "notInStock" : ""}`}
             >
               {el.value}
             </div>

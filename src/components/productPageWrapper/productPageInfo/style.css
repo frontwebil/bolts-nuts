@@ -25,6 +25,21 @@
   color: #5a5a5a;
 }
 
+.ProductPageWrapper-main-content-variants-options-card.notInStock {
+  border: 1px solid #9ca3af; /* сірий бордер */
+  background-color: #f3f4f6; /* світло-сірий фон */
+  color: #6b7280; /* темно-сірий текст */
+  cursor: not-allowed; /* курсор заборонено */
+  pointer-events: none; /* відключає клік повністю */
+}
+
+.ProductPageWrapper-main-content-variants-options-card.notInStock.active {
+  border-color: #9ca3af;
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-weight: 400; /* прибираємо виділення для недоступного */
+}
+
 /* .ProductPageWrapper-main-content-variants-options {
 } */
 
@@ -112,7 +127,9 @@
 }
 
 .ProductPageWrapper-buttons {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .ProductPageWrapper-buttons.buttons-hidden {

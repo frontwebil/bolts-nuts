@@ -12,16 +12,26 @@
   position: relative;
 }
 
+.ProductCard.out-of-stock {
+  background-color: #f0f0f0;
+}
+
 .ProductCard-discount {
+  color: #fafafa;
+  background: #ff5a00;
+  border-radius: 10px 0 4px;
+  padding: 12px 15px;
+  font-size: 24px;
+  font-weight: 700;
   position: absolute;
   top: 0;
   left: 0;
-  background: #ff5a00;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 12px 15px;
-  border-radius: 10px 0 4px 0px;
-  color: #fafafa;
+}
+
+.ProductCard-discount.notInStock {
+  background: #6b7280; /* темно-сірий */
+  color: #f3f4f6; /* світло-сірий/майже білий текст */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* трохи тіні для об’єму */
 }
 
 .ProductCard-top {
@@ -129,6 +139,37 @@
   color: #fafafa;
   transition: all 0.3s ease;
   cursor: pointer;
+}
+
+.ProductCard-outOfStock {
+  max-width: 100%;
+  width: 100%;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: #9ca3af; /* сірий фон */
+  color: #f3f4f6; /* світлий текст */
+}
+
+.count-item.notInStock {
+  border: 1px solid #9ca3af; /* сірий бордер, як у Out of Stock */
+  color: #6b7280; /* темно-сірий текст */
+  background-color: #f3f4f6; /* світло-сірий фон */
+  cursor: not-allowed; /* курсор “заборонено” */
+}
+
+.count-item.notInStock.active {
+  background-color: #f3f4f6; /* світло-сірий фон */
+  border-color: #9ca3af; /* на всяк випадок, якщо active поєднується */
+  border: 1px solid #9ca3af; /* сірий бордер, як у Out of Stock */
+  color: #6b7280; /* темно-сірий текст */
 }
 
 .ProductCard-button-order:hover {

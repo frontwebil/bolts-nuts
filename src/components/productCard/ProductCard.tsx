@@ -10,14 +10,17 @@ import { RootState } from "@/redux/main/store";
 import { AddToFavorites } from "../buttons/AddToFavorites";
 import { addToCart } from "@/redux/main/slices/orderCartSlice";
 import { setIsOpenPopUpCart } from "@/redux/main/slices/uiSlice";
+import { LuPackageX } from "react-icons/lu";
 
 export function ProductCard({ data }: { data: ProductWithRelations }) {
   const [mainVariant, setMainVariant] = useState(
-    data.options.find((el) => el.isMain) || data.options[0]
+    data.options.find((el) => el.isMain && el.inStock) ||
+      data.options.find((el) => el.inStock) ||
+      data.options[0],
   );
   const dispatch = useDispatch();
   const { favoriteProducts } = useSelector((store: RootState) => store.uiSlice);
-
+  const inStock = data.inStock && mainVariant.inStock;
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
   const priceWithDiscount = hasDiscount
     ? Math.round(mainVariant.price * (1 - mainVariant.discount! / 100) * 100) /
@@ -33,7 +36,7 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
       addToCart({
         productId: data.id,
         variantId: mainVariant.id,
-      })
+      }),
     );
 
     dispatch(setIsOpenPopUpCart(true));
@@ -42,14 +45,19 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
   if (!data) return null;
 
   const sortedOptions = [...data.options].sort(
-    (a, b) => Number(a.value) - Number(b.value)
+    (a, b) => Number(a.value) - Number(b.value),
   );
 
   return (
     <>
-      <Link href={`/product/${data.slug}`} className="ProductCard">
-        {hasDiscount && (
+      <Link href={`/product/${data.slug}`} className={`ProductCard ${!inStock && "out-of-stock"}`}>
+        {inStock && hasDiscount && (
           <div className="ProductCard-discount">-{mainVariant.discount}%</div>
+        )}
+        {!inStock && (
+          <div className="ProductCard-discount notInStock">
+            <LuPackageX />
+          </div>
         )}
         <AddToFavorites isSaved={isSaved} data={data} />
         <div className="ProductCard-top">
@@ -64,49 +72,62 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
           <div className="ProductCard-text">
             <h3>{data.title}</h3>
             <div className="ProductCard-counts">
-              {sortedOptions.map((el) => (
-                <button
-                  key={el.id}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setMainVariant(el);
-                  }}
-                  className={`count-item ${
-                    mainVariant.id === el.id ? "active" : ""
-                  }`}
-                >
-                  {el.value}
-                </button>
-              ))}
+              {sortedOptions.map((el) => {
+                // визначаємо, чи продукт повністю недоступний
+                const isProductOutOfStock =
+                  !data.inStock || !data.options.some((opt) => opt.inStock);
+                // варіант недоступний сам по собі
+                const isOutOfStock = !el.inStock || isProductOutOfStock;
+
+                return (
+                  <button
+                    key={el.id}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (!isOutOfStock) setMainVariant(el); // клікабельний тільки якщо доступний
+                    }}
+                    className={`count-item ${mainVariant.id === el.id ? "active" : ""} ${isOutOfStock ? "notInStock" : ""}`}
+                    disabled={isOutOfStock}
+                  >
+                    {el.value}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
         <div className="ProductCard-buttons">
-          <div
-            className={`ProductCard-button-price ${hasDiscount && "discount"}`}
-          >
-            {hasDiscount && (
-              <p className="ProductCard-button-old-price">
-                ${mainVariant.price}
-              </p>
-            )}
-            <p>
-              $
-              {hasDiscount
-                ? priceWithDiscount.toFixed(2)
-                : mainVariant.price.toFixed(2)}
-            </p>
-          </div>
-          <div
-            className="ProductCard-button-order"
-            onClick={(e) => {
-              e.preventDefault();
-              HandleAddToCart();
-            }}
-          >
-            <PiShoppingCartSimpleBold />
-            <p>Add</p>
-          </div>
+          {inStock ? (
+            <>
+              <div
+                className={`ProductCard-button-price ${hasDiscount ? "discount" : ""}`}
+              >
+                {hasDiscount && (
+                  <p className="ProductCard-button-old-price">
+                    ${mainVariant.price.toFixed(2)}
+                  </p>
+                )}
+                <p>
+                  $
+                  {hasDiscount
+                    ? priceWithDiscount.toFixed(2)
+                    : mainVariant.price.toFixed(2)}
+                </p>
+              </div>
+              <div
+                className="ProductCard-button-order"
+                onClick={(e) => {
+                  e.preventDefault();
+                  HandleAddToCart();
+                }}
+              >
+                <PiShoppingCartSimpleBold />
+                <p>Add</p>
+              </div>
+            </>
+          ) : (
+            <div className="ProductCard-outOfStock">Out of Stock</div>
+          )}
         </div>
       </Link>
     </>
