@@ -198,6 +198,7 @@
   flex-shrink: 0;
 }
 .CartItem-product-info {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -210,6 +211,8 @@
 }
 
 .CartItem-product-info h2 {
+  max-width: 100%;
+  width: 100%;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-size: 20px;
@@ -217,6 +220,9 @@
   line-height: 24px;
   display: -webkit-box;
   overflow: hidden;
+
+  min-width: 0;
+  word-break: break-word;
 }
 
 .CartItem-product-info-option p {
@@ -449,10 +455,10 @@
     gap: 5px;
     max-width: 190px;
   }
-  .CartPopUp-top-continue p{
+  .CartPopUp-top-continue p {
     font-size: 12px;
   }
-  .CartPopUp-top-continue svg{
+  .CartPopUp-top-continue svg {
     font-size: 14px;
   }
 }

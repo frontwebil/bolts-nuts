@@ -58,7 +58,7 @@ export function OrderAddress() {
 
     dispatch(
       setLocation({
-      shippingName: "",
+        shippingName: "",
         stateCode: "",
         stateName: "",
         shippingPrice: 0,
@@ -156,7 +156,7 @@ export function OrderAddress() {
 
         dispatch(
           setLocation({
-          shippingName: shipping[0].courier_service.name,
+            shippingName: shipping[0].courier_service.name,
 
             stateCode: place["state abbreviation"],
             stateName: place.state,

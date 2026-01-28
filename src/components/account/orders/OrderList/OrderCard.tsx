@@ -3,6 +3,7 @@
 
 import { Order } from "@prisma/client";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -132,6 +133,11 @@ export function OrderCard({ order }: OrderCardProps) {
         <div>
           <strong>Order Id:</strong> {order.id}
         </div>
+        {order.orderStatus == "Order Shipped" && order.deliveryLink && (
+          <div>
+            <strong>Delivery Track Id:</strong> {order.deliveryTrackNumber}
+          </div>
+        )}
       </div>
 
       <div className="order-navigation">
@@ -178,8 +184,14 @@ export function OrderCard({ order }: OrderCardProps) {
               )}
             </>
           )}
-          {order.orderStatus == "Order Shipped" && (
-            <div className="track-order-button">Track Order</div>
+          {order.orderStatus == "Order Shipped" && order.deliveryLink && (
+            <Link
+              href={order.deliveryLink}
+              className="track-order-button"
+              target="blank"
+            >
+              Track Order
+            </Link>
           )}
         </div>
       </div>

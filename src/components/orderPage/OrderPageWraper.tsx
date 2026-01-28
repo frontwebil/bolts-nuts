@@ -16,6 +16,7 @@ import {
 } from "@/redux/main/slices/orderCartSlice";
 import { useEffect } from "react";
 import { RootState } from "@/redux/main/store";
+import { useRouter } from "next/navigation";
 
 type AddressState = {
   postalCode: string;
@@ -36,8 +37,10 @@ export function OrderPageWrapper({
   addresses: AddressState[] | null;
   mainAddress: AddressState | null;
 }) {
+  const router = useRouter();
+
   const dispatch = useDispatch();
-  const { shippingAddress } = useSelector(
+  const { shippingAddress, orderProducts } = useSelector(
     (store: RootState) => store.orderCartSlice,
   );
 
@@ -70,6 +73,12 @@ export function OrderPageWrapper({
       );
     }
   }, [addresses, mainAddress, dispatch]);
+
+  useEffect(() => {
+    if (orderProducts && orderProducts.length <= 0) {
+      router.replace("/");
+    }
+  }, [orderProducts]);
 
   return (
     <div className="container">
