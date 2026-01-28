@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Order } from "@prisma/client";
 import { useMemo, useState } from "react";
+import { OrdersPageNotes } from "./OrdersPageNotes";
 
 type OrderAddress = {
   city: string;
@@ -382,6 +383,8 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                         </div>
                       </div>
                     </div>
+
+<OrdersPageNotes order={order}/>                      
                   </div>
                 )}
               </div>
