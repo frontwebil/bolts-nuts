@@ -23,8 +23,8 @@ export const PAYMENT_STATUSES = [
 
 type Props = {
   order: Order;
-  onClose?: () => void;
-  onSaved?: () => void;
+  onClose: () => void;
+  onSaved: () => void;
 };
 
 export function OrderEditModal({ order, onClose, onSaved }: Props) {
@@ -35,6 +35,9 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
     surname: order.surname,
     email: order.email,
     phoneNumber: order.phoneNumber,
+
+    deliveryLink: order.deliveryLink || "",
+    deliveryTrackNumber: order.deliveryTrackNumber || "",
 
     status: order.status,
     orderStatus: order.orderStatus,
@@ -103,6 +106,26 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
             </select>
           </div>
         </div>
+
+        {form.orderStatus === "Order Shipped" && (
+          <div className="border rounded-lg p-4 space-y-3 bg-gray-50">
+            <h3 className="font-semibold text-sm">Delivery information</h3>
+
+            <input
+              className="border rounded px-3 py-2 w-full"
+              placeholder="Tracking number"
+              value={form.deliveryTrackNumber}
+              onChange={(e) => update("deliveryTrackNumber", e.target.value)}
+            />
+
+            <input
+              className="border rounded px-3 py-2 w-full"
+              placeholder="Tracking link"
+              value={form.deliveryLink}
+              onChange={(e) => update("deliveryLink", e.target.value)}
+            />
+          </div>
+        )}
 
         {/* CUSTOMER */}
         <div className="grid grid-cols-2 gap-4">
