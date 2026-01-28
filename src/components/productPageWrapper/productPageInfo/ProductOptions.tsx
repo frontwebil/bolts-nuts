@@ -1,3 +1,5 @@
+"use client";
+
 import { setMainVariant } from "@/redux/main/slices/productSlice";
 import { RootState } from "@/redux/main/store";
 import { useEffect } from "react";
@@ -10,8 +12,9 @@ export function ProductOptions() {
 
   const dispatch = useDispatch();
 
-  if (!currentProduct) return;
+  if (!currentProduct) return null;
 
+  // Головний варіант (в наявності або перший доступний)
   const mainOption =
     currentProduct.options.find((el) => el.isMain && el.inStock) ||
     currentProduct.options.find((el) => el.inStock) ||
@@ -20,10 +23,15 @@ export function ProductOptions() {
   const sortedOptions = [...currentProduct.options].sort(
     (a, b) => Number(a.value) - Number(b.value),
   );
+
+  // Встановлюємо mainVariant при завантаженні
   useEffect(() => {
     if (!mainOption) return;
     dispatch(setMainVariant(mainOption));
   }, [dispatch, mainOption]);
+
+  // Якщо весь продукт недоступний
+  const isProductOutOfStock = !currentProduct.inStock;
 
   return (
     <div className="ProductPageWrapper-main-content-variants-options">
@@ -35,12 +43,12 @@ export function ProductOptions() {
       </p>
       <div className="ProductPageWrapper-main-content-variants-options-cards">
         {sortedOptions.map((el, i) => {
-          const isOutOfStock = !el.inStock; // недоступний варіант
+          const isOutOfStock = !el.inStock || isProductOutOfStock; // недоступний варіант або весь продукт недоступний
           return (
             <div
               key={i}
               onClick={() => {
-                if (!isOutOfStock) dispatch(setMainVariant(el)); // клікабельний тільки доступний
+                dispatch(setMainVariant(el)); // клікабельний тільки доступний
               }}
               className={`ProductPageWrapper-main-content-variants-options-card ${
                 el.id === mainVariant?.id ? "active" : ""

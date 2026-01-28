@@ -10,7 +10,7 @@ import { setIsOpenFirstCartMenu } from "@/redux/main/slices/uiSlice";
 
 export function ProductPageButtons() {
   const { mainVariant, currentProduct } = useSelector(
-    (store: RootState) => store.productSlice
+    (store: RootState) => store.productSlice,
   );
   const width = useWindowWidth();
   const [hidden, setHidden] = useState(false);
@@ -29,7 +29,7 @@ export function ProductPageButtons() {
       {
         root: null,
         threshold: 0,
-      }
+      },
     );
 
     observer.observe(anchor);
@@ -38,6 +38,9 @@ export function ProductPageButtons() {
 
   if (!mainVariant) return null;
 
+  // визначаємо, чи варіант доступний
+  const inStock = mainVariant.inStock && currentProduct?.inStock;
+
   const hasDiscount = mainVariant.discount && mainVariant.discount > 0;
   const priceWithDiscount = hasDiscount
     ? Math.round(mainVariant.price * (1 - mainVariant.discount! / 100) * 100) /
@@ -45,18 +48,16 @@ export function ProductPageButtons() {
     : mainVariant.price;
 
   const HandleAddToCart = () => {
-    if (!currentProduct?.id || !mainVariant?.id) return;
+    if (!currentProduct?.id || !mainVariant?.id || !inStock) return;
 
     dispatch(
       addToCart({
         productId: currentProduct.id,
         variantId: mainVariant.id,
-      })
+      }),
     );
 
-    if (width && width <= 820) {
-      return;
-    }
+    if (width && width <= 820) return;
 
     dispatch(setIsOpenFirstCartMenu(true));
   };
@@ -67,8 +68,8 @@ export function ProductPageButtons() {
     >
       <div
         className={`ProductPageWrapper-buttons-price ${
-          hasDiscount && "discount"
-        }`}
+          hasDiscount ? "discount" : ""
+        } ${!inStock ? "notInStock" : ""}`}
       >
         <p>
           $
@@ -82,11 +83,13 @@ export function ProductPageButtons() {
       </div>
 
       <div
-        className="ProductPageWrapper-buttons-addToCart"
+        className={`ProductPageWrapper-buttons-addToCart ${
+          !inStock ? "notInStock" : ""
+        }`}
         onClick={() => HandleAddToCart()}
       >
         <PiShoppingCartSimpleBold />
-        <p>Add to Cart</p>
+        <p>{inStock ? "Add to Cart" : "Out of Stock"}</p>
       </div>
     </div>
   );

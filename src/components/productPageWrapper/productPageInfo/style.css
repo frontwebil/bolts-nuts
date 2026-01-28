@@ -40,6 +40,19 @@
   font-weight: 400; /* прибираємо виділення для недоступного */
 }
 
+.ProductPageWrapper-buttons-price.notInStock,
+.ProductPageWrapper-buttons-addToCart.notInStock {
+  background-color: #9ca3af; /* світло-сірий фон */
+  color: #f3f4f6; /* світлий текст */
+  cursor: not-allowed;
+  pointer-events: none; /* блокує клік */
+}
+
+.ProductPageWrapper-buttons-price.notInStock p,
+.ProductPageWrapper-buttons-addToCart.notInStock p {
+  color: #f3f4f6;
+}
+
 /* .ProductPageWrapper-main-content-variants-options {
 } */
 
