@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { OrdersPageNotes } from "./OrdersPageNotes";
 import { OrderEditModal } from "./OrderEditModal";
 import Link from "next/link";
+import { DeleteOrderButton } from "./OrderPageDelete";
 
 type OrderAddress = {
   city: string;
@@ -304,9 +305,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                       >
                         Edit
                       </button>
-                      <button className="px-2 py-1 border rounded  flex w-max bg-red-500 text-white">
-                        Delete
-                      </button>
+                      <DeleteOrderButton orderId={order.id} />
                     </div>
 
                     {editOrder && (
@@ -378,7 +377,11 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                             <span className="font-semibold">
                               Shipping Track Nubmer:
                             </span>{" "}
-                            <Link href={order.deliveryLink} className="text-blue-500" target="_blank"> 
+                            <Link
+                              href={order.deliveryLink}
+                              className="text-blue-500"
+                              target="_blank"
+                            >
                               {order.deliveryLink}
                             </Link>
                           </div>
