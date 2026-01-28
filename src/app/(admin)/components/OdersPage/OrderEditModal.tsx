@@ -2,7 +2,10 @@
 "use client";
 
 import { Order } from "@prisma/client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const ORDER_STATUSES = [
   "Awaiting Payment",
@@ -24,12 +27,12 @@ export const PAYMENT_STATUSES = [
 type Props = {
   order: Order;
   onClose: () => void;
-  onSaved: () => void;
 };
 
-export function OrderEditModal({ order, onClose, onSaved }: Props) {
+export function OrderEditModal({ order, onClose }: Props) {
   const address = order.address as any;
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [form, setForm] = useState({
     name: order.name,
     surname: order.surname,
@@ -45,12 +48,12 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
     shippingPrice: order.shippingPrice,
     shippingName: address?.shippingName || "",
 
-    city: address?.city || "",
     address: address?.address || "",
-    postalCode: address?.postalCode || "",
-    province: address?.province || "",
     company: address?.company || "",
-
+    city: address.city,
+    postalCode: address.postalCode,
+    province: address.province,
+    
     notes: order.notes || "",
   });
 
@@ -59,15 +62,36 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
   }
 
   async function handleSave() {
-    await fetch(`/api/orders/${order.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    if (loading) return;
 
-    onSaved();
-    onClose();
+    if (form.orderStatus === "Order Shipped") {
+      if (!form.deliveryTrackNumber.trim()) {
+        toast("Tracking number is required");
+        return;
+      }
+
+      if (!form.deliveryLink.trim()) {
+        toast("Delivery link is required");
+        return;
+      }
+    }
+
+    setLoading(true);
+
+    try {
+      await axios.patch("/api/admin/updateOrder", { ...form, id: order.id });
+
+      toast.success("Order Updated");
+    } catch (err) {
+      toast.error("Error saving note");
+    } finally {
+      router.refresh();
+      setLoading(false);
+      onClose();
+    }
   }
+
+  const field = "flex flex-col gap-1";
 
   return (
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
@@ -76,7 +100,7 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
 
         {/* STATUSES */}
         <div className="grid grid-cols-2 gap-4">
-          <div>
+          <div className={field}>
             <label className="text-sm font-medium">Payment status</label>
             <select
               value={form.status}
@@ -91,7 +115,7 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
             </select>
           </div>
 
-          <div>
+          <div className={field}>
             <label className="text-sm font-medium">Order status</label>
             <select
               value={form.orderStatus}
@@ -107,107 +131,115 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
           </div>
         </div>
 
+        {/* DELIVERY */}
         {form.orderStatus === "Order Shipped" && (
           <div className="border rounded-lg p-4 space-y-3 bg-gray-50">
             <h3 className="font-semibold text-sm">Delivery information</h3>
 
-            <input
-              className="border rounded px-3 py-2 w-full"
-              placeholder="Tracking number"
-              value={form.deliveryTrackNumber}
-              onChange={(e) => update("deliveryTrackNumber", e.target.value)}
-            />
+            <div className={field}>
+              <label className="text-sm font-medium">Tracking number</label>
+              <input
+                className="border rounded px-3 py-2 w-full"
+                value={form.deliveryTrackNumber}
+                onChange={(e) => update("deliveryTrackNumber", e.target.value)}
+              />
+            </div>
 
-            <input
-              className="border rounded px-3 py-2 w-full"
-              placeholder="Tracking link"
-              value={form.deliveryLink}
-              onChange={(e) => update("deliveryLink", e.target.value)}
-            />
+            <div className={field}>
+              <label className="text-sm font-medium">Tracking link</label>
+              <input
+                className="border rounded px-3 py-2 w-full"
+                value={form.deliveryLink}
+                onChange={(e) => update("deliveryLink", e.target.value)}
+              />
+            </div>
           </div>
         )}
 
         {/* CUSTOMER */}
         <div className="grid grid-cols-2 gap-4">
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Name"
-            value={form.name}
-            onChange={(e) => update("name", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Surname"
-            value={form.surname}
-            onChange={(e) => update("surname", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Phone"
-            value={form.phoneNumber}
-            onChange={(e) => update("phoneNumber", e.target.value)}
-          />
+          <div className={field}>
+            <label>Name</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.name}
+              onChange={(e) => update("name", e.target.value)}
+            />
+          </div>
+
+          <div className={field}>
+            <label>Surname</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.surname}
+              onChange={(e) => update("surname", e.target.value)}
+            />
+          </div>
+
+          <div className={field}>
+            <label>Email</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.email}
+              onChange={(e) => update("email", e.target.value)}
+            />
+          </div>
+
+          <div className={field}>
+            <label>Phone</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.phoneNumber}
+              onChange={(e) => update("phoneNumber", e.target.value)}
+            />
+          </div>
         </div>
 
         {/* ADDRESS */}
         <div className="grid grid-cols-2 gap-4">
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="City"
-            value={form.city}
-            onChange={(e) => update("city", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2 col-span-2"
-            placeholder="Address"
-            value={form.address}
-            onChange={(e) => update("address", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Postal code"
-            value={form.postalCode}
-            onChange={(e) => update("postalCode", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Province"
-            value={form.province}
-            onChange={(e) => update("province", e.target.value)}
-          />
-          <input
-            className="border rounded px-3 py-2 col-span-2"
-            placeholder="Company"
-            value={form.company}
-            onChange={(e) => update("company", e.target.value)}
-          />
+          <div className={`${field} col-span-2`}>
+            <label>Address</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.address}
+              onChange={(e) => update("address", e.target.value)}
+            />
+          </div>
+
+          <div className={`${field} col-span-2`}>
+            <label>Company</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.company}
+              onChange={(e) => update("company", e.target.value)}
+            />
+          </div>
         </div>
 
         {/* SHIPPING */}
         <div className="grid grid-cols-2 gap-4">
-          <input
-            className="border rounded px-3 py-2"
-            placeholder="Shipping service"
-            value={form.shippingName}
-            onChange={(e) => update("shippingName", e.target.value)}
-          />
-          <input
-            type="number"
-            className="border rounded px-3 py-2"
-            placeholder="Shipping price"
-            value={form.shippingPrice}
-            onChange={(e) => update("shippingPrice", Number(e.target.value))}
-          />
+          <div className={field}>
+            <label>Shipping service</label>
+            <input
+              className="border rounded px-3 py-2"
+              value={form.shippingName}
+              onChange={(e) => update("shippingName", e.target.value)}
+            />
+          </div>
+
+          <div className={field}>
+            <label>Shipping price</label>
+            <input
+              type="number"
+              className="border rounded px-3 py-2"
+              value={form.shippingPrice}
+              onChange={(e) => update("shippingPrice", Number(e.target.value))}
+            />
+          </div>
         </div>
 
         {/* NOTES */}
-        <div>
+        <div className={field}>
           <label className="text-sm font-medium">Admin notes</label>
           <textarea
             rows={4}
@@ -219,15 +251,19 @@ export function OrderEditModal({ order, onClose, onSaved }: Props) {
 
         {/* BUTTONS */}
         <div className="flex justify-end gap-3 pt-4">
-          <button onClick={onClose} className="px-4 py-2 border rounded">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 border rounded cursor-pointer"
+          >
             Cancel
           </button>
 
           <button
+            disabled={loading}
             onClick={handleSave}
-            className="px-6 py-2 bg-black text-white rounded"
+            className="px-6 py-2 bg-black text-white rounded cursor-pointer"
           >
-            Save changes
+            {loading ? "Saving..." : "Save changes"}
           </button>
         </div>
       </div>

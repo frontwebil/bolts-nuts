@@ -5,6 +5,7 @@ import { Order } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { OrdersPageNotes } from "./OrdersPageNotes";
 import { OrderEditModal } from "./OrderEditModal";
+import Link from "next/link";
 
 type OrderAddress = {
   city: string;
@@ -293,20 +294,25 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                 {isOpen && (
                   <div className="p-4 grid gap-4 border-t">
                     {/* Client info */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setEditOrder(order);
-                      }}
-                      className="px-2 py-1 border rounded text-xs flex w-max"
-                    >
-                      Edit
-                    </button>
+                    <div className="flex w-full justify-end gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditOrder(order);
+                        }}
+                        className="px-2 py-1 border rounded  flex w-max"
+                      >
+                        Edit
+                      </button>
+                      <button className="px-2 py-1 border rounded  flex w-max bg-red-500 text-white">
+                        Delete
+                      </button>
+                    </div>
+
                     {editOrder && (
                       <OrderEditModal
                         order={editOrder}
                         onClose={() => setEditOrder(null)}
-                        onSaved={() => location.reload()}
                       />
                     )}
                     <div className="grid grid-cols-2 gap-2 text-sm">
@@ -359,6 +365,24 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                           </span>{" "}
                           {(order.address as OrderAddress)?.shippingName ?? ""}
                         </div>
+                        {order.deliveryTrackNumber && (
+                          <div>
+                            <span className="font-semibold">
+                              Shipping Track Nubmer:
+                            </span>{" "}
+                            {order.deliveryTrackNumber}
+                          </div>
+                        )}
+                        {order.deliveryLink && (
+                          <div>
+                            <span className="font-semibold">
+                              Shipping Track Nubmer:
+                            </span>{" "}
+                            <Link href={order.deliveryLink} className="text-blue-500" target="_blank"> 
+                              {order.deliveryLink}
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </div>
 
