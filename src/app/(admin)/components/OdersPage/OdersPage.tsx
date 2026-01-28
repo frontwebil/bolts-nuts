@@ -4,6 +4,7 @@
 import { Order } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { OrdersPageNotes } from "./OrdersPageNotes";
+import { OrderEditModal } from "./OrderEditModal";
 
 type OrderAddress = {
   city: string;
@@ -19,6 +20,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
   const [orderStatusFilter, setOrderStatusFilter] = useState<string[]>([]);
   const [dateFrom, setDateFrom] = useState<string>("");
   const [dateTo, setDateTo] = useState<string>("");
+  const [editOrder, setEditOrder] = useState<Order | null>(null);
 
   const [openOrderId, setOpenOrderId] = useState<string | null>(null);
 
@@ -291,6 +293,22 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                 {isOpen && (
                   <div className="p-4 grid gap-4 border-t">
                     {/* Client info */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditOrder(order);
+                      }}
+                      className="px-2 py-1 border rounded text-xs flex w-max"
+                    >
+                      Edit
+                    </button>
+                    {editOrder && (
+                      <OrderEditModal
+                        order={editOrder}
+                        onClose={() => setEditOrder(null)}
+                        onSaved={() => location.reload()}
+                      />
+                    )}
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div className="space-y-1">
                         <div>
@@ -384,7 +402,7 @@ export function OdersPage({ orders }: { orders: Order[] }) {
                       </div>
                     </div>
 
-<OrdersPageNotes order={order}/>                      
+                    <OrdersPageNotes order={order} />
                   </div>
                 )}
               </div>
