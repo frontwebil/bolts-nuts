@@ -328,12 +328,15 @@
     flex: 0 0 150px;
     max-width: 150px;
     width: 100%;
+    justify-content: center;
+    text-align: center;
   }
   .CartPopUp-wrapper-content-products-column-third {
     flex: 0 0 180px;
     max-width: 180px;
     width: 100%;
     text-align: center;
+    justify-content: center;
   }
   .CartPopUp-wrapper-content-products-top
     .CartPopUp-wrapper-content-products-column-second,
