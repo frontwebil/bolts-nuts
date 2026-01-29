@@ -317,11 +317,11 @@
   }
   .CartItem-product-info h2 {
     font-size: 18px;
-    max-width: 600px;
+    max-width: 500px;
   }
   .CartPopUp-wrapper-content-products-column-first {
-    flex: 1 1 600px;
-    max-width: 600px;
+    flex: 1 1 500px;
+    max-width: 500px;
     min-width: 100px;
   }
   .CartPopUp-wrapper-content-products-column-second {
