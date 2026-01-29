@@ -96,8 +96,11 @@
 }
 
 .CartPopUp-wrapper-content-products-top
-  .CartPopUp-wrapper-content-products-column-second {
+  .CartPopUp-wrapper-content-products-column-second,
+.CartPopUp-wrapper-content-products-top
+  .CartPopUp-wrapper-content-products-column-third {
   text-align: center;
+  justify-content: center;
 }
 
 .CartPopUp-wrapper-content-price {
