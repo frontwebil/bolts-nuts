@@ -65,7 +65,6 @@
 .CartPopUp-wrapper-content-products {
   max-width: 100%;
   width: 100%;
-  overflow-x: auto;
 }
 .CartPopUp-wrapper-content-products-top {
   display: flex;
