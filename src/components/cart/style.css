@@ -318,6 +318,7 @@
   }
   .CartItem-product-info h2 {
     font-size: 18px;
+    max-width: 450px;
   }
   .CartItem-product-info-option p {
     font-size: 16px;
