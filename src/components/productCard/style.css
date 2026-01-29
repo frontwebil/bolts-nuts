@@ -12,10 +12,6 @@
   position: relative;
 }
 
-.ProductCard.out-of-stock {
-  background-color: #f0f0f0;
-}
-
 .ProductCard-discount {
   color: #fafafa;
   background: #ff5a00;
