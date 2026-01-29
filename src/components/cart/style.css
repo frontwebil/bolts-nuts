@@ -310,7 +310,7 @@
   }
   .CartPopUp-wrapper-content-products-column-first {
     flex: 1 1 600px;
-    min-width: 340px;
+    min-width: 100px;
   }
   .CartPopUp-wrapper-content-products-column-second {
     flex: 0 0 150px;
@@ -371,7 +371,7 @@
 @media only screen and (max-width: 820px) {
   .CartPopUp-wrapper-content-products-column-first {
     flex: 1 1 600px;
-    min-width: 340px;
+    min-width: 120px;
   }
   .CartPopUp-wrapper-content-products-column-second {
     flex: 0 0 150px;
@@ -423,8 +423,8 @@
   }
   .CartPopUp-wrapper-content-products-column-first {
     flex: 1;
-    max-width: 100%;
-    min-width: 0;
+    max-width: 500px;
+    min-width: 100px;
   }
   .CartPopUp-wrapper-content-products-column-second {
     flex: 1;
