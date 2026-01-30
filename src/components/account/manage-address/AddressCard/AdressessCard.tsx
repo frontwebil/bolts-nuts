@@ -27,7 +27,7 @@ export function AdressessCard({ address, i, isMain }: Props) {
         <div className="Adressess-card">
           <div className="Adressess-card-top">
             <div className="Adressess-card-top-text">
-              {isMain ? "Primary Address" : `Adress ${i + 1}`}
+              {isMain ? "Primary Address" : `Address ${i + 1}`}
               {screenWidth && screenWidth < 640 && !isMain && (
                 <MakePrimaryAdress id={address.id} isMain={isMain} />
               )}

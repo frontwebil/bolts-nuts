@@ -54,11 +54,6 @@ export function ProductCard({ data }: { data: ProductWithRelations }) {
         {inStock && hasDiscount && (
           <div className="ProductCard-discount">-{mainVariant.discount}%</div>
         )}
-        {!inStock && (
-          <div className="ProductCard-discount notInStock">
-            <LuPackageX />
-          </div>
-        )}
         <AddToFavorites isSaved={isSaved} data={data} />
         <div className="ProductCard-top">
           <div className={`ProductCard-img ${hasDiscount && "discount"}`}>

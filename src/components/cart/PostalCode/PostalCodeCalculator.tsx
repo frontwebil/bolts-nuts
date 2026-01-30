@@ -42,7 +42,7 @@ export function PostalCodeCalculator({}) {
 
     try {
       const res = await axios.get(`https://api.zippopotam.us/CA/${fsa}`);
-
+      console.log(res.data);
       const place = res.data?.places?.[0];
       console.log(place);
       if (!place) {
@@ -70,8 +70,8 @@ export function PostalCodeCalculator({}) {
         }),
       );
       setPostalCode("");
-    } catch (err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       toast("Service unavailable. Try again later.");
     } finally {
       setLoading(false);

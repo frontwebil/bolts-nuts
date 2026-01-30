@@ -32,7 +32,7 @@ export function OrderAddressCards() {
             }}
           >
             <div className="Adressess-card-top">
-              <div className="Adressess-card-top-text">{`Adress ${i + 1}`}</div>
+              <div className="Adressess-card-top-text">{`Address ${i + 1}`}</div>
               <div className="Adressess-card-top-adressline">{`${address.address}, ${address.city} , ${address.province} , ${address.postalCode}`}</div>
             </div>
           </div>

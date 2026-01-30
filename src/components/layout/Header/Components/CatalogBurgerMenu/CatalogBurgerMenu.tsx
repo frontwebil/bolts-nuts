@@ -11,6 +11,7 @@ import { FaRegBookmark } from "react-icons/fa";
 import Loader from "@/components/loader/Loader";
 import { setSelectedCategory } from "@/redux/main/slices/productSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const getCardsCount = (width: number) => {
   if (width >= 1550) return 5;
@@ -23,7 +24,7 @@ const getCardsCount = (width: number) => {
 
 export function CatalogBurgerMenu() {
   const { isOpenCatalog, activeCategory } = useSelector(
-    (store: RootState) => store.uiSlice
+    (store: RootState) => store.uiSlice,
   );
   const dispatch = useDispatch();
   const screenWidth = useWindowWidth();
@@ -90,7 +91,9 @@ export function CatalogBurgerMenu() {
             </div>
           )} */}
           <div className="catalog-burger-menu-content">
-            <h3>All Categories</h3>
+            <Link href="/catalog" onClick={() => dispatch(closeBurger())}>
+              <h3>All Categories</h3>
+            </Link>
             <div className="catalog-burger-menu-content-categoryes">
               <div className="catalog-burger-menu-content-categoryes-column">
                 {CATEGORYES.map((el, i) => (
@@ -116,7 +119,17 @@ export function CatalogBurgerMenu() {
             <Loader />
           ) : (
             <div className="catalog-burger-menu-content-cards">
-              <h3>{activeCategory}</h3>
+              <Link
+                href="/catalog"
+                onClick={() => {
+                  dispatch(
+                    setSelectedCategory(cardsToShowCategoryes[0].category),
+                  );
+                  dispatch(closeBurger());
+                }}
+              >
+                <h3>{activeCategory}</h3>
+              </Link>
 
               <div className="catalog-burger-menu-content-cards-container">
                 {cardsToShowCategoryes.slice(0, cardsToShows).map((el, i) => (
