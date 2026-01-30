@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   // Stripe line_items
   const line_items = items.map((item: any) => ({
     price_data: {
-      currency: "usd",
+      currency: "cad",
       unit_amount: Math.round(item.price * 100),
       product_data: {
         name: item.product?.title
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   if (safeShipping > 0) {
     line_items.push({
       price_data: {
-        currency: "usd",
+        currency: "cad",
         unit_amount: Math.round(safeShipping * 100),
         product_data: {
           name: shippingName || "Shipping",
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   if (safeTax > 0) {
     line_items.push({
       price_data: {
-        currency: "usd",
+        currency: "cad",
         unit_amount: Math.round(safeTax * 100),
         product_data: {
           name: "Tax / GST",
