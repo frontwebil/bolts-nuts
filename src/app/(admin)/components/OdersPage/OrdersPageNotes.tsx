@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export function OrdersPageNotes({ order }: { order: Order }) {
   const [notes, setNotes] = useState(order.notes ?? "");
+  const oldNote = order.notes ?? "";
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -39,15 +40,16 @@ export function OrdersPageNotes({ order }: { order: Order }) {
           setNotes(e.target.value);
         }}
       />
-
-      <button
-        type="button"
-        disabled={loading}
-        onClick={() => handleSaveNote()}
-        className={`px-4 py-1.5 text-sm rounded-md ${loading ? "bg-gray-800" : "bg-black"}  text-white hover:bg-gray-800 transition`}
-      >
-        {loading ? "Saving..." : "Save note"}
-      </button>
+      {oldNote !== notes && (
+        <button
+          type="button"
+          disabled={loading}
+          onClick={() => handleSaveNote()}
+          className={`px-4 py-1.5 text-sm rounded-md ${loading ? "bg-gray-800" : "bg-black"}  text-white hover:bg-gray-800 transition`}
+        >
+          {loading ? "Saving..." : "Save note"}
+        </button>
+      )}
     </div>
   );
 }
