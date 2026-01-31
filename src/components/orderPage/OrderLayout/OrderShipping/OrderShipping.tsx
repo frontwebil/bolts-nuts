@@ -129,7 +129,7 @@ export function OrderShipping() {
               </div>
             </div>
             <div className="OrderLayout-shipping-companie-card-description">
-              {el.full_description}
+              {el.full_description.match(/.*?\)/)?.[0] || el.full_description}
             </div>
           </div>
         ))}
