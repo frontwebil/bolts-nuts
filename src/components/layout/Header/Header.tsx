@@ -76,7 +76,7 @@ export function Header() {
             <div className="header-left">
               <Link href={"/"} className="header-logo">
                 <Image
-                  src={"/logo.png"}
+                  src={"/logo.PNG"}
                   unoptimized
                   width={300}
                   height={60}
