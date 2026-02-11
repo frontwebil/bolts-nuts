@@ -83,7 +83,7 @@ export function OrderPageWrapper({
   return (
     <div className="container">
       <Link href={"/"} className="logo-order-page">
-        <Image src={"/logo.PNG"} alt="logo-order" width={270} height={70} />
+        <Image src={"/logo.svg"} alt="logo-order" width={270} height={70} />
       </Link>
       <Breadcrums
         links={[

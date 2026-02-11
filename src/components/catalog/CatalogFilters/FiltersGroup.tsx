@@ -13,7 +13,7 @@ export default function FiltersGroup({
   label: string;
   values: string[];
 }) {
-  const { selectedSpecs } = useSelector(
+  const { selectedSpecs , selectedCategory } = useSelector(
     (store: RootState) => store.productSlice
   );
   const [isOpen, setIsOpen] = useState(true);
@@ -31,7 +31,7 @@ export default function FiltersGroup({
     } else {
       contentRef.current.style.maxHeight = "0px";
     }
-  }, [isOpen]);
+  }, [isOpen , selectedCategory]);
 
   const selectAvailable = useMemo(
     () => makeSelectAvailableValuesForKey(label),
